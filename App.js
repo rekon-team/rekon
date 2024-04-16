@@ -1,20 +1,61 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import { LangProvider } from './components/Lang';
+import { ColorProvider } from './components/Colors';
+import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+import Start from './pages/Start';
+import { useFonts } from 'expo-font';
+import * as SplashScreen from 'expo-splash-screen';
+import React, { useCallback, useEffect } from 'react';
+import { Menu, MenuProvider } from 'react-native-popup-menu';
 
-export default function App() {
+// Prevent the splash screen from auto-hiding, so we can hide it ourselves
+// when all the fonts and assets are loaded.
+SplashScreen.preventAutoHideAsync();
+
+const Stack = createStackNavigator();
+
+function PageStack() {
+  // This stack navigator is gonna be huge
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <Stack.Navigator initialRouteName="Start">
+      <Stack.Screen name="Start" component={Start} options={{ headerShown: false }} />
+    </Stack.Navigator>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default function App() {
+  // DO NOT TOUCH THIS FONT LOADING CODE
+  // IT WILL IMPLODE ON ITSELF IF YOU CHANGE ANYTHING
+  const [fontsLoaded, fontError] = useFonts({
+    'Inter': require('./fonts/Inter-VariableFont.ttf'),
+  });
+
+  const onLayoutRootView = useEffect(() => {
+    async function load() {
+      if (fontsLoaded || fontError) {
+        await SplashScreen.hideAsync();
+      }
+    }
+    load();
+  }, [fontsLoaded, fontError]);
+
+  if (!fontsLoaded && !fontError) {
+    return null;
+  }
+
+  // Holy providers!
+  return (
+    <NavigationContainer>
+      <MenuProvider>
+        <LangProvider>
+          <ColorProvider>
+            <PageStack />
+            <StatusBar style="light" />
+          </ColorProvider>
+        </LangProvider>
+      </MenuProvider>
+    </NavigationContainer>
+  );
+}
