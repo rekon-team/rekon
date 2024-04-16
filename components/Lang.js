@@ -10,10 +10,10 @@ export const useLang = () => useContext(LangContext);
 const defaultLang = 'en_us';
 
 export const LangProvider = ({ children }) => {
-    const allLangs = ['English', 'Spanish', 'German', 'Turkish'];
+    const allLangs = ['English', 'Español', 'Deutsch', 'Türkçe'];
     const allLangCodes = ['en_us', 'es_es', 'de_de', 'tr_tr'];
     const [Lang, setLang] = useState(en_us);
-    const [langList, setLangList] = useState(['English', 'Spanish', 'German', 'Turkish']);
+    const [langList, setLangList] = useState(['English', 'Español', 'Deutsch', 'Türkçe']);
     const [langCodes, setLangCodes] = useState(['en_us', 'es_es', 'de_de', 'tr_tr']);
     const [currentLang, setCurrentLang] = useState('English');
     const [currentLangCode, setCurrentLangCode] = useState('en_us');
@@ -44,9 +44,10 @@ export const LangProvider = ({ children }) => {
             setCurrentLangCode('en_us');
         } else if (lang == "es_es") {
             setLang(es_es);
-            setCurrentLang('Spanish');
+            setCurrentLang('Español');
             setCurrentLangCode('es_es');
         } else {
+            // Assumes English as the default because it is by far the most spoken language in FIRST
             setLang(en_us);
             setCurrentLang('English');
             setCurrentLangCode('en_us');
