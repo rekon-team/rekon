@@ -56,7 +56,7 @@ const defaultColors = {
 export const ColorProvider = ({ children }) => {
     const [Colors, setColors] = useState(defaultColors);
 
-    //color bootstrapping
+    // Load colors from AsyncStorage to make them persistent across app restarts
     async function loadColors() {
         try {
             const storedColors = await AsyncStorage.getItem('colors');
@@ -67,12 +67,17 @@ export const ColorProvider = ({ children }) => {
         }
     }
 
+    // Loads colors from AsyncStorage on app start and on state changes
     useEffect(() => {
         loadColors();
     }, []);
 
+    // This really complex function calculates the new colors based on the difference table
+    // It uses HSL color for the calculations, and multiplies the accent HSL values by the difference values from the default colors
+    // This ensures new colors share the same relationship to each other as the default colors
     function calcDiffFromTable(accent) {  
         let newColors = {};
+        // This for loop seems intimidating, but it's just multiplying the accent HSL by the different diff values in the table
         for (let color in hslDiffTable) {
             let diff = hslDiffTable[color];
             let accentHSL = tinycolor(accent).toHsl();
@@ -81,19 +86,23 @@ export const ColorProvider = ({ children }) => {
             accentHSL.l *= diff[2];
             if (diff.length > 3) {
                 accentHSL.a += diff[3];
-                }
-                // Ensure the HSL values stay within the valid range
+            }
+            // Ensure the HSL values stay within the valid range
             accentHSL.h = Math.max(0, Math.min(360, accentHSL.h));
             accentHSL.s = Math.max(0, Math.min(1, accentHSL.s));
             accentHSL.l = Math.max(0, Math.min(1, accentHSL.l));
             if (diff.length > 3) {
                 accentHSL.a = Math.max(0, Math.min(1, accentHSL.a));
             }
+            // Convert the new HSL values back to hex with the same alpha value (if applicable)
+            // Don't worry, I have no clue how the alpha value is calculated either, ChatGPT wrote that part.
             newColors[color] = tinycolor(accentHSL).toHexString() + (diff.length > 3 ? Math.round(accentHSL.a * 255).toString(16) : '');
         }
         
+        // Checks if the contrast sucks and fixes it if it does.
         if (tinycolor.readability(accent, defaultColors.onAccent) < 4.5) {
             let accentHSL = tinycolor(accent).toHsl();
+
             // generate array of potential colors
             // this is a very unoptimized way to do this, but it shouldn't need to be run often
             let possibleColors = [];
@@ -107,15 +116,19 @@ export const ColorProvider = ({ children }) => {
             // filter out colors that don't meet the minimum contrast ratio
             possibleColors = possibleColors.filter(color => tinycolor.readability(accent, color) >= 4.5);
 
-            // find the most readable color
+            // find the most readable color out of the list of possible permutations of grayscale colors
             newColors.onAccent = tinycolor.mostReadable(accent, possibleColors).toHexString();
         } else {
+            // if the contrast is already good, just use the default color
             newColors.onAccent = defaultColors.onAccent;
         }
         
         return newColors;
     }
 
+    /* This function updates the color list. Because the list is a state, it will update the colors in the app instantly.
+    This is a separate function because I would like to add another preview set so the color picker page can have a live preview
+    without updating the entire state of the app*/
     function updateColorsFromCalc(newColors) {
         setColors(prevColors => {
             const updatedColors = { ...prevColors };
@@ -129,17 +142,16 @@ export const ColorProvider = ({ children }) => {
         });
     }
 
+    // Resets the colors to their defaults, in case the user doesn't like their theme ;)
     function resetColorsToDefault() {
         setColors(defaultColors);
         AsyncStorage.setItem('colors', JSON.stringify(defaultColors));
     }
-
+    
+    // More weird provider stuff, I'm not sure what this does, but it does it!
     return (
         <ColorContext.Provider value={{ Colors, calcDiffFromTable, updateColorsFromCalc, resetColorsToDefault }}>
           {children}
         </ColorContext.Provider>
     );
 }
-
-//accent: '#24D191' seafoam green
-//accent: '#b7e4c7' mint green
