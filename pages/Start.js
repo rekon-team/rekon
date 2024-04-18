@@ -133,7 +133,7 @@ export default function Start({route, navigation}) {
                     <MenuOptions customStyles={{optionsContainer: {width: 140, backgroundColor: 'transparent'}}} style={{position: 'absolute', top: 40, left: 20, width: 120}}>
                         {langList.map((lang, index) => {
                             return (
-                                <MenuOption key={index} style={[{backgroundColor: Colors.secondaryBright, flexDirection: 'row', alignItems: 'center', gap: 5, borderWidth: 1, borderColor: Colors.secondaryContainer}, index == langList.length - 1 && {borderBottomLeftRadius: 10, borderBottomRightRadius: 10, width: 122, left: -1}]} onSelect={() => {switchLang(langCodes[index])}}>
+                                <MenuOption key={index} style={[{backgroundColor: Colors.secondaryBright, flexDirection: 'row', alignItems: 'center', gap: 5, borderWidth: 1, borderColor: Colors.secondaryContainer}, index == langList.length - 1 && {borderBottomLeftRadius: 10, borderBottomRightRadius: 10}]} onSelect={() => {switchLang(langCodes[index])}}>
                                     <Text style={{color: Colors.text}}>{lang}</Text>
                                 </MenuOption>
                             )

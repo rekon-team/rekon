@@ -25,8 +25,8 @@ export default function SignUp({route, navigation}) {
         },
         input: {
             width: '80%',
-            height: parseInt(Dimensions.get('screen').height * 0.1),
-            margin: 12,
+            height: parseInt(Dimensions.get('screen').height * 0.8 * 0.1),
+            margin: 8,
             color: Colors.text,
             backgroundColor: Colors.primary,
             justifyContent: 'center',
@@ -41,7 +41,7 @@ export default function SignUp({route, navigation}) {
         accentButton: {
             backgroundColor: Colors.accent,
             width: '80%',
-            height: '10%',
+            height: Dimensions.get('screen').height * 0.8 * 0.1,
             borderRadius: 10,
             padding: 10,
             margin: 10,

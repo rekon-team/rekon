@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View, Pressable, Dimensions } from "react-native";
+import { StyleSheet, Text, View, Pressable, Dimensions, Image } from "react-native";
 import { useLang } from "../components/Lang";
 import { useColors } from "../components/Colors";
 import Header from "../components/Header";
@@ -7,8 +7,10 @@ import BackgroundGradient from "../components/BackgroundGradient";
 import { useState } from "react";
 import { MaterialIcons } from "@expo/vector-icons";
 import { TextInput } from "react-native-paper";
+import * as ImagePicker from 'expo-image-picker';
 
 export default function Welcome({route, navigation}) {
+    const [image, setImage] = useState(null);
     const { Lang } = useLang();
     const { Colors } = useColors();
     const styles = StyleSheet.create({
@@ -23,12 +25,21 @@ export default function Welcome({route, navigation}) {
         text: {
             fontFamily: 'Inter',
             color: Colors.text,
-            fontSize: 20
+            fontSize: 18
         },
         input: {
             width: '80%',
-            height: parseInt(Dimensions.get('screen').height * 0.1),
-            margin: 12,
+            height: parseInt(Dimensions.get('screen').height * 0.8 * 0.1),
+            margin: 4,
+            color: Colors.text,
+            backgroundColor: Colors.primary,
+            justifyContent: 'center',
+            fontSize: 20
+        },
+        inputBio: {
+            width: '80%',
+            height: parseInt(Dimensions.get('screen').height * 0.8 * 0.2),
+            margin: 4,
             color: Colors.text,
             backgroundColor: Colors.primary,
             justifyContent: 'center',
@@ -43,7 +54,7 @@ export default function Welcome({route, navigation}) {
         accentButton: {
             backgroundColor: Colors.accent,
             width: '80%',
-            height: '10%',
+            height: Dimensions.get('screen').height * 0.8 * 0.1,
             borderRadius: 10,
             padding: 10,
             margin: 10,
@@ -81,6 +92,21 @@ export default function Welcome({route, navigation}) {
             fontSize: 20,
         }
     });
+
+    const pickImage = async () => {
+        // No permissions request is necessary for launching the image library
+        let result = await ImagePicker.launchImageLibraryAsync({
+          mediaTypes: ImagePicker.MediaTypeOptions.All,
+          allowsEditing: true,
+          aspect: [1, 1],
+          quality: 1,
+        });
+    
+        if (!result.canceled) {
+          setImage(result.assets[0].uri);
+        }
+    };
+
     return (
         <View style={styles.container}>
             <BackgroundGradient />
@@ -88,13 +114,15 @@ export default function Welcome({route, navigation}) {
                 <Text style={[styles.text, {fontSize: 20}]}>{Lang.welcome.subtitle}</Text>
             </Header>
             <View style={styles.inputContainer}>
-                <Pressable style={styles.pictureButton}>
+                <Pressable style={styles.pictureButton} onPress={pickImage}>
+                    {image ? <Image source={{uri: image}} style={{width: Dimensions.get('screen').width * 0.4, height: Dimensions.get('screen').width * 0.4, borderRadius: 1000}} /> :
                     <MaterialIcons name="account-circle" size={Dimensions.get('screen').width * 0.4} color={Colors.text} />
+                    }
                     <Text style={styles.text}>{Lang.welcome.profile_picture}</Text>
                 </Pressable>
                 <TextInput outlineColor={Colors.text} activeOutlineColor={Colors.text} mode="outlined" style={styles.input} outlineStyle={{borderRadius: 10}} theme={{ colors: { onSurfaceVariant: 'white'} }} label={Lang.welcome.name} />
                 <TextInput outlineColor={Colors.text} activeOutlineColor={Colors.text} mode="outlined" style={styles.input} outlineStyle={{borderRadius: 10}} theme={{ colors: { onSurfaceVariant: 'white'} }} label={Lang.welcome.team} />
-                <TextInput outlineColor={Colors.text} activeOutlineColor={Colors.text} mode="outlined" style={styles.input} outlineStyle={{borderRadius: 10}} theme={{ colors: { onSurfaceVariant: 'white'} }} label={Lang.welcome.bio} />
+                <TextInput multiline={true} outlineColor={Colors.text} activeOutlineColor={Colors.text} mode="outlined" style={styles.inputBio} outlineStyle={{borderRadius: 10}} theme={{ colors: { onSurfaceVariant: 'white'} }} label={Lang.welcome.bio} />
                 <Pressable style={styles.accentButton} onPress={() => navigation.navigate('Next')}>
                     <Text style={styles.accentText}>{Lang.welcome.next}</Text>
                 </Pressable>
