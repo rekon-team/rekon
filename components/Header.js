@@ -1,7 +1,9 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { useLang } from './Lang';
-import { Colors } from './Colors';
+import { useColors } from './Colors';
+import { getStatusBarHeight } from "react-native-status-bar-height";
+import { MaterialIcons } from '@expo/vector-icons';
 
 export default function Header(props) {
     let fontSize = 40;
@@ -11,13 +13,14 @@ export default function Header(props) {
     const { Colors } = useColors();
     const styles = StyleSheet.create({
         header: {
+            position: 'absolute',
+            top: getStatusBarHeight(),
             width: '100%',
-            height: '10%',
+            height: '12%',
             alignItems: 'center',
             justifyContent: 'center',
-            backgroundColor: Colors.primary,
-            borderBottomWidth: 1,
-            borderBottomColor: Colors.onPrimary,
+            flexDirection: 'row',
+            paddingTop: '3%'
         },
         headerText: {
             fontFamily: 'Inter',

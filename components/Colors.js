@@ -25,8 +25,9 @@ let hslDiffTable = {
     border: [1, 0.666, 1.172],
     graphPrimary: [1, 0.666, 1.172],
     secondaryText: [1, 0.666, 1.172],
-    secondaryDim: [1, 0.666, 1.172, -0.5],
+    secondaryContainerDim: [1, 0.666, 1.172, -0.5],
     secondary: [0.99, 0.45, 0.34],
+    secondaryDim: [0.99, 0.45, 0.34, -0.5],
     tabSelected: [1, 0.466, 0.224],
     accent: [1, 1, 1],
     secondaryBright: [0.99, 0.46, 0.60]
@@ -36,8 +37,9 @@ const defaultColors = {
     primary: '#000000',
     errorBackground: '#c73737',
     secondary: '#312541',
+    secondaryDim: '#3125417c',
     secondaryBright: '#574174',
-    secondaryDim: '#aa8dce7c',
+    secondaryConatinerDim: '#aa8dce7c',
     secondaryContainer: '#AA8DCE',
     accent: '#3E4758',  
     imageHeader: '#1a1b1ece',
@@ -50,7 +52,8 @@ const defaultColors = {
     onAccent: '#e3e2e6',
     tabSelected: '#1F1729',
     graphPrimary: '#AA8DCE',
-    accent: '#8D53D4'
+    accent: '#8D53D4',
+    error: '#F8002A'
 }
 
 export const ColorProvider = ({ children }) => {

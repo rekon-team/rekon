@@ -8,7 +8,7 @@ import { getStatusBarHeight } from "react-native-status-bar-height";
 import { MaterialIcons } from '@expo/vector-icons';
 import { useState } from "react";
 
-export default function Start() {
+export default function Start({route, navigation}) {
     /* Loads the language handling functions from the LanguageProvider (Lang.js)
     These support functions and variables are used for the language switcher,
     other pages simply need the Lang variable to access the current language's strings */
@@ -21,7 +21,7 @@ export default function Start() {
 
     // Color switcher testing
     useEffect(() => {
-        //let newColors = calcDiffFromTable('#DE9E36');
+        //let newColors = calcDiffFromTable('#A9E5BB');
         //updateColorsFromCalc(newColors);
         resetColorsToDefault();
     }, []);
@@ -123,9 +123,9 @@ export default function Start() {
                     <MenuTrigger>
                         {/*This does some weird flex stuff to make the text centered while the arrow is to the right
                         We should test this on different screen sizes to ensure that it continues to work.*/}
-                        <View style={{backgroundColor: 'white', zIndex: 400, width: 120, height: 40, alignItems: 'center', justifyContent: 'flex-end', flexDirection: 'row', borderRadius: 10, backgroundColor: Colors.secondary}}>
-                            <Text style={{color: Colors.text, marginRight: 20}}>{currentLang}</Text>
-                            <MaterialIcons name={langOpen ? "expand-less" : "expand-more"} size={24} color={Colors.text} style={{marginRight: 10}}/>
+                        <View style={[{backgroundColor: 'white', zIndex: 400, width: 120, height: 40, alignItems: 'center', justifyContent: 'flex-end', flexDirection: 'row', borderRadius: 10, backgroundColor: Colors.secondaryContainer}, langOpen == true && {borderBottomLeftRadius: 0, borderBottomRightRadius: 0}]}>
+                            <Text style={{color: Colors.secondary, marginRight: 20}}>{currentLang}</Text>
+                            <MaterialIcons name={langOpen ? "expand-less" : "expand-more"} size={24} color={Colors.secondary} style={{marginRight: 10}}/>
                         </View>
                     </MenuTrigger>
                     {/*This dynamically loads the languages in the list based on the unselected languages returned by the LanguageProvider (Lang.js).
@@ -133,7 +133,7 @@ export default function Start() {
                     <MenuOptions customStyles={{optionsContainer: {width: 140, backgroundColor: 'transparent'}}} style={{position: 'absolute', top: 40, left: 20, width: 120}}>
                         {langList.map((lang, index) => {
                             return (
-                                <MenuOption style={[{backgroundColor: Colors.secondary, flexDirection: 'row', alignItems: 'center', gap: 5}, index == 0 && {borderTopLeftRadius: 10, borderTopRightRadius: 10}, index == langList.length - 1 && {borderBottomLeftRadius: 10, borderBottomRightRadius: 10}]} onSelect={() => {switchLang(langCodes[index])}}>
+                                <MenuOption key={index} style={[{backgroundColor: Colors.secondaryBright, flexDirection: 'row', alignItems: 'center', gap: 5, borderWidth: 1, borderColor: Colors.secondaryContainer}, index == langList.length - 1 && {borderBottomLeftRadius: 10, borderBottomRightRadius: 10, width: 122, left: -1}]} onSelect={() => {switchLang(langCodes[index])}}>
                                     <Text style={{color: Colors.text}}>{lang}</Text>
                                 </MenuOption>
                             )
@@ -163,7 +163,7 @@ export default function Start() {
                 </View>
                 {/*The buttonContainer is a simple container that holds the sign up and log in buttons.*/}
                 <View style={styles.buttonContainer}>
-                    <Pressable style={styles.accentButton}>
+                    <Pressable style={styles.accentButton} onPress={() => {navigation.navigate('SignUp')}}>
                         <Text style={styles.accentText}>{Lang.start_page.sign_up_button}</Text>
                     </Pressable>
                     <Pressable style={styles.accentButton}>

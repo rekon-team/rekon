@@ -1,8 +1,17 @@
 {
     "start_page": {
         "start_title": "Rēkon",
-        "start_tagline": "exploración \\\\\n redimir",
+        "start_tagline": "escultismo \\\\\n redefinido",
         "sign_up_button": "Inscribirse",
-        "sign_in_button": "Acceso"
+        "sign_in_button": "Iniciar sesión"
+    },
+    "sign_up": {
+        "title": "Inscribirse",
+        "email": "Correo electrónico",
+        "password": "Contraseña",
+        "confirm_password": "Confirmar contraseña",
+        "already_have_account": "¿Ya tiene una cuenta? ",
+        "log_in": "Conectarse",
+        "email_taken": "El correo electrónico ya está ocupado"
     }
 }

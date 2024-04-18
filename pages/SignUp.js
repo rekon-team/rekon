@@ -1,29 +1,73 @@
 import { TextInput } from "react-native-paper";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Dimensions, Pressable } from "react-native";
 import { useLang } from "../components/Lang";
 import { useColors } from "../components/Colors";
+import Header from "../components/Header";
+import BackgroundGradient from "../components/BackgroundGradient";
+import { useState } from "react";
 
-export default function SignUp() {
+export default function SignUp({route, navigation}) {
     const { Lang } = useLang();
     const { Colors } = useColors();
+    const [accountError, setAccountError] = useState('');
     const styles = StyleSheet.create({
         container: {
             flex: 1,
             alignItems: 'center',
-            justifyContent: 'center',
+            justifyContent: 'flex-end',
             backgroundColor: Colors.primary,
+            width: "100%",
+            height: "100%",
         },
         text: {
-            color: Colors.onPrimary,
+            fontFamily: 'Inter',
+            color: Colors.text,
         },
         input: {
             width: '80%',
-            height: 40,
+            height: parseInt(Dimensions.get('screen').height * 0.1),
             margin: 12,
-            borderWidth: 1,
-            borderColor: Colors.onPrimary,
-            color: Colors.onPrimary,
+            color: Colors.text,
+            backgroundColor: Colors.primary,
+            justifyContent: 'center',
+            fontSize: 20
         },
+        inputContainer: {
+            width: '100%',
+            height: '80%',
+            alignItems: 'center',
+            justifyContent: 'flex-end',
+        },
+        accentButton: {
+            backgroundColor: Colors.accent,
+            width: '80%',
+            height: '10%',
+            borderRadius: 10,
+            padding: 10,
+            margin: 10,
+            alignItems: 'center',
+            justifyContent: 'center',
+        },
+        accentText: {
+            fontFamily: 'Inter',
+            fontSize: 20,
+            color: Colors.onAccent,
+        },
+        underlineText: {
+            fontFamily: 'Inter',
+            color: Colors.text,
+            textDecorationLine: 'underline',
+        },
+        logInContainer: {
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'center',
+        },
+        errorText: {
+            fontFamily: 'Inter',
+            color: Colors.error,
+            fontSize: 20,
+        }
     });
     return (
         <View style={styles.container}>

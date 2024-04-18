@@ -4,7 +4,6 @@ import { LangProvider } from './components/Lang';
 import { ColorProvider } from './components/Colors';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
-import Start from './pages/Start';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import React, { useCallback, useEffect } from 'react';
