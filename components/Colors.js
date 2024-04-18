@@ -50,7 +50,8 @@ const defaultColors = {
     onAccent: '#e3e2e6',
     tabSelected: '#1F1729',
     graphPrimary: '#AA8DCE',
-    accent: '#8D53D4'
+    accent: '#8D53D4',
+    error: '#F8002A'
 }
 
 export const ColorProvider = ({ children }) => {

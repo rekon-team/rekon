@@ -22,9 +22,20 @@ export const LangProvider = ({ children }) => {
     async function loadLang() {
         try {
             const userLang = await AsyncStorage.getItem('lang');
+            console.log(userLang)
             if (userLang !== null) {
                 if (userLang == "en_us") {
                     setLang(en_us);
+                    setCurrentLang('English');
+                    setCurrentLangCode('en_us');
+                } else if (userLang == "es_es") {
+                    setLang(es_es);
+                    setCurrentLang('Español');
+                    setCurrentLangCode('es_es');
+                } else {
+                    setLang(en_us);
+                    setCurrentLang('English');
+                    setCurrentLangCode('en_us');
                 }
             } else {
                 setLang(en_us);
@@ -38,21 +49,24 @@ export const LangProvider = ({ children }) => {
 
     // switches the language and saves it to AsyncStorage
     function switchLang(lang) {
+        console.log(lang)
         if (lang == "en_us") {
             setLang(en_us);
             setCurrentLang('English');
             setCurrentLangCode('en_us');
+            AsyncStorage.setItem('lang', "en_us");
         } else if (lang == "es_es") {
             setLang(es_es);
             setCurrentLang('Español');
             setCurrentLangCode('es_es');
+            AsyncStorage.setItem('lang', "es_es");
         } else {
             // Assumes English as the default because it is by far the most spoken language in FIRST
             setLang(en_us);
             setCurrentLang('English');
             setCurrentLangCode('en_us');
+            AsyncStorage.setItem('lang', "en_us");
         }
-        AsyncStorage.setItem('lang', lang);
     }
 
     useEffect(() => {
@@ -66,7 +80,7 @@ export const LangProvider = ({ children }) => {
         let newCodes = allLangCodes.filter((item) => item !== currentLangCode);
         setLangCodes(newCodes);
 
-    }, [currentLang]);
+    }, [currentLang, currentLangCode]);
 
     // weird provider stuff
     return (

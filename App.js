@@ -4,11 +4,13 @@ import { LangProvider } from './components/Lang';
 import { ColorProvider } from './components/Colors';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
-import Start from './pages/Start';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import React, { useCallback, useEffect } from 'react';
 import { Menu, MenuProvider } from 'react-native-popup-menu';
+
+import Start from './pages/Start';
+import SignUp from './pages/SignUp';
 
 // Prevent the splash screen from auto-hiding, so we can hide it ourselves
 // when all the fonts and assets are loaded.
@@ -21,6 +23,7 @@ function PageStack() {
   return (
     <Stack.Navigator initialRouteName="Start">
       <Stack.Screen name="Start" component={Start} options={{ headerShown: false }} />
+      <Stack.Screen name="SignUp" component={SignUp} options={{ headerShown: false }} />
     </Stack.Navigator>
   );
 }

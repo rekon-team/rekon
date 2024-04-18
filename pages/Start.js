@@ -8,7 +8,7 @@ import { getStatusBarHeight } from "react-native-status-bar-height";
 import { MaterialIcons } from '@expo/vector-icons';
 import { useState } from "react";
 
-export default function Start() {
+export default function Start({route, navigation}) {
     /* Loads the language handling functions from the LanguageProvider (Lang.js)
     These support functions and variables are used for the language switcher,
     other pages simply need the Lang variable to access the current language's strings */
@@ -21,7 +21,7 @@ export default function Start() {
 
     // Color switcher testing
     useEffect(() => {
-        //let newColors = calcDiffFromTable('#DE9E36');
+        //let newColors = calcDiffFromTable('#A9E5BB');
         //updateColorsFromCalc(newColors);
         resetColorsToDefault();
     }, []);
@@ -163,7 +163,7 @@ export default function Start() {
                 </View>
                 {/*The buttonContainer is a simple container that holds the sign up and log in buttons.*/}
                 <View style={styles.buttonContainer}>
-                    <Pressable style={styles.accentButton}>
+                    <Pressable style={styles.accentButton} onPress={() => {navigation.navigate('SignUp')}}>
                         <Text style={styles.accentText}>{Lang.start_page.sign_up_button}</Text>
                     </Pressable>
                     <Pressable style={styles.accentButton}>

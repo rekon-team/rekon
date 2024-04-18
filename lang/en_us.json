@@ -4,5 +4,14 @@
         "start_tagline": "scouting \\\\\n redifend",
         "sign_up_button": "Sign Up",
         "sign_in_button": "Log In"
+    },
+    "sign_up": {
+        "title": "Sign Up",
+        "email": "Email",
+        "password": "Password",
+        "confirm_password": "Confirm Password",
+        "already_have_account": "Already have an account? ",
+        "log_in": "Log In",
+        "email_taken": "Email is already taken"
     }
 }
