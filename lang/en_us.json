@@ -4,5 +4,14 @@
         "start_tagline": "scouting \\\\\n redifend",
         "sign_up_button": "Sign Up",
         "sign_in_button": "Log In"
+    },
+    "welcome": {
+        "title": "Welcome!",
+        "subtitle": "Let's set up your profile.",
+        "profile_picture": "Profile Picture",
+        "next": "Next",
+        "name": "Name",
+        "team": "Team #",
+        "bio": "Bio"
     }
 }

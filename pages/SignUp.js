@@ -27,10 +27,21 @@ export default function SignUp() {
     });
     return (
         <View style={styles.container}>
-            <Text style={styles.text}>{Lang.SignUp}</Text>
-            <TextInput style={styles.input} placeholder={Lang.Username} />
-            <TextInput style={styles.input} placeholder={Lang.Password} />
-            <TextInput style={styles.input} placeholder={Lang.Email} />
+            <BackgroundGradient/>
+            <Header backButton={true} title={Lang.sign_up.title} navigation={navigation}/>
+            <View style={styles.inputContainer}>
+                <TextInput outlineColor={Colors.text} activeOutlineColor={Colors.text} mode="outlined" style={styles.input} outlineStyle={{borderRadius: 10}} theme={{ colors: { onSurfaceVariant: 'white'} }} label={Lang.sign_up.email} />
+                <TextInput outlineColor={Colors.text} activeOutlineColor={Colors.text} mode="outlined" style={styles.input} outlineStyle={{borderRadius: 10}} theme={{ colors: { onSurfaceVariant: 'white'} }} label={Lang.sign_up.password} />
+                <TextInput outlineColor={Colors.text} activeOutlineColor={Colors.text} mode="outlined" style={styles.input} outlineStyle={{borderRadius: 10}} theme={{ colors: { onSurfaceVariant: 'white'} }} label={Lang.sign_up.confirm_password} />
+                <Pressable style={styles.logInContainer} onPress={() => {setAccountError('log in page does not exist')}}>
+                    <Text style={styles.text}>{Lang.sign_up.already_have_account}</Text>
+                    <Text style={styles.underlineText}>{Lang.sign_up.log_in}</Text>
+                </Pressable>
+                <Pressable style={styles.accentButton} onPress={() => {navigation.navigate("Welcome")}}>
+                    <Text style={styles.accentText}>{Lang.start_page.sign_up_button}</Text>
+                </Pressable>
+                <Text style={styles.errorText}>{accountError}</Text>
+            </View>
         </View>
     );
 

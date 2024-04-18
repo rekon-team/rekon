@@ -10,6 +10,11 @@ import * as SplashScreen from 'expo-splash-screen';
 import React, { useCallback, useEffect } from 'react';
 import { Menu, MenuProvider } from 'react-native-popup-menu';
 
+// Onboarding pages
+import Start from './pages/Start';
+import SignUp from './pages/SignUp';
+import Welcome from './pages/Welcome';
+
 // Prevent the splash screen from auto-hiding, so we can hide it ourselves
 // when all the fonts and assets are loaded.
 SplashScreen.preventAutoHideAsync();
@@ -21,6 +26,8 @@ function PageStack() {
   return (
     <Stack.Navigator initialRouteName="Start">
       <Stack.Screen name="Start" component={Start} options={{ headerShown: false }} />
+      <Stack.Screen name="SignUp" component={SignUp} options={{ headerShown: false }} />
+      <Stack.Screen name="Welcome" component={Welcome} options={{ headerShown: false }} />
     </Stack.Navigator>
   );
 }
