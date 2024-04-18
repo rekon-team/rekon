@@ -16,7 +16,7 @@ export default function Header(props) {
             alignItems: 'center',
             justifyContent: 'center',
             flexDirection: 'row',
-            paddingTop: '2%'
+            paddingTop: '3%'
         },
         headerText: {
             fontFamily: 'Inter',
@@ -28,9 +28,10 @@ export default function Header(props) {
     return (
         <View style={styles.header}>
             <View style={{width: "15%", height: '100%', alignItems: 'center', justifyContent: 'flex-start', height: "100%"}}>
+                {props.backButton &&
                 <Pressable onPress={() => props.navigation.goBack()}>
                     <MaterialIcons name="arrow-back" size={40} color={Colors.text} />
-                </Pressable>
+                </Pressable>}
             </View>
             <View style={{width: "70%", height: '100%', alignItems: 'center', justifyContent: 'flex-start'}}>
                 <Text style={styles.headerText}>{props.title}</Text>

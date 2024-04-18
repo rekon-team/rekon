@@ -72,7 +72,7 @@ export default function SignUp({route, navigation}) {
     return (
         <View style={styles.container}>
             <BackgroundGradient/>
-            <Header title={Lang.sign_up.title} navigation={navigation}/>
+            <Header backButton={true} title={Lang.sign_up.title} navigation={navigation}/>
             <View style={styles.inputContainer}>
                 <TextInput outlineColor={Colors.text} activeOutlineColor={Colors.text} mode="outlined" style={styles.input} outlineStyle={{borderRadius: 10}} theme={{ colors: { onSurfaceVariant: 'white'} }} label={Lang.sign_up.email} />
                 <TextInput outlineColor={Colors.text} activeOutlineColor={Colors.text} mode="outlined" style={styles.input} outlineStyle={{borderRadius: 10}} theme={{ colors: { onSurfaceVariant: 'white'} }} label={Lang.sign_up.password} />
