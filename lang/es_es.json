@@ -13,5 +13,15 @@
         "already_have_account": "¿Ya tiene una cuenta? ",
         "log_in": "Conectarse",
         "email_taken": "El correo electrónico ya está ocupado"
+    },
+    "log_in": {
+        "title": "Iniciar sesión",
+        "email": "Correo electrónico",
+        "password": "Contraseña",
+        "forgot_password": "¿Olvidó su contraseña?",
+        "no_account": "¿No tienes una cuenta? ",
+        "sign_up": "Inscribirse",
+        "incorrect_credentials": "Credenciales incorrectas",
+        "invalid_email": "Correo electrónico inválido"
     }
 }

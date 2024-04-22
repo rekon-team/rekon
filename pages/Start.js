@@ -166,7 +166,7 @@ export default function Start({route, navigation}) {
                     <Pressable style={styles.accentButton} onPress={() => {navigation.navigate('SignUp')}}>
                         <Text style={styles.accentText}>{Lang.start_page.sign_up_button}</Text>
                     </Pressable>
-                    <Pressable style={styles.accentButton}>
+                    <Pressable style={styles.accentButton} onPress={() => {navigation.navigate('LogIn')}}>
                         <Text style={styles.accentText}>{Lang.start_page.sign_in_button}</Text>
                     </Pressable>
                 </View>
