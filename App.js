@@ -12,6 +12,7 @@ import { Menu, MenuProvider } from 'react-native-popup-menu';
 // Onboarding pages
 import Start from './pages/Start';
 import SignUp from './pages/SignUp';
+import LogIn from './pages/LogIn';
 import Welcome from './pages/Welcome';
 
 // Prevent the splash screen from auto-hiding, so we can hide it ourselves
@@ -26,6 +27,7 @@ function PageStack() {
     <Stack.Navigator initialRouteName="Start">
       <Stack.Screen name="Start" component={Start} options={{ headerShown: false }} />
       <Stack.Screen name="SignUp" component={SignUp} options={{ headerShown: false }} />
+      <Stack.Screen name="LogIn" component={LogIn} options={{ headerShown: false }} />
       <Stack.Screen name="Welcome" component={Welcome} options={{ headerShown: false }} />
     </Stack.Navigator>
   );

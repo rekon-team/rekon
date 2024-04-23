@@ -29,7 +29,7 @@ export default function Welcome({route, navigation}) {
         },
         input: {
             width: '80%',
-            height: parseInt(Dimensions.get('screen').height * 0.8 * 0.1),
+            height: parseInt(Dimensions.get('window').height * 0.8 * 0.1),
             margin: 4,
             color: Colors.text,
             backgroundColor: Colors.primary,
@@ -38,7 +38,7 @@ export default function Welcome({route, navigation}) {
         },
         inputBio: {
             width: '80%',
-            height: parseInt(Dimensions.get('screen').height * 0.8 * 0.2),
+            height: parseInt(Dimensions.get('window').height * 0.8 * 0.2),
             margin: 4,
             color: Colors.text,
             backgroundColor: Colors.primary,
@@ -54,7 +54,7 @@ export default function Welcome({route, navigation}) {
         accentButton: {
             backgroundColor: Colors.accent,
             width: '80%',
-            height: Dimensions.get('screen').height * 0.8 * 0.1,
+            height: Dimensions.get('window').height * 0.8 * 0.1,
             borderRadius: 10,
             padding: 10,
             margin: 10,
@@ -115,8 +115,8 @@ export default function Welcome({route, navigation}) {
             </Header>
             <View style={styles.inputContainer}>
                 <Pressable style={styles.pictureButton} onPress={pickImage}>
-                    {image ? <Image source={{uri: image}} style={{width: Dimensions.get('screen').width * 0.4, height: Dimensions.get('screen').width * 0.4, borderRadius: 1000}} /> :
-                    <MaterialIcons name="account-circle" size={Dimensions.get('screen').width * 0.4} color={Colors.text} />
+                    {image ? <Image source={{uri: image}} style={{width: Dimensions.get('window').width * 0.4, height: Dimensions.get('window').width * 0.4, borderRadius: 1000}} /> :
+                    <MaterialIcons name="account-circle" size={Dimensions.get('window').width * 0.4} color={Colors.text} />
                     }
                     <Text style={styles.text}>{Lang.welcome.profile_picture}</Text>
                 </Pressable>

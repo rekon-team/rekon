@@ -25,7 +25,7 @@ export default function SignUp({route, navigation}) {
         },
         input: {
             width: '80%',
-            height: parseInt(Dimensions.get('screen').height * 0.8 * 0.1),
+            height: parseInt(Dimensions.get('window').height * 0.8 * 0.1),
             margin: 8,
             color: Colors.text,
             backgroundColor: Colors.primary,
@@ -41,7 +41,7 @@ export default function SignUp({route, navigation}) {
         accentButton: {
             backgroundColor: Colors.accent,
             width: '80%',
-            height: Dimensions.get('screen').height * 0.8 * 0.1,
+            height: Dimensions.get('window').height * 0.8 * 0.1,
             borderRadius: 10,
             padding: 10,
             margin: 10,
@@ -74,10 +74,10 @@ export default function SignUp({route, navigation}) {
             <BackgroundGradient/>
             <Header backButton={true} title={Lang.sign_up.title} navigation={navigation}/>
             <View style={styles.inputContainer}>
-                <TextInput outlineColor={Colors.text} activeOutlineColor={Colors.text} mode="outlined" style={styles.input} outlineStyle={{borderRadius: 10}} theme={{ colors: { onSurfaceVariant: 'white'} }} label={Lang.sign_up.email} />
-                <TextInput outlineColor={Colors.text} activeOutlineColor={Colors.text} mode="outlined" style={styles.input} outlineStyle={{borderRadius: 10}} theme={{ colors: { onSurfaceVariant: 'white'} }} label={Lang.sign_up.password} />
-                <TextInput outlineColor={Colors.text} activeOutlineColor={Colors.text} mode="outlined" style={styles.input} outlineStyle={{borderRadius: 10}} theme={{ colors: { onSurfaceVariant: 'white'} }} label={Lang.sign_up.confirm_password} />
-                <Pressable style={styles.logInContainer} onPress={() => {setAccountError('log in page does not exist')}}>
+                <TextInput textColor={Colors.text} activeOutlineColor={Colors.text} mode="outlined" style={styles.input} outlineStyle={{borderRadius: 10}} theme={{ colors: { onSurfaceVariant: 'white'} }} label={Lang.sign_up.email} />
+                <TextInput textColor={Colors.text} activeOutlineColor={Colors.text} mode="outlined" style={styles.input} outlineStyle={{borderRadius: 10}} theme={{ colors: { onSurfaceVariant: 'white'} }} label={Lang.sign_up.password} />
+                <TextInput textColor={Colors.text} activeOutlineColor={Colors.text} mode="outlined" style={styles.input} outlineStyle={{borderRadius: 10}} theme={{ colors: { onSurfaceVariant: 'white'} }} label={Lang.sign_up.confirm_password} />
+                <Pressable style={styles.logInContainer} onPress={() => {navigation.navigate('LogIn')}}>
                     <Text style={styles.text}>{Lang.sign_up.already_have_account}</Text>
                     <Text style={styles.underlineText}>{Lang.sign_up.log_in}</Text>
                 </Pressable>
