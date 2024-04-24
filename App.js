@@ -14,6 +14,8 @@ import Start from './pages/Start';
 import SignUp from './pages/SignUp';
 import LogIn from './pages/LogIn';
 import Welcome from './pages/Welcome';
+import JoinTeam from './pages/JoinTeam';
+import QRScan from './pages/QRScan';
 
 // Prevent the splash screen from auto-hiding, so we can hide it ourselves
 // when all the fonts and assets are loaded.
@@ -29,6 +31,8 @@ function PageStack() {
       <Stack.Screen name="SignUp" component={SignUp} options={{ headerShown: false }} />
       <Stack.Screen name="LogIn" component={LogIn} options={{ headerShown: false }} />
       <Stack.Screen name="Welcome" component={Welcome} options={{ headerShown: false }} />
+      <Stack.Screen name="JoinTeam" component={JoinTeam} options={{ headerShown: false }} />
+      <Stack.Screen name="QRScan" component={QRScan} options={{ headerShown: false }} />
     </Stack.Navigator>
   );
 }

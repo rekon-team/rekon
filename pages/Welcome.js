@@ -1,5 +1,5 @@
-import React from "react";
-import { StyleSheet, Text, View, Pressable, Dimensions, Image } from "react-native";
+import React, {useEffect} from "react";
+import { StyleSheet, Text, View, Pressable, Dimensions, Image, BackHandler } from "react-native";
 import { useLang } from "../components/Lang";
 import { useColors } from "../components/Colors";
 import Header from "../components/Header";
@@ -8,11 +8,24 @@ import { useState } from "react";
 import { MaterialIcons } from "@expo/vector-icons";
 import { TextInput } from "react-native-paper";
 import * as ImagePicker from 'expo-image-picker';
+import { useIsFocused } from "@react-navigation/native";
 
 export default function Welcome({route, navigation}) {
     const [image, setImage] = useState(null);
     const { Lang } = useLang();
     const { Colors } = useColors();
+
+    const isFocused = useIsFocused();
+
+    useEffect(() => {
+        const backHandler = BackHandler.addEventListener('hardwareBackPress', () => isFocused)
+        return () => backHandler.remove()
+    },[isFocused]);
+
+    function disableBack() {
+        return true;
+    }
+  
     const styles = StyleSheet.create({
         container: {
             flex: 1,
@@ -110,7 +123,7 @@ export default function Welcome({route, navigation}) {
     return (
         <View style={styles.container}>
             <BackgroundGradient />
-            <Header title={Lang.welcome.title} backButton={false} navigation={navigation} overrideFontSize={50}>
+            <Header title={Lang.welcome.title} backButton={true} navigation={navigation} overrideFontSize={50}>
                 <Text style={[styles.text, {fontSize: 20}]}>{Lang.welcome.subtitle}</Text>
             </Header>
             <View style={styles.inputContainer}>
@@ -123,7 +136,7 @@ export default function Welcome({route, navigation}) {
                 <TextInput outlineColor={Colors.text} activeOutlineColor={Colors.text} mode="outlined" style={styles.input} outlineStyle={{borderRadius: 10}} theme={{ colors: { onSurfaceVariant: 'white'} }} label={Lang.welcome.name} />
                 <TextInput outlineColor={Colors.text} activeOutlineColor={Colors.text} mode="outlined" style={styles.input} outlineStyle={{borderRadius: 10}} theme={{ colors: { onSurfaceVariant: 'white'} }} label={Lang.welcome.team} />
                 <TextInput multiline={true} outlineColor={Colors.text} activeOutlineColor={Colors.text} mode="outlined" style={styles.inputBio} outlineStyle={{borderRadius: 10}} theme={{ colors: { onSurfaceVariant: 'white'} }} label={Lang.welcome.bio} />
-                <Pressable style={styles.accentButton} onPress={() => navigation.navigate('Next')}>
+                <Pressable style={styles.accentButton} onPress={() => {navigation.navigate('JoinTeam')}}>
                     <Text style={styles.accentText}>{Lang.welcome.next}</Text>
                 </Pressable>
                 <Text style={styles.errorText}>Error</Text>

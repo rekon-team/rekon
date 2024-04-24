@@ -12,7 +12,8 @@
         "confirm_password": "Confirm Password",
         "already_have_account": "Already have an account? ",
         "log_in": "Log In",
-        "email_taken": "Email is already taken"
+        "email_taken": "Email is already taken",
+        "password_mismatch": "Passwords do not match"
     },
     "log_in": {
         "title": "Log In",
@@ -31,5 +32,12 @@
         "name": "Name",
         "team": "Team #",
         "bio": "Bio"
+    },
+    "join_team": {
+        "title": "Join a Team",
+        "scan_qr": "Scan QR",
+        "code": "Enter Code",
+        "or": "Or",
+        "create_team": "Create Team"
     }
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Dimensions, Pressable, StyleSheet, Text, View } from 'react-native';
 import { useLang } from './Lang';
 import { useColors } from './Colors';
 import { getStatusBarHeight } from "react-native-status-bar-height";
@@ -7,8 +7,12 @@ import { MaterialIcons } from '@expo/vector-icons';
 
 export default function Header(props) {
     let fontSize = 40;
+    let backgroundShown = false;
     if (props.overrideFontSize != 40 && props.overrideFontSize != undefined) {
         fontSize = props.overrideFontSize;
+    }
+    if (props.backgroundShown != undefined) {
+        backgroundShown = props.backgroundShown;
     }
     const { Colors } = useColors();
     const styles = StyleSheet.create({
@@ -20,7 +24,16 @@ export default function Header(props) {
             alignItems: 'center',
             justifyContent: 'center',
             flexDirection: 'row',
-            paddingTop: '3%'
+            paddingTop: '3%',
+        },
+        fakeBackground: {
+            position: 'absolute',
+            top: -getStatusBarHeight(),
+            left: 0,
+            width: '100%',
+            height: getStatusBarHeight() + Dimensions.get('window').height * 0.1,
+            backgroundColor: Colors.primary,
+            zIndex: -1
         },
         headerText: {
             fontFamily: 'Inter',
@@ -31,6 +44,7 @@ export default function Header(props) {
     });
     return (
         <View style={styles.header}>
+            {backgroundShown && <View style={styles.fakeBackground}></View>}
             <View style={{width: "15%", height: '100%', alignItems: 'center', justifyContent: 'flex-start', height: "100%"}}>
                 {props.backButton &&
                 <Pressable onPress={() => props.navigation.goBack()}>
