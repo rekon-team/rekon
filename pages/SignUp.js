@@ -111,8 +111,8 @@ export default function SignUp({route, navigation}) {
                         setPasswordError(true);
                         return;
                     }
-                    const json = await ky.post(Constants.serverUrl + 'registerUserAccount', {json: {email: email, password: password}}).json();
-                    if (json.message.detail) {
+                    const json = await ky.post(Constants.serverUrl + '/accounts/registerUserAccount', {json: {email: email, password: password}}).json();
+                    if (json.message.detail != undefined) {
                         setAccountError(json.message.detail);
                         return;
                     }

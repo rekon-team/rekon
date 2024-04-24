@@ -1,1 +1,1 @@
-export default Constants = {'serverUrl': 'https://api.frcrekon.com/'}
+export default Constants = {'serverUrl': 'https://api.frcrekon.com'}
