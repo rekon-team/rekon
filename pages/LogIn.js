@@ -101,7 +101,7 @@ export default function LogIn({route, navigation}) {
                     <Text style={styles.text}>{Lang.log_in.no_account}</Text>
                     <Text style={styles.underlineText}>{Lang.log_in.sign_up}</Text>
                 </Pressable>
-                <Pressable style={styles.accentButton} onPress={() => {setAccountError('log in failed')}}>
+                <Pressable style={styles.accentButton} onPress={() => {navigation.navigate('Verification')}}>
                     <Text style={styles.accentText}>{Lang.log_in.title}</Text>
                 </Pressable>
                 <Text style={styles.errorText}>{accountError}</Text>

@@ -13,6 +13,7 @@ import { Menu, MenuProvider } from 'react-native-popup-menu';
 import Start from './pages/Start';
 import SignUp from './pages/SignUp';
 import LogIn from './pages/LogIn';
+import Verification from './pages/VerificationCode';
 import Welcome from './pages/Welcome';
 import JoinTeam from './pages/JoinTeam';
 import QRScan from './pages/QRScan';
@@ -30,6 +31,7 @@ function PageStack() {
       <Stack.Screen name="Start" component={Start} options={{ headerShown: false }} />
       <Stack.Screen name="SignUp" component={SignUp} options={{ headerShown: false }} />
       <Stack.Screen name="LogIn" component={LogIn} options={{ headerShown: false }} />
+      <Stack.Screen name="Verification" component={Verification} options={{ headerShown: false }} />
       <Stack.Screen name="Welcome" component={Welcome} options={{ headerShown: false }} />
       <Stack.Screen name="JoinTeam" component={JoinTeam} options={{ headerShown: false }} />
       <Stack.Screen name="QRScan" component={QRScan} options={{ headerShown: false }} />
