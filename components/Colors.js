@@ -53,7 +53,8 @@ const defaultColors = {
     tabSelected: '#1F1729',
     graphPrimary: '#AA8DCE',
     accent: '#8D53D4',
-    error: '#F8002A'
+    error: '#F8002A',
+    completedGreen: '#22c545', //HAS NOTHING IN THE DIFF TABLE!!! JONAS PLEASE FIX!!!!!!!!!!!!!
 }
 
 export const ColorProvider = ({ children }) => {

@@ -24,6 +24,12 @@
         "incorrect_credentials": "Incorrect email or password",
         "invalid_email": "Invalid email"
     },
+    "verification": {
+        "title": "Verification",
+        "resend": "Resend email",
+        "email_sent": "Email sent:",
+        "enter_code": "Enter 6 digit verification code:"
+    },
     "welcome": {
         "title": "Welcome!",
         "subtitle": "Let's set up your profile.",
