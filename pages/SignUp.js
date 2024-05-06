@@ -4,6 +4,7 @@ import { useLang } from "../components/Lang";
 import { useColors } from "../components/Colors";
 import Header from "../components/Header";
 import BackgroundGradient from "../components/BackgroundGradient";
+import Error from "../components/ErrorPopup";
 import { useState } from "react";
 import ky from 'ky';
 import Constants from "../components/Constants";
@@ -95,7 +96,6 @@ export default function SignUp({route, navigation}) {
                 </Pressable>
                 <Pressable style={styles.accentButton} onPress={async () => {
                     if (email.includes('@') && email.includes('.')) {
-                        setAccountError('');
                         setEmailError(false);
                     } else {
                         setAccountError(Lang.log_in.invalid_email);
@@ -125,8 +125,8 @@ export default function SignUp({route, navigation}) {
                     }}>
                     <Text style={styles.accentText}>{Lang.start_page.sign_up_button}</Text>
                 </Pressable>
-                <Text style={styles.errorText}>{accountError}</Text>
             </View>
+            <Error visible={emailError} setVisible={setEmailError} errorText={accountError} />
         </View>
     );
 
