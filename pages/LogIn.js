@@ -2,6 +2,7 @@ import { TextInput } from "react-native-paper";
 import { View, Text, StyleSheet, Dimensions, Pressable } from "react-native";
 import { useLang } from "../components/Lang";
 import { useColors } from "../components/Colors";
+import Error from "../components/ErrorPopup";
 import Header from "../components/Header";
 import BackgroundGradient from "../components/BackgroundGradient";
 import { useEffect, useState } from "react";
@@ -10,6 +11,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 export default function LogIn({route, navigation}) {
     const { Lang } = useLang();
     const { Colors } = useColors();
+    const [showError, setShowError] = useState(false);
     const [accountError, setAccountError] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const [email, setEmail] = useState('');
@@ -66,12 +68,7 @@ export default function LogIn({route, navigation}) {
             fontFamily: 'Inter',
             color: Colors.text,
             textDecorationLine: 'underline',
-        },
-        errorText: {
-            fontFamily: 'Inter',
-            color: Colors.error,
-            fontSize: 20,
-        },
+        }
     });
 
     useEffect(() => {
@@ -85,8 +82,9 @@ export default function LogIn({route, navigation}) {
             <View style={styles.inputContainer}>
                 <TextInput textColor={Colors.text} activeOutlineColor={Colors.text} mode="outlined" style={styles.input} outlineStyle={{borderRadius: 10}} theme={{ colors: { onSurfaceVariant: 'white'} }} label={Lang.log_in.email} onChangeText={text => {
                     if (text.includes('@') && text.includes('.')) {
-                        setAccountError('');
+                        setShowError(false);
                     } else {
+                        setShowError(true);
                         setAccountError(Lang.log_in.invalid_email);
                     }
                     setEmail(text);
@@ -104,8 +102,8 @@ export default function LogIn({route, navigation}) {
                 <Pressable style={styles.accentButton} onPress={() => {navigation.navigate('Verification')}}>
                     <Text style={styles.accentText}>{Lang.log_in.title}</Text>
                 </Pressable>
-                <Text style={styles.errorText}>{accountError}</Text>
             </View>
+            <Error visible={showError} setVisible={setShowError} errorText={accountError}/>
         </View>
     );
 }
