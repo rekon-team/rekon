@@ -4,8 +4,12 @@ import { useLang } from './Lang';
 import { useColors } from './Colors';
 import { getStatusBarHeight } from "react-native-status-bar-height";
 import { MaterialIcons } from '@expo/vector-icons';
+import { DrawerActions } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
 export default function Header(props) {
+    const navigation = useNavigation();
+    let hamburgerButton = false;
     let fontSize = 40;
     let backgroundShown = false;
     if (props.overrideFontSize != 40 && props.overrideFontSize != undefined) {
@@ -13,6 +17,9 @@ export default function Header(props) {
     }
     if (props.backgroundShown != undefined) {
         backgroundShown = props.backgroundShown;
+    }
+    if (props.hamburgerButton != undefined) {
+        hamburgerButton = props.hamburgerButton;
     }
     const { Colors } = useColors();
     const styles = StyleSheet.create({
@@ -49,6 +56,11 @@ export default function Header(props) {
                 {props.backButton &&
                 <Pressable onPress={() => props.navigation.goBack()}>
                     <MaterialIcons name="arrow-back" size={40} color={Colors.text} />
+                </Pressable>}
+                
+                {hamburgerButton &&
+                <Pressable onPress={() => navigation.dispatch(DrawerActions.openDrawer())}>
+                    <MaterialIcons name="menu" size={40} color={Colors.text} />
                 </Pressable>}
             </View>
             <View style={{width: "70%", height: '100%', alignItems: 'center', justifyContent: 'flex-start'}}>

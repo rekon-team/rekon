@@ -4,6 +4,7 @@ import { useLang } from "../components/Lang";
 import { useColors } from "../components/Colors";
 import Header from "../components/Header";
 import BackgroundGradient from "../components/BackgroundGradient";
+import Error from "../components/ErrorPopup";
 import { useEffect, useState } from "react";
 import { MaterialIcons } from "@expo/vector-icons";
 
@@ -84,7 +85,7 @@ export default function LogIn({route, navigation}) {
             <Header backButton={true} title={Lang.log_in.title} navigation={navigation}/>
             <View style={styles.inputContainer}>
                 <TextInput textColor={Colors.text} activeOutlineColor={Colors.text} mode="outlined" style={styles.input} outlineStyle={{borderRadius: 10}} theme={{ colors: { onSurfaceVariant: 'white'} }} label={Lang.log_in.email} onChangeText={text => {
-                    if (text.includes('@') && text.includes('.')) {
+                    if ((text.includes('@') && text.includes('.')) || text.trim() === '') {
                         setAccountError('');
                     } else {
                         setAccountError(Lang.log_in.invalid_email);
@@ -104,7 +105,7 @@ export default function LogIn({route, navigation}) {
                 <Pressable style={styles.accentButton} onPress={() => {navigation.navigate('Verification')}}>
                     <Text style={styles.accentText}>{Lang.log_in.title}</Text>
                 </Pressable>
-                <Text style={styles.errorText}>{accountError}</Text>
+                <Error error={accountError} />
             </View>
         </View>
     );

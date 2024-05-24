@@ -84,7 +84,7 @@ export default function VerificationCode({route, navigation}) {
         if (code.length == 6) {
             if (code == correctCode) {
                 setWrongCode(false);
-                navigation.navigate('Start');
+                navigation.navigate('AdminDrawers', {screen: 'Overview'});
             } else {
                 setWrongCode(true);
             }
