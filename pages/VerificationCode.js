@@ -12,7 +12,7 @@ export default function VerificationCode({route, navigation}) {
     const [code, setCode] = useState('');
     const [correctCode, setCorrectCode] = useState('123456');
     const [email, setEmail] = useState('27tfisch@mypanthers.org');
-    const [wrongCode, setWrongCode] = useState(false);
+    const [wrongCode, setWrongCode] = useState(true);
     const [emailSent, setEmailSent] = useState(false);
     const [timeUntilResend, setTimeUntilResend] = useState(30);
 

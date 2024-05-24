@@ -1,48 +1,58 @@
-import React, { useEffect } from 'react';
-import { View, Text, StyleSheet, Dimensions } from 'react-native';
-
-import { useColors } from './Colors';
-import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
+import React, { useEffect, useState } from "react";
+import { View, StyleSheet, Text, Dimensions, Pressable } from "react-native";
+import Animated, { useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
+import { useColors } from "./Colors";
+import { MaterialIcons } from "@expo/vector-icons";
 
 export default function Error(props) {
+    const position = useSharedValue(-Dimensions.get('window').height / 15);
+
     const { Colors } = useColors();
 
-    const position = useSharedValue(Dimensions.get('window').height * .1);
+    useEffect(() => {
+        if (props.visible == true) {
+            position.value = withTiming(0);
+        } else {
+            position.value = withTiming(-Dimensions.get('window').height / 15);
+        }
+    }, [props.visible]);
 
     const styles = StyleSheet.create({
-        errorContainer: {
-            backgroundColor: Colors.error,
-            width: '100%',
-            height: '10%',
+        container: {
             position: 'absolute',
-            alignItems: 'center',
+            bottom: -Dimensions.get('window').height / 15,
+            width: '100%',
+            height: Dimensions.get('window').height / 15,
+            backgroundColor: Colors.error,
+            zIndex: 100,
             justifyContent: 'center',
-            zIndex: 100
-        },
-        errorText: {
-            fontFamily: 'Inter',
+        }, text: {
             color: Colors.text,
-            fontSize: 20,
+            textAlign: 'center',
+            fontSize: Dimensions.get('window').height / 30,
+            fontFamily: 'Inter'
         }
     });
 
-    const errorContainerStyle = useAnimatedStyle(() => {
-        return {
-            transform: [{ translateY: position.value }]
-        }
-    });
+    const animatedStyles = useAnimatedStyle(() => ({
+        bottom: position.value
+    }));
 
-    useEffect(() => {
-        if (props.error.trim() === '') {
-            position.value = withTiming(Dimensions.get('window').height * .1);
-        } else {
-            position.value = withTiming(0);
-        }
-    }, [props.error]);
+    return (
+        <Animated.View style={[animatedStyles, styles.container]}>
+            <View style={{flexDirection: 'row'}}>
+                <View style={{width: '15%'}} />
 
-    return(
-        <Animated.View style={[styles.errorContainer, errorContainerStyle]}>
-            <Text style={styles.errorText}>{props.error}</Text>
+                <View style={{width: '70%'}}>
+                    <Text style={styles.text}>{props.errorText}</Text>
+                </View>
+                
+                <View style={{width: '15%', alignItems: 'center', justifyContent: 'center'}}>
+                    <Pressable onPress={() => {props.setVisible(false)}}>
+                        <MaterialIcons name="close" size={Dimensions.get('window').height / 30} color={Colors.text} />
+                    </Pressable>
+                </View>
+            </View>
         </Animated.View>
-    );
+    )
 }
