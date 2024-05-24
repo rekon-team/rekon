@@ -5,6 +5,7 @@ import { useColors } from "../components/Colors";
 import Error from "../components/ErrorPopup";
 import Header from "../components/Header";
 import BackgroundGradient from "../components/BackgroundGradient";
+import Error from "../components/ErrorPopup";
 import { useEffect, useState } from "react";
 import { MaterialIcons } from "@expo/vector-icons";
 

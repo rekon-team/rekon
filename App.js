@@ -4,6 +4,8 @@ import { LangProvider } from './components/Lang';
 import { ColorProvider } from './components/Colors';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
+import 'react-native-gesture-handler'
+import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import React, { useCallback, useEffect } from 'react';
@@ -17,12 +19,31 @@ import Verification from './pages/VerificationCode';
 import Welcome from './pages/Welcome';
 import JoinTeam from './pages/JoinTeam';
 import QRScan from './pages/QRScan';
+import AdminHomeMatch from './pages/AdminHomeMatch';
 
 // Prevent the splash screen from auto-hiding, so we can hide it ourselves
 // when all the fonts and assets are loaded.
 SplashScreen.preventAutoHideAsync();
 
 const Stack = createStackNavigator();
+const Drawer = createDrawerNavigator();
+
+function CustomDrawerContent(props) {
+  return (
+    <DrawerContentScrollView {...props}>
+      <DrawerItemList {...props} />
+    </DrawerContentScrollView>
+  )
+}
+
+function AdminDrawers() {
+  //Yippee!!
+  return (
+    <Drawer.Navigator drawerContent={(props) => <CustomDrawerContent {...props} />}>
+      <Drawer.Screen name="Overview" component={AdminHomeMatch} options={{ headerShown: false }} />
+    </Drawer.Navigator>
+  )
+}
 
 function PageStack() {
   // This stack navigator is gonna be huge
@@ -35,6 +56,7 @@ function PageStack() {
       <Stack.Screen name="Welcome" component={Welcome} options={{ headerShown: false }} />
       <Stack.Screen name="JoinTeam" component={JoinTeam} options={{ headerShown: false }} />
       <Stack.Screen name="QRScan" component={QRScan} options={{ headerShown: false }} />
+      <Stack.Screen name="AdminDrawers" component={AdminDrawers} options={{ headerShown: false }} />
     </Stack.Navigator>
   );
 }
