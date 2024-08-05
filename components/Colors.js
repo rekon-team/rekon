@@ -55,6 +55,8 @@ const defaultColors = {
     accent: '#8D53D4',
     error: '#F8002A',
     completedGreen: '#22c545', //HAS NOTHING IN THE DIFF TABLE!!! JONAS PLEASE FIX!!!!!!!!!!!!!
+    blueAlliance: '#1768AC', //JONAS!!!! FIX THIS TOO!!!!
+    redAlliance: '#A30018', //JONAS!!!!!!!!!!!!!!!!! ALSO FIX THIS!!!!!!!!
 }
 
 export const ColorProvider = ({ children }) => {
