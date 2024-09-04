@@ -20,6 +20,7 @@ import Welcome from './pages/Welcome';
 import JoinTeam from './pages/JoinTeam';
 import QRScan from './pages/QRScan';
 import AdminHomeMatch from './pages/AdminHomeMatch';
+import AllMatchAssignments from './pages/AllMatchAssignments';
 
 // Prevent the splash screen from auto-hiding, so we can hide it ourselves
 // when all the fonts and assets are loaded.
@@ -56,6 +57,7 @@ function PageStack() {
       <Stack.Screen name="Welcome" component={Welcome} options={{ headerShown: false }} />
       <Stack.Screen name="JoinTeam" component={JoinTeam} options={{ headerShown: false }} />
       <Stack.Screen name="QRScan" component={QRScan} options={{ headerShown: false }} />
+      <Stack.Screen name="AllMatches" component={AllMatchAssignments} options={{ headerShown: false }} />
       <Stack.Screen name="AdminDrawers" component={AdminDrawers} options={{ headerShown: false }} />
     </Stack.Navigator>
   );

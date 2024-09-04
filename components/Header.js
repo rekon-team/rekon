@@ -27,7 +27,7 @@ export default function Header(props) {
             position: 'absolute',
             top: getStatusBarHeight(),
             width: '100%',
-            height: '12%',
+            height: '15%',
             alignItems: 'center',
             justifyContent: 'center',
             flexDirection: 'row',
@@ -46,7 +46,8 @@ export default function Header(props) {
             fontFamily: 'Inter',
             color: Colors.text,
             fontSize: fontSize,
-            lineHeight: fontSize * 1.125
+            lineHeight: fontSize * 1.125,
+            textAlign: 'center'
         }
     });
     return (

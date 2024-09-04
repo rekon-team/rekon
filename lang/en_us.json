@@ -68,5 +68,8 @@
         "uncompleted": "Uncompleted",
         "teammates": "Teammates",
         "teams_left": "Teams Left:"
+    },
+    "match_assignments": {
+        "title": "Match Assignments"
     }
 }
