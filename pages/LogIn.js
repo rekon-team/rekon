@@ -2,7 +2,6 @@ import { TextInput } from "react-native-paper";
 import { View, Text, StyleSheet, Dimensions, Pressable } from "react-native";
 import { useLang } from "../components/Lang";
 import { useColors } from "../components/Colors";
-import Error from "../components/ErrorPopup";
 import Header from "../components/Header";
 import BackgroundGradient from "../components/BackgroundGradient";
 import Error from "../components/ErrorPopup";
