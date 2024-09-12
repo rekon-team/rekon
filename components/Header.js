@@ -31,7 +31,7 @@ export default function Header(props) {
             alignItems: 'center',
             justifyContent: 'center',
             flexDirection: 'row',
-            paddingTop: '3%',
+            //paddingTop: '3%',  I have no idea why this is here but it makes the header look bad
         },
         fakeBackground: {
             position: 'absolute',

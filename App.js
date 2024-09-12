@@ -20,6 +20,7 @@ import Welcome from './pages/Welcome';
 import JoinTeam from './pages/JoinTeam';
 import QRScan from './pages/QRScan';
 import AdminHomeMatch from './pages/AdminHomeMatch';
+import AdminHomePit from './pages/AdminHomePit';
 import AllMatchAssignments from './pages/AllMatchAssignments';
 
 // Prevent the splash screen from auto-hiding, so we can hide it ourselves
@@ -42,6 +43,7 @@ function AdminDrawers() {
   return (
     <Drawer.Navigator drawerContent={(props) => <CustomDrawerContent {...props} />}>
       <Drawer.Screen name="Overview" component={AdminHomeMatch} options={{ headerShown: false }} />
+      <Drawer.Screen name="AdminHomePit" component={AdminHomePit} options={{ headerShown: false, drawerItemStyle: { display: 'none' } }} />
     </Drawer.Navigator>
   )
 }

@@ -55,6 +55,7 @@ const defaultColors = {
     accent: '#8D53D4',
     error: '#F8002A',
     completedGreen: '#22c545', //HAS NOTHING IN THE DIFF TABLE!!! JONAS PLEASE FIX!!!!!!!!!!!!!
+    uncompletedRed: '#b74040', //STOP WASTING TIME AND JUST FIX THESE!!!
     blueAlliance: '#1768AC', //JONAS!!!! FIX THIS TOO!!!!
     redAlliance: '#A30018', //JONAS!!!!!!!!!!!!!!!!! ALSO FIX THIS!!!!!!!!
 }
