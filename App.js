@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import { LangProvider } from './components/Lang';
-import { ColorProvider } from './components/Colors';
+import { ColorProvider, useColors } from './components/Colors';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import 'react-native-gesture-handler'
@@ -22,6 +22,9 @@ import QRScan from './pages/QRScan';
 import AdminHomeMatch from './pages/AdminHomeMatch';
 import AllMatchAssignments from './pages/AllMatchAssignments';
 
+import StyledDrawer from './components/Drawer';
+import { MaterialIcons } from '@expo/vector-icons';
+
 // Prevent the splash screen from auto-hiding, so we can hide it ourselves
 // when all the fonts and assets are loaded.
 SplashScreen.preventAutoHideAsync();
@@ -29,19 +32,15 @@ SplashScreen.preventAutoHideAsync();
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
-function CustomDrawerContent(props) {
-  return (
-    <DrawerContentScrollView {...props}>
-      <DrawerItemList {...props} />
-    </DrawerContentScrollView>
-  )
-}
+//CustomDrawerContent was moved to a different file
 
 function AdminDrawers() {
+  const { Colors } = useColors();
   //Yippee!!
   return (
-    <Drawer.Navigator drawerContent={(props) => <CustomDrawerContent {...props} />}>
-      <Drawer.Screen name="Overview" component={AdminHomeMatch} options={{ headerShown: false }} />
+    <Drawer.Navigator drawerContent={(props) => <StyledDrawer {...props} />}>
+      <Drawer.Screen name="Overview" component={AdminHomeMatch} options={{ headerShown: false, drawerIcon: () => (<MaterialIcons name="pie-chart" size={22} color={Colors.text} />) }} />
+      <Drawer.Screen name="AdminHomePit" component={AdminHomePit} options={{ headerShown: false, drawerItemStyle: { display: 'none' } }} />
     </Drawer.Navigator>
   )
 }

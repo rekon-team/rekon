@@ -51,6 +51,7 @@ const defaultColors = {
     tabIcons: '#e3e2e6',
     onAccent: '#e3e2e6',
     tabSelected: '#1F1729',
+    divider: '#4A3762', //Jonas. You need to fix these at some point.
     graphPrimary: '#AA8DCE',
     accent: '#8D53D4',
     error: '#F8002A',

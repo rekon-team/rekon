@@ -71,5 +71,16 @@
     },
     "match_assignments": {
         "title": "Match Assignments"
+    },
+    "hamburger_menu": {
+        "scout_mode": "Scout Mode",
+        "admin_mode": "Admin Mode",
+        "overview": "Overview",
+        "team_profile": "Team Profile",
+        "teammates": "Teammates",
+        "forms": "Forms",
+        "events": "Events",
+        "sync_data": "Sync Data",
+        "settings": "Settings"
     }
 }
