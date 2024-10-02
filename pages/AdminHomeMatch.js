@@ -92,11 +92,11 @@ export default function AdminHomeMatch({ navigation }) {
                 <Text style={[styles.text, {fontSize: indent / 2, top: 15, left: indent}]}>{Lang.admin_home_match.scouting_overview}</Text>
 
                 <View style={{flexDirection: 'row', top: 15, gap: indent / 2}}>
-                    <Pressable style={[styles.switchViewButton, {backgroundColor: Colors.accent}]}>
+                    <View style={[styles.switchViewButton, {backgroundColor: Colors.accent}]}>
                         <Text style={[styles.text, {fontSize: indent / 2}]}>{Lang.admin_home_match.match}</Text>
-                    </Pressable>
+                    </View>
 
-                    <Pressable style={[styles.switchViewButton, {backgroundColor: Colors.secondary}]}>
+                    <Pressable style={[styles.switchViewButton, {backgroundColor: Colors.secondary}]} onPress={() => navigation.navigate('AdminHomePit')}>
                         <Text style={[styles.text, {fontSize: indent / 2}]}>{Lang.admin_home_match.pit}</Text>
                     </Pressable>
                 </View>
@@ -220,7 +220,7 @@ export default function AdminHomeMatch({ navigation }) {
 
                                 <View style={{width: '15%', justifyContent: 'center'}}>
                                     <Pressable style={{}} onPress={() => {setViewMatch(-1)}}>
-                                        <MaterialIcons name="close" size={indent} color={Colors.text}/>
+                                        <MaterialIcons name="close" size={indent * 1.25} color={Colors.text}/>
                                     </Pressable>
                                 </View>
                             </View>
