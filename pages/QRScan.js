@@ -1,4 +1,4 @@
-import { CameraView, useCameraPermissions } from 'expo-camera/next';
+import { CameraView, useCameraPermissions } from 'expo-camera';
 import { useState } from 'react';
 import { StyleSheet, Text, View, Pressable, Dimensions } from 'react-native';
 import { useLang } from '../components/Lang';

@@ -20,6 +20,7 @@ import Welcome from './pages/Welcome';
 import JoinTeam from './pages/JoinTeam';
 import QRScan from './pages/QRScan';
 import AdminHomeMatch from './pages/AdminHomeMatch';
+import AdminHomePit from './pages/AdminHomePit';
 import AllMatchAssignments from './pages/AllMatchAssignments';
 
 import StyledDrawer from './components/Drawer';
