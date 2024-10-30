@@ -90,7 +90,7 @@ export default function App() {
         <LangProvider>
           <ColorProvider>
             <PageStack />
-            <StatusBar style="light" />
+            <StatusBar style="light" hidden={true} backgroundColor='white'/>
           </ColorProvider>
         </LangProvider>
       </MenuProvider>
