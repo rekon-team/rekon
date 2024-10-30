@@ -55,6 +55,7 @@ const defaultColors = {
     graphPrimary: '#AA8DCE',
     accent: '#8D53D4',
     error: '#F8002A',
+    info: '#5C95FF',
     completedGreen: '#22c545', //HAS NOTHING IN THE DIFF TABLE!!! JONAS PLEASE FIX!!!!!!!!!!!!!
     uncompletedRed: '#b74040', //STOP WASTING TIME AND JUST FIX THESE!!!
     blueAlliance: '#1768AC', //JONAS!!!! FIX THIS TOO!!!!

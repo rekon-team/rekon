@@ -5,6 +5,7 @@ import { useColors } from "../components/Colors";
 import Header from "../components/Header";
 import BackgroundGradient from "../components/BackgroundGradient";
 import Error from "../components/ErrorPopup";
+import Info from "../components/InfoPopup";
 import { useState } from "react";
 import ky from 'ky';
 import Constants from "../components/Constants";
@@ -13,6 +14,8 @@ export default function SignUp({route, navigation}) {
     const { Lang } = useLang();
     const { Colors } = useColors();
     const [accountError, setAccountError] = useState('');
+    const [statusMessage, setStatusMessage] = useState('');
+    const [showStatus, setShowStatus] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -111,22 +114,29 @@ export default function SignUp({route, navigation}) {
                         setPasswordError(true);
                         return;
                     }
+
+                    setStatusMessage('Creating account...');
+                    setShowStatus(true);
                   
                     const json = await ky.post(Constants.serverUrl + '/accounts/registerUserAccount', {json: {email: email, password: password}}).json();
-                    if (json.message.detail != undefined) {
-                        setAccountError(json.message.detail);
-                        return;
-                    }
                     if (json.error) {
                         setAccountError(json.message);
+                        setEmailError(true);
+                        setPasswordError(true);
+                        setShowStatus(false);
+                        return;
+                    } else {
+                        setStatusMessage(json.message);
+                        setEmailError(false);
+                        setShowStatus(true);
                         return;
                     }
-                    navigation.navigate("Welcome")
                     }}>
                     <Text style={styles.accentText}>{Lang.start_page.sign_up_button}</Text>
                 </Pressable>
             </View>
             <Error visible={emailError} setVisible={setEmailError} errorText={accountError} />
+            <Info visible={showStatus} setVisible={setShowStatus} statusText={statusMessage} throbber={true}/>
         </View>
     );
 
