@@ -7,6 +7,7 @@ import MatchScoutView from '../components/MatchScoutView';
 import { useLang } from '../components/Lang';
 import { useColors } from '../components/Colors';
 import { MaterialIcons } from '@expo/vector-icons';
+import { getStatusBarHeight } from 'react-native-status-bar-height';
 
 export default function AdminHomeMatch({ navigation }) {
     const { Lang } = useLang();
@@ -87,13 +88,13 @@ export default function AdminHomeMatch({ navigation }) {
             <BackgroundGradient/>
             <Header title={Lang.admin_home_match.title} backButton={false} hamburgerButton={true}/>
 
-            <View style={{height: Dimensions.get('window').height - 60, top: 60}}>
+            <View style={{height: Dimensions.get('window').height - 60, top: getStatusBarHeight() + 60}}>
             <ScrollView>
                 <Text style={[styles.text, {fontSize: indent / 2, top: 15, left: indent}]}>{Lang.admin_home_match.scouting_overview}</Text>
 
                 <View style={{flexDirection: 'row', top: 15, gap: indent / 2}}>
                     <View style={[styles.switchViewButton, {backgroundColor: Colors.accent}]}>
-                        <Text style={[styles.text, {fontSize: indent / 2}]}>{Lang.admin_home_match.match}</Text>
+                        <Text style={[styles.onAccent, {fontSize: indent / 2}]}>{Lang.admin_home_match.match}</Text>
                     </View>
 
                     <Pressable style={[styles.switchViewButton, {backgroundColor: Colors.secondary}]} onPress={() => navigation.navigate('AdminHomePit')}>

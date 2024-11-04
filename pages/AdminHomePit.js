@@ -7,6 +7,7 @@ import BackgroundGradient from '../components/BackgroundGradient';
 import { useLang } from '../components/Lang';
 import { useColors } from '../components/Colors';
 import { MaterialIcons } from '@expo/vector-icons'
+import { getStatusBarHeight } from 'react-native-status-bar-height';
 
 export default function AdminHomePit({ navigation }) {
     const { Lang } = useLang();
@@ -88,7 +89,7 @@ export default function AdminHomePit({ navigation }) {
             <BackgroundGradient />
             <Header title={Lang.admin_home_pit.title} navigation={navigation} hamburgerButton={true} />
 
-            <View style={{height: Dimensions.get('window').height - 60, top: 60}}>
+            <View style={{height: Dimensions.get('window').height - 60, top: getStatusBarHeight() + 60}}>
             <ScrollView>
                 <Text style={[styles.text, {fontSize: indent / 2, top: 15, left: indent}]}>{Lang.admin_home_pit.scouting_overview}</Text>
 
@@ -98,7 +99,7 @@ export default function AdminHomePit({ navigation }) {
                     </Pressable>
 
                     <View style={[styles.switchViewButton, {backgroundColor: Colors.accent}]}>
-                        <Text style={[styles.text, {fontSize: indent / 2}]}>{Lang.admin_home_pit.pit}</Text>
+                        <Text style={[styles.onAccent, {fontSize: indent / 2}]}>{Lang.admin_home_pit.pit}</Text>
                     </View>
                 </View>
 

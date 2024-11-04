@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet, Text, Dimensions, Pressable } from "react-native";
+import { View, StyleSheet, Text, Dimensions, Pressable, ActivityIndicator } from "react-native";
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
 import { useColors } from "./Colors";
 import { MaterialIcons } from "@expo/vector-icons";
 
-export default function Error(props) {
+export default function Success(props) {
     const position = useSharedValue(-Dimensions.get('window').height / 15);
 
     const { Colors } = useColors();
@@ -22,7 +22,7 @@ export default function Error(props) {
             position: 'absolute',
             bottom: -Dimensions.get('window').height / 15,
             width: '100%',
-            backgroundColor: Colors.error,
+            backgroundColor: Colors.completedGreen,
             zIndex: 100,
             justifyContent: 'center',
             paddingVertical: Dimensions.get('window').height / 80
@@ -41,10 +41,11 @@ export default function Error(props) {
     return (
         <Animated.View style={[animatedStyles, styles.container]}>
             <View style={{flexDirection: 'row'}}>
-                <View style={{width: '15%'}} />
+                <View style={{width: '15%', alignItems: 'center', justifyContent: 'center'}} >
+                </View>
 
                 <View style={{width: '70%'}}>
-                    <Text style={styles.text}>{props.errorText}</Text>
+                    <Text style={styles.text}>{props.statusText}</Text>
                 </View>
                 
                 <View style={{width: '15%', alignItems: 'center', justifyContent: 'center'}}>

@@ -5,16 +5,21 @@ import { useColors } from '../components/Colors';
 import { View, Text, Dimensions, Pressable } from 'react-native';
 import { CodeField, Cursor, getCellOnLayoutHandler, useClearByFocusCell } from 'react-native-confirmation-code-field';
 import { useEffect, useState } from 'react';
+import { useSettings } from '../components/Settings';
+import ky from 'ky';
 
 export default function VerificationCode({route, navigation}) {
     const { Lang } = useLang();
     const { Colors } = useColors();
+    const { Settings, updateSetting } = useSettings();
     const [code, setCode] = useState('');
     const [correctCode, setCorrectCode] = useState('123456');
-    const [email, setEmail] = useState('27tfisch@mypanthers.org');
+    const [email, setEmail] = useState('');
     const [wrongCode, setWrongCode] = useState(true);
     const [emailSent, setEmailSent] = useState(false);
     const [timeUntilResend, setTimeUntilResend] = useState(30);
+
+    const isSignUp = route.params.sign_up;
 
     //No clue what this props or getCellOnLayoutHandler does, but don't mess with it!!
     const [props, getCellOnLayoutHandler] = useClearByFocusCell({
@@ -81,16 +86,38 @@ export default function VerificationCode({route, navigation}) {
     };
 
     useEffect(() => {
-        if (code.length == 6) {
-            if (code == correctCode) {
-                setWrongCode(false);
-                navigation.navigate('AdminDrawers', {screen: 'Overview'});
+        const checkCode = async () => {
+            if (code.length == 6) {
+                const codeCheck = await ky.post(Constants.serverUrl + '/accounts/verifyEmailCode', {json: {id: Settings.accountID, code: code, verify: isSignUp}}).json();
+                if (!codeCheck.error) {
+                    if (codeCheck.verified) {
+                        if (isSignUp) {
+                            setWrongCode(false);
+                            // fetch user token
+                            const token = await ky.post(Constants.serverUrl + '/accounts/loginUserAccount', {json: {email: Settings.email, password: Settings.password}}).json();
+                            if (!token.error) {
+                                if (token != null || token != "verify") {
+                                    updateSetting('token', token.token);
+                                    updateSetting('password', '');
+                                    updateSetting('stage', 'welcome');
+                                    navigation.navigate('Welcome');
+                                }
+                            }
+                        } else {
+                            setWrongCode(false);
+                            navigation.navigate('AdminDrawers', {screen: 'Overview'});
+                        }
+                    } else {
+                        setWrongCode(true);
+                    }
+                } else {
+                    setWrongCode(true);
+                }
             } else {
-                setWrongCode(true);
+                setWrongCode(false);
             }
-        } else {
-            setWrongCode(false);
         }
+        checkCode();
     }, [code]);
 
     useEffect(() => {
@@ -108,6 +135,10 @@ export default function VerificationCode({route, navigation}) {
             }, 32000);
         }
     }, [emailSent])
+
+    useEffect(() => {
+        setEmail(Settings.email);
+    });
 
     return (
         <View style={styles.container}>

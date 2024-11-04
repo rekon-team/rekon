@@ -10,6 +10,7 @@ import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import React, { useCallback, useEffect } from 'react';
 import { Menu, MenuProvider } from 'react-native-popup-menu';
+import { SettingsProvider } from './components/Settings';
 
 // Onboarding pages
 import Start from './pages/Start';
@@ -89,8 +90,10 @@ export default function App() {
       <MenuProvider>
         <LangProvider>
           <ColorProvider>
-            <PageStack />
-            <StatusBar style="light" translucent={true}/>
+            <SettingsProvider>
+              <PageStack />
+              <StatusBar style="light" translucent={true}/>
+            </SettingsProvider>
           </ColorProvider>
         </LangProvider>
       </MenuProvider>

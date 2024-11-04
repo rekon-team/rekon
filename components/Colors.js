@@ -30,7 +30,8 @@ let hslDiffTable = {
     secondaryDim: [0.99, 0.45, 0.34, -0.5],
     tabSelected: [1, 0.466, 0.224],
     accent: [1, 1, 1],
-    secondaryBright: [0.99, 0.46, 0.60]
+    secondaryBright: [0.99, 0.46, 0.60],
+    divider: [1,0.46,0.51]
 }
 
 const defaultColors = {

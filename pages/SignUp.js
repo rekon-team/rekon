@@ -4,18 +4,21 @@ import { useLang } from "../components/Lang";
 import { useColors } from "../components/Colors";
 import Header from "../components/Header";
 import BackgroundGradient from "../components/BackgroundGradient";
-import Error from "../components/ErrorPopup";
-import Info from "../components/InfoPopup";
-import { useState } from "react";
+import Popup from "../components/Popup";
+import { useState, useEffect } from "react";
 import ky from 'ky';
 import Constants from "../components/Constants";
+import { useSettings } from "../components/Settings";
 
 export default function SignUp({route, navigation}) {
     const { Lang } = useLang();
     const { Colors } = useColors();
-    const [accountError, setAccountError] = useState('');
-    const [statusMessage, setStatusMessage] = useState('');
-    const [showStatus, setShowStatus] = useState(false);
+    const { Settings, updateSetting } = useSettings();
+
+    const [statusText, setStatusText] = useState('');
+    const [showPopup, setShowPopup] = useState(false);
+    const [popupType, setPopupType] = useState('info');
+    
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -101,42 +104,57 @@ export default function SignUp({route, navigation}) {
                     if (email.includes('@') && email.includes('.')) {
                         setEmailError(false);
                     } else {
-                        setAccountError(Lang.log_in.invalid_email);
+                        setStatusText(Lang.log_in.invalid_email);
+                        setPopupType('error');
+                        setShowPopup(true);
                         setEmailError(true);
                         return;
                     }
 
                     if (password == confirmPassword) {
-                        setAccountError('');
+                        setStatusText('');
                         setPasswordError(false);
                     } else {
-                        setAccountError(Lang.sign_up.password_mismatch);
+                        setStatusText(Lang.sign_up.password_mismatch);
+                        setPopupType('error');
+                        setShowPopup(true);
                         setPasswordError(true);
                         return;
                     }
-
-                    setStatusMessage('Creating account...');
-                    setShowStatus(true);
+                    
+                    setPopupType('info');
+                    setStatusText('Creating account...');
+                    setShowPopup(true);
                   
                     const json = await ky.post(Constants.serverUrl + '/accounts/registerUserAccount', {json: {email: email, password: password}}).json();
                     if (json.error) {
-                        setAccountError(json.message);
+                        setStatusText(json.message);
+                        setPopupType('error');
+                        setShowPopup(true);
                         setEmailError(true);
                         setPasswordError(true);
-                        setShowStatus(false);
                         return;
                     } else {
-                        setStatusMessage(json.message);
+                        setStatusText(json.message);
+                        setPopupType('success');
+                        setShowPopup(true);
                         setEmailError(false);
-                        setShowStatus(true);
+                        if (json.id != undefined) {
+                            updateSetting('accountID', json.id);
+                            updateSetting('email', email);
+                            updateSetting('password', password); // THIS SHOULD BE DELETED AFTER ACQUIRING AN ACCESS TOKEN FROM VERIFICATION
+                            updateSetting('stage', 'verify');
+                        }
+                        setTimeout(() => {
+                            navigation.navigate('Verification', {sign_up: true});
+                        }, 1000);
                         return;
                     }
                     }}>
                     <Text style={styles.accentText}>{Lang.start_page.sign_up_button}</Text>
                 </Pressable>
             </View>
-            <Error visible={emailError} setVisible={setEmailError} errorText={accountError} />
-            <Info visible={showStatus} setVisible={setShowStatus} statusText={statusMessage} throbber={true}/>
+            <Popup type={popupType} visible={showPopup} setVisible={setShowPopup} text={statusText} loading={true}/>
         </View>
     );
 

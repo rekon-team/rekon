@@ -7,24 +7,49 @@ import { Menu, MenuOptions, MenuOption, MenuTrigger, MenuActions, renderers } fr
 import { getStatusBarHeight } from "react-native-status-bar-height";
 import { MaterialIcons } from '@expo/vector-icons';
 import { useState } from "react";
+import { useSettings } from "../components/Settings";
+import Popup from "../components/Popup";
 
 export default function Start({route, navigation}) {
     /* Loads the language handling functions from the LanguageProvider (Lang.js)
     These support functions and variables are used for the language switcher,
     other pages simply need the Lang variable to access the current language's strings */
     const { Lang, switchLang, langList, langCodes, currentLang } = useLang();
+    const { Settings, resetSettings } = useSettings();
     /* Loads the color handling functions from the ColorProvider (Colors.js) 
     This is currently just for testing purposes, only the Colors variable is needed on this page,
     and most others.*/
     const { Colors, calcDiffFromTable, updateColorsFromCalc, resetColorsToDefault } = useColors();
     const [langOpen, setLangOpen] = useState(false);
+    const [showPopup, setShowPopup] = useState(false);
+    const [popupType, setPopupType] = useState('info');
+    const [statusText, setStatusText] = useState('');
 
     // Color switcher testing
     useEffect(() => {
-        //let newColors = calcDiffFromTable('#A9E5BB');
+        //let newColors = calcDiffFromTable('#5ae200');
         //updateColorsFromCalc(newColors);
         resetColorsToDefault();
+        //resetSettings();
     }, []);
+
+    useEffect(() => {
+        if (Settings.accountID != undefined && Settings.token == undefined) {
+            setShowPopup(true);
+            setPopupType('info');
+            setStatusText('Resuming account creation');
+            setTimeout(() => {
+                navigation.navigate('Verification', {sign_up: true});
+            }, 1500)
+        } else if (Settings.stage == 'welcome') {
+            setShowPopup(true);
+            setPopupType('info');
+            setStatusText('Resuming account creation');
+            setTimeout(() => {
+                navigation.navigate('Welcome');
+            }, 1500);
+        }
+    }, [Settings]);
 
     // Defines the more complex styles for the page.
     // MAKE SURE TO USE Colors.onAccent FOR TEXT ON AN ACCENT BUTTON
@@ -112,6 +137,17 @@ export default function Start({route, navigation}) {
         { offset: '0%', color: Colors.accent, opacity: '1' },
         { offset: '100%', color: Colors.primary, opacity: '1' }
       ];
+
+    useEffect(() => {
+        if (Settings.accountID != undefined && Settings.token == undefined) {
+            setShowPopup(true);
+            setPopupType('info');
+            setStatusText('Resuming account creation');
+            setTimeout(() => {
+                navigation.navigate('Verification', {sign_up: true});
+            }, 1500)
+        }
+    }, []);
     return (
         <View style={styles.wrapper}>
             {/*Language switcher menu.
@@ -171,6 +207,7 @@ export default function Start({route, navigation}) {
                     </Pressable>
                 </View>
             </View>
+            <Popup type={popupType} text={statusText} visible={showPopup} setVisible={setShowPopup} loading={true}/>
         </View>
     );
 }   

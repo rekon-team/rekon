@@ -13,7 +13,7 @@ export default function Info(props) {
         if (props.visible == true) {
             position.value = withTiming(0);
         } else {
-            position.value = withTiming(-Dimensions.get('window').height / 15);
+            position.value = withTiming(-Dimensions.get('window').height / 10);
         }
     }, [props.visible]);
 
@@ -22,10 +22,10 @@ export default function Info(props) {
             position: 'absolute',
             bottom: -Dimensions.get('window').height / 15,
             width: '100%',
-            height: Dimensions.get('window').height / 15,
             backgroundColor: Colors.info,
             zIndex: 100,
             justifyContent: 'center',
+            paddingVertical: Dimensions.get('window').height / 80
         }, text: {
             color: Colors.text,
             textAlign: 'center',
@@ -49,12 +49,12 @@ export default function Info(props) {
                 </View>
                 
                 <View style={{width: '15%', alignItems: 'center', justifyContent: 'center'}}>
-                    {props.throbber == undefined &&
+                    {props.loading == undefined &&
                         <Pressable onPress={() => {props.setVisible(false)}}>
                             <MaterialIcons name="close" size={Dimensions.get('window').height / 30} color={Colors.text} />
                         </Pressable>
                     }
-                    {props.throbber != undefined &&
+                    {props.loading != undefined &&
                         <ActivityIndicator size={Dimensions.get('window').height / 30} color={Colors.text}/>
                     }
                 </View>
