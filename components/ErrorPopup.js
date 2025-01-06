@@ -13,7 +13,7 @@ export default function Error(props) {
         if (props.visible == true) {
             position.value = withTiming(0);
         } else {
-            position.value = withTiming(-Dimensions.get('window').height / 10);
+            position.value = withTiming(-Dimensions.get('window').height / 5);
         }
     }, [props.visible]);
 

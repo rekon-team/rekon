@@ -10,10 +10,12 @@ import { useNavigation } from '@react-navigation/native';
 export default function Header(props) {
     const navigation = useNavigation();
     let hamburgerButton = false;
-    let fontSize = 40;
+    let fontSize = Dimensions.get('window').width / 9;
     let backgroundShown = false;
     if (props.overrideFontSize != 40 && props.overrideFontSize != undefined) {
-        fontSize = props.overrideFontSize;
+        // window scaling fix
+        // calculates the relative font size based on the window width to prevent the header from being too small or too large
+        fontSize = Dimensions.get('window').width / (Dimensions.get('window').width / props.overrideFontSize);
     }
     if (props.backgroundShown != undefined) {
         backgroundShown = props.backgroundShown;
