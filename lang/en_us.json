@@ -82,5 +82,21 @@
         "events": "Events",
         "sync_data": "Sync Data",
         "settings": "Settings"
+    },
+    "teammates": {
+        "title": "Teammates",
+        "scouts": "Scouts",
+        "admins": "Admins"
+    },
+    "assign_teammates": {
+        "title": "Assign",
+        "form_uploads": "Form Uploads",
+        "settings": "Settings",
+        "subjective_scouts": "Subjective Scouts:",
+        "manual_assign": "Manual Assign",
+        "equally_distribute": "Equally Distribute",
+        "match": "Match",
+        "pit": "Pit",
+        "subjective": "Subjective"
     }
 }

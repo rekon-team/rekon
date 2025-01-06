@@ -22,9 +22,12 @@ import QRScan from './pages/QRScan';
 import AdminHomeMatch from './pages/AdminHomeMatch';
 import AdminHomePit from './pages/AdminHomePit';
 import AllMatchAssignments from './pages/AllMatchAssignments';
+import Teammates from './pages/Teammates';
+import AssignTeammates from './pages/AssignTeammates';
 
 import StyledDrawer from './components/Drawer';
 import { MaterialIcons } from '@expo/vector-icons';
+
 
 // Prevent the splash screen from auto-hiding, so we can hide it ourselves
 // when all the fonts and assets are loaded.
@@ -40,8 +43,10 @@ function AdminDrawers() {
   //Yippee!!
   return (
     <Drawer.Navigator drawerContent={(props) => <StyledDrawer {...props} />}>
-      <Drawer.Screen name="Overview" component={AdminHomeMatch} options={{ headerShown: false, drawerIcon: () => (<MaterialIcons name="pie-chart" size={22} color={Colors.text} />) }} />
+      <Drawer.Screen name="Overview" component={AdminHomeMatch} options={{ headerShown: false }} />
       <Drawer.Screen name="AdminHomePit" component={AdminHomePit} options={{ headerShown: false, drawerItemStyle: { display: 'none' } }} />
+      <Drawer.Screen name="Teammates" component={Teammates} options={{ headerShown: false }} />
+      <Drawer.Screen name="AssignTeammates" component={AssignTeammates} options={{ headerShown: false, drawerItemStyle: { display: 'none' } }} />
     </Drawer.Navigator>
   )
 }

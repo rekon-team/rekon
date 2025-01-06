@@ -12,7 +12,7 @@ export default function BackgroundGradient(props) {
             height: '100%',
             left: 0,
             top: 0,
-            zIndex: -5,
+            zIndex: 0,
             opacity: 0.4
         },
     });   

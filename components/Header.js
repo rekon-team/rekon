@@ -25,7 +25,7 @@ export default function Header(props) {
     const styles = StyleSheet.create({
         header: {
             position: 'absolute',
-            top: getStatusBarHeight(),
+            top: getStatusBarHeight() + fontSize / 2,
             width: '100%',
             height: '15%',
             alignItems: 'center',
