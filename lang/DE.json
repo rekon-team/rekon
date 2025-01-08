@@ -1,0 +1,102 @@
+{
+    "start_page": {
+        "start_title": "Rekon",
+        "start_tagline": "Scouting \\\\\n redifend",
+        "sign_up_button": "Anmeldung",
+        "sign_in_button": "Einloggen"
+    },
+    "sign_up": {
+        "title": "Anmeldung",
+        "email": "E-Mail",
+        "password": "Passwort",
+        "confirm_password": "Bestätigen Sie Ihr Passwort",
+        "already_have_account": "Sie haben bereits ein Konto?",
+        "log_in": "Einloggen",
+        "email_taken": "E-Mail ist bereits vergeben",
+        "password_mismatch": "Passwörter stimmen nicht überein"
+    },
+    "log_in": {
+        "title": "Einloggen",
+        "email": "E-Mail",
+        "password": "Passwort",
+        "no_account": "Sie haben noch kein Konto?",
+        "sign_up": "Anmeldung",
+        "incorrect_credentials": "Falsche E-Mail oder falsches Passwort",
+        "invalid_email": "Ungültige E-Mail"
+    },
+    "verification": {
+        "title": "Überprüfung",
+        "resend": "E-Mail erneut senden",
+        "email_sent": "Email sent:",
+        "enter_code": "Geben Sie den 6-stelligen Verifizierungscode ein:"
+    },
+    "welcome": {
+        "title": "Herzlich willkommen!",
+        "subtitle": "Lassen Sie uns Ihr Profil einrichten.",
+        "profile_picture": "Profilbild",
+        "next": "Weiter",
+        "name": "Name",
+        "team": "Team #",
+        "bio": "Bio"
+    },
+    "join_team": {
+        "title": "Einem Team beitreten",
+        "scan_qr": "QR scannen",
+        "code": "Enter Code",
+        "or": "Oder",
+        "create_team": "Team erstellen"
+    },
+    "admin_home_match": {
+        "title": "Verwaltung",
+        "scouting_overview": "Scouting-Übersicht",
+        "match": "Spiel",
+        "pit": "Grube",
+        "current_match": "Aktuelles Spiel:",
+        "scout": "Pfadfinder",
+        "team": "Team",
+        "subjective": "Subjektiv",
+        "matches": "Spielt:",
+        "show_all": "Alle anzeigen"
+    },
+    "admin_home_pit": {
+        "title": "Verwaltung",
+        "scouting_overview": "Scouting-Übersicht",
+        "match": "Spiel",
+        "pit": "Grube",
+        "teams_scouted": "Ausgekundschaftete Teams",
+        "completed": "Abgeschlossen",
+        "uncompleted": "Unvollendete",
+        "teammates": "Teamkollegen",
+        "teams_left": "Mannschaften links:"
+    },
+    "match_assignments": {
+        "title": "Spiel-Zuweisungen"
+    },
+    "hamburger_menu": {
+        "scout_mode": "Scout Mode",
+        "admin_mode": "Verwaltungsmodus",
+        "overview": "Übersicht",
+        "team_profile": "Team-Profil",
+        "teammates": "Teamkollegen",
+        "forms": "Formulare",
+        "events": "Veranstaltungen",
+        "sync_data": "Sync Data",
+        "settings": "Einstellungen"
+    },
+    "teammates": {
+        "title": "Teamkollegen",
+        "scouts": "Pfadfinder",
+        "admins": "Admins"
+    },
+    "assign_teammates": {
+        "title": "zuweisen",
+        "form_uploads": "Formular-Uploads",
+        "settings": "Einstellungen",
+        "subjective_scouts": "Subjektive Scouts:",
+        "manual_assign": "Manuell zuweisen",
+        "equally_distribute": "Gleichmäßig verteilen",
+        "match": "Spiel",
+        "pit": "Grube",
+        "subjective": "Subjektiv"
+    }
+}
