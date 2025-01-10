@@ -1,0 +1,102 @@
+{
+    "start_page": {
+        "start_title": "Rekon",
+        "start_tagline": "scouting\n redifend",
+        "sign_up_button": "Aanmelden",
+        "sign_in_button": "Aanmelden"
+    },
+    "sign_up": {
+        "title": "Aanmelden",
+        "email": "Email",
+        "password": "Wachtwoord",
+        "confirm_password": "Wachtwoord bevestigen",
+        "already_have_account": "Heb je al een account?",
+        "log_in": "Aanmelden",
+        "email_taken": "E-mail is al bezet",
+        "password_mismatch": "Wachtwoorden komen niet overeen"
+    },
+    "log_in": {
+        "title": "Aanmelden",
+        "email": "Email",
+        "password": "Wachtwoord",
+        "no_account": "Heb je geen account?",
+        "sign_up": "Aanmelden",
+        "incorrect_credentials": "Onjuist e-mailadres of wachtwoord",
+        "invalid_email": "Ongeldige e-mail"
+    },
+    "verification": {
+        "title": "Verificatie",
+        "resend": "E-mail opnieuw verzenden",
+        "email_sent": "E-mail verzonden:",
+        "enter_code": "Voer een 6-cijferige verificatiecode in:"
+    },
+    "welcome": {
+        "title": "Welcome!",
+        "subtitle": "Laten we je profiel instellen.",
+        "profile_picture": "Profielfoto",
+        "next": "Volgende",
+        "name": "Naam",
+        "team": "Team #",
+        "bio": "Bio"
+    },
+    "join_team": {
+        "title": "Word lid van een team",
+        "scan_qr": "QR scannen",
+        "code": "Code invoeren",
+        "or": "Of",
+        "create_team": "Team samenstellen"
+    },
+    "admin_home_match": {
+        "title": "Admin",
+        "scouting_overview": "Scouting Overzicht",
+        "match": "Wedstrijd",
+        "pit": "Pit",
+        "current_match": "Huidige wedstrijd:",
+        "scout": "Scout",
+        "team": "Team",
+        "subjective": "Subjectief",
+        "matches": "Wedstrijden:",
+        "show_all": "Alles weergeven"
+    },
+    "admin_home_pit": {
+        "title": "Admin",
+        "scouting_overview": "Scouting Overzicht",
+        "match": "Wedstrijd",
+        "pit": "Pit",
+        "teams_scouted": "Gescoute teams",
+        "completed": "Voltooid",
+        "uncompleted": "Onvoltooid",
+        "teammates": "Teamgenoten",
+        "teams_left": "Teams Links:"
+    },
+    "match_assignments": {
+        "title": "Wedstrijdopdrachten"
+    },
+    "hamburger_menu": {
+        "scout_mode": "Scoutmodus",
+        "admin_mode": "Beheerdersmodus",
+        "overview": "Overzicht",
+        "team_profile": "Team Profiel",
+        "teammates": "Teamgenoten",
+        "forms": "Formulieren",
+        "events": "Evenementen",
+        "sync_data": "Gegevens synchroniseren",
+        "settings": "Instellingen"
+    },
+    "teammates": {
+        "title": "Teamgenoten",
+        "scouts": "Scouts",
+        "admins": "Admins"
+    },
+    "assign_teammates": {
+        "title": "toewijzen",
+        "form_uploads": "Formulieren uploaden",
+        "settings": "Instellingen",
+        "subjective_scouts": "Subjectieve scouts:",
+        "manual_assign": "Handmatig toewijzen",
+        "equally_distribute": "Gelijk verdelen",
+        "match": "Wedstrijd",
+        "pit": "Pit",
+        "subjective": "Subjectief"
+    }
+}

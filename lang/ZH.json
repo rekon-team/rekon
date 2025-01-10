@@ -1,0 +1,102 @@
+{
+    "start_page": {
+        "start_title": "Rekon",
+        "start_tagline": "scouting\\\\\n redifend",
+        "sign_up_button": "注册",
+        "sign_in_button": "登录"
+    },
+    "sign_up": {
+        "title": "注册",
+        "email": "电子邮件",
+        "password": "密码",
+        "confirm_password": "确认密码",
+        "already_have_account": "已有账户？",
+        "log_in": "登录",
+        "email_taken": "电子邮件已被占用",
+        "password_mismatch": "密码不匹配"
+    },
+    "log_in": {
+        "title": "登录",
+        "email": "电子邮件",
+        "password": "密码",
+        "no_account": "没有账户？",
+        "sign_up": "注册",
+        "incorrect_credentials": "电子邮件或密码错误",
+        "invalid_email": "无效电子邮件"
+    },
+    "verification": {
+        "title": "验证",
+        "resend": "重新发送电子邮件",
+        "email_sent": "已发送电子邮件：",
+        "enter_code": "输入 6 位验证码："
+    },
+    "welcome": {
+        "title": "欢迎光临",
+        "subtitle": "让我们来建立您的个人资料。",
+        "profile_picture": "简介图片",
+        "next": "下一页",
+        "name": "名称",
+        "team": "团队 #",
+        "bio": "生物"
+    },
+    "join_team": {
+        "title": "加入团队",
+        "scan_qr": "扫描 QR",
+        "code": "输入代码",
+        "or": "或者",
+        "create_team": "创建团队"
+    },
+    "admin_home_match": {
+        "title": "管理员",
+        "scouting_overview": "球探概述",
+        "match": "比赛",
+        "pit": "坑道",
+        "current_match": "当前比赛：",
+        "scout": "童子军",
+        "team": "团队",
+        "subjective": "主观",
+        "matches": "比赛：",
+        "show_all": "显示全部"
+    },
+    "admin_home_pit": {
+        "title": "管理员",
+        "scouting_overview": "球探概述",
+        "match": "比赛",
+        "pit": "坑道",
+        "teams_scouted": "考察的球队",
+        "completed": "已完成",
+        "uncompleted": "未完成",
+        "teammates": "队友",
+        "teams_left": "左边的队伍"
+    },
+    "match_assignments": {
+        "title": "比赛分配"
+    },
+    "hamburger_menu": {
+        "scout_mode": "侦察模式",
+        "admin_mode": "管理模式",
+        "overview": "概述",
+        "team_profile": "团队简介",
+        "teammates": "队友",
+        "forms": "表格",
+        "events": "活动",
+        "sync_data": "同步数据",
+        "settings": "设置"
+    },
+    "teammates": {
+        "title": "队友",
+        "scouts": "童子军",
+        "admins": "管理员"
+    },
+    "assign_teammates": {
+        "title": "分配",
+        "form_uploads": "表格上传",
+        "settings": "设置",
+        "subjective_scouts": "主观童子军：",
+        "manual_assign": "手动分配",
+        "equally_distribute": "平均分配",
+        "match": "比赛",
+        "pit": "坑道",
+        "subjective": "主观"
+    }
+}
