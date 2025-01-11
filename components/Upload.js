@@ -1,10 +1,11 @@
 import React, { createContext, useContext, useEffect, useState, useRef } from 'react';
-import { View, Text, Modal, Dimensions, ActivityIndicator, Pressable } from 'react-native';
+import { View, Text, Modal, Dimensions, ActivityIndicator, Pressable, ScrollView } from 'react-native';
 import ky from 'ky';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useColors } from './Colors';
 import { useLang } from './Lang';
-import Animated, { useSharedValue, withSpring, withTiming, useAnimatedStyle } from 'react-native-reanimated';
+import * as Progress from 'react-native-progress';
+import Animated, { useSharedValue, withSpring, withTiming, useAnimatedStyle, withDelay } from 'react-native-reanimated';
 import Constants from '../components/Constants';
 
 const UploadContext = createContext();
@@ -19,30 +20,60 @@ export const UploadProvider = ({ children }) => {
   const [isUploading, setIsUploading] = useState(false);
   const [currentTasks, setCurrentTasks] = useState([]);
   const statusPosition = useSharedValue(-100);
+  const dialogWidth = useSharedValue((Dimensions.get('window').width / 6) / Dimensions.get('window').fontScale);
+  const dialogHeight = useSharedValue((Dimensions.get('window').width / 6) / Dimensions.get('window').fontScale);
+  const dialogRadius = useSharedValue(100);
+  const [isExtended, setIsExtended] = useState(false);
 
   const statusStyle = useAnimatedStyle(() => ({
     bottom: statusPosition.value,
   }));
 
+  const dialogStyle = useAnimatedStyle(() => ({
+    width: dialogWidth.value,
+    height: dialogHeight.value,
+    borderRadius: dialogRadius.value,
+  }));
+
   useEffect(() => {
-    console.log(Object.keys(data));
+    console.log(Object.keys(data).length);
     if (Object.keys(data).length > 0) {
       setIsUploading(true);
+    } else {
+      setIsUploading(false);
     }
   }, [data]);
 
   useEffect(() => {
-    if (currentTasks.length > 0) {
-      statusPosition.value = withSpring(10 / Dimensions.get('window').fontScale);
+    if (isExtended) {
+      dialogWidth.value = withTiming((Dimensions.get('window').width - (Dimensions.get('window').width / 7)));
+      dialogHeight.value = withTiming((Dimensions.get('window').width / 2) / Dimensions.get('window').fontScale);
+      dialogRadius.value = withTiming(15);
     } else {
-      statusPosition.value = withTiming(-100);
+      dialogWidth.value = withTiming((Dimensions.get('window').width / 6) / Dimensions.get('window').fontScale);
+      dialogHeight.value = withTiming((Dimensions.get('window').width / 6) / Dimensions.get('window').fontScale);
+      dialogRadius.value = withTiming(100);
+    }
+  }, [isExtended]);
+
+  useEffect(() => {
+    if (currentTasks.length > 0) {
+      statusPosition.value = withTiming(10);
+    } else {
+      setIsExtended(false);
+      console.log('closing dialog');
+      statusPosition.value = withDelay(
+        500,
+        withTiming(-100, {
+          duration: 300
+        })
+      );
     }
   }, [currentTasks]);
   
   async function fetchUploadToken(type, token, fileName, fileType) {
     try {
       console.log('fetching upload token');
-      console.log('Current dataRef:', dataRef.current);
       console.log('fileName:', fileName);
       
       if (!dataRef.current) {
@@ -80,7 +111,6 @@ export const UploadProvider = ({ children }) => {
   async function prepFileForUpload(file, fileName) {
     console.log('prepping file for upload');
     try {
-      console.log('Input file:', file);
       
       const fileBase64 = await fetch(file).then(r => r.arrayBuffer());
       
@@ -110,13 +140,11 @@ export const UploadProvider = ({ children }) => {
       
       // Update ref first
       dataRef.current[fileName] = fileChunks;
-      console.log('dataRef updated:', dataRef.current);
 
       // Then update state
       return new Promise((resolve) => {
         setData(prevData => {
           const newData = {...prevData, [fileName]: fileChunks};
-          console.log('Setting new data state:', newData);
           resolve(fileName);
           return newData;
         });
@@ -178,31 +206,71 @@ export const UploadProvider = ({ children }) => {
   return (
       <UploadContext.Provider value={{prepFileForUpload, fetchUploadToken, uploadFile}}>
         {children}
-        <Animated.View style={statusStyle}>
+        {/* Everything below this point is for the task list dialog
+        This dialog is designed to be a simple way to view the progress of the uploads.
+        For now, tasks must be manually dismissed for the popup to close, though auto-dismissal is planned.*/}
+        <Animated.View style={[
+          {
+            position: 'absolute',
+            right: 0,
+            zIndex: 1000
+          },
+          statusStyle
+        ]}>
           <Pressable 
           style={{
-            position: 'absolute',
-            bottom: 0,
             right: (Dimensions.get('window').width / 14) / Dimensions.get('window').fontScale,
-            zIndex: 1000,
           }}
+          hitSlop={20}
           onPress={() => {
-            setIsVisible(true);
+            setIsExtended(!isExtended);
           }}>
-          <Animated.View 
-          style={{
-            justifyContent: 'center', 
-            alignItems: 'center', 
-            backgroundColor: isUploading ? Colors.info : Colors.completedGreen,
-            width: (Dimensions.get('window').width / 6) / Dimensions.get('window').fontScale,
-            height: (Dimensions.get('window').width / 6) / Dimensions.get('window').fontScale,
-            borderRadius: 100,
-            elevation: 5,
-          }}>
-            {isUploading ? <ActivityIndicator size="large" color="white" /> : <MaterialIcons name="check" size={40} color="white" />}
+            <Animated.View 
+            style={[{
+              justifyContent: 'center', 
+              alignItems: 'center', 
+              backgroundColor: isUploading ? Colors.info : Colors.completedGreen,
+              width: (Dimensions.get('window').width / 6) / Dimensions.get('window').fontScale,
+              height: (Dimensions.get('window').width / 6) / Dimensions.get('window').fontScale,
+              borderRadius: 100,
+              elevation: 5,
+              flex: 1,
+            }, dialogStyle]}>
+              {!isExtended && (
+                isUploading ? <ActivityIndicator size="large" color="white" /> : <MaterialIcons name="check" size={40} color="white" />
+              )}
             </Animated.View>
           </Pressable>
+          {isExtended && (
+            // This one needs explaining:
+            // The scrollview didn't work when it was inside the pressable, as the pressable would override the touch events.
+            // Instead, the scrollview is alongside the pressable, and is positioned absolutely and scaled to perfectly match the animated view.
+            // This needs testing on other device sizes to make sure the scaling works properly (it should, it's all based on window dimensions).
+              <View style={{position: 'absolute', top: 0, left: -Dimensions.get('window').width / 14, right: Dimensions.get('window').width / 14, bottom: 0, zIndex: 1000}}>
+                <ScrollView vertical={true}>
+                  {
+                    currentTasks.map((task, index) => (
+                    <View key={index} style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', width: '100%', padding: 10, gap: 10}}>
+                      <Text style={{color: 'white', fontSize: 20, fontWeight: 'bold'}}>{task.fileName}</Text>
+                      <Pressable hitSlop={20} onPress={() => {
+                        setCurrentTasks(prevTasks => prevTasks.filter(t => t.fileName !== task.fileName));
+                      }}>
+                        {task.progress === 1 ? <MaterialIcons name="close" size={24} color="white" /> : <Progress.Pie progress={task.progress} size={24} color="white" />}
+                      </Pressable>
+                    </View>
+                  ))
+                  }
+                </ScrollView>
+              </View>
+            )}
         </Animated.View>
+        {isExtended && (
+          // This is positioned in-between the other pressable and the scrollview, and is used to close the dialog when the user presses outside of the task list window.
+          <Pressable style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, zIndex: 10, backgroundColor: 'rgba(0, 0, 0, 0.5)'}} onPress={() => {
+            setIsExtended(false);
+          }}>
+          </Pressable>
+        )}
       </UploadContext.Provider>
   );
 };
