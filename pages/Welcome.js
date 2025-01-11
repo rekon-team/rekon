@@ -9,11 +9,15 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { TextInput } from "react-native-paper";
 import * as ImagePicker from 'expo-image-picker';
 import { useIsFocused } from "@react-navigation/native";
+import { useUpload } from "../components/Upload";
+import { useSettings } from "../components/Settings";
 
 export default function Welcome({route, navigation}) {
     const [image, setImage] = useState(null);
     const { Lang } = useLang();
     const { Colors } = useColors();
+    const Upload = useUpload();
+    const { Settings } = useSettings();
 
     const isFocused = useIsFocused();
 
@@ -107,16 +111,36 @@ export default function Welcome({route, navigation}) {
     });
 
     const pickImage = async () => {
-        // No permissions request is necessary for launching the image library
-        let result = await ImagePicker.launchImageLibraryAsync({
-          mediaTypes: ImagePicker.MediaTypeOptions.All,
-          allowsEditing: true,
-          aspect: [1, 1],
-          quality: 1,
-        });
-    
-        if (!result.canceled) {
-          setImage(result.assets[0].uri);
+        try {
+            let result = await ImagePicker.launchImageLibraryAsync({
+                mediaTypes: ImagePicker.MediaTypeOptions.Images,
+                allowsEditing: true,
+                aspect: [1, 1],
+                quality: 1,
+            });
+
+            if (!result.canceled) {
+                setImage(result.assets[0].uri);
+                const fileExtension = result.assets[0].uri.split('.').pop();
+                
+                console.log('prepping file for upload');
+                const fileName = await Upload.prepFileForUpload(result.assets[0].uri, 'profile_picture');
+                if (!fileName) {
+                    throw new Error('Failed to prepare file');
+                }
+
+                console.log('fetching upload token');
+                const token = await Upload.fetchUploadToken('profile', Settings.token, 'profile_picture', '.' + fileExtension);
+                if (!token) {
+                    throw new Error('Failed to get upload token');
+                }
+
+                console.log('uploading file');
+                await Upload.uploadFile('profile_picture', Settings.token, token);
+            }
+        } catch (error) {
+            console.error('Error in pickImage:', error);
+            // Handle error appropriately (maybe show it in the UI)
         }
     };
 

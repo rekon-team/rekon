@@ -11,6 +11,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import React, { useCallback, useEffect } from 'react';
 import { Menu, MenuProvider } from 'react-native-popup-menu';
 import { SettingsProvider } from './components/Settings';
+import { UploadProvider } from './components/Upload';
 
 // Onboarding pages
 import Start from './pages/Start';
@@ -91,8 +92,10 @@ export default function App() {
         <LangProvider>
           <ColorProvider>
             <SettingsProvider>
-              <PageStack />
-              <StatusBar style="light" translucent={true}/>
+              <UploadProvider>
+                <PageStack />
+                <StatusBar style="light" translucent={true}/>
+              </UploadProvider>
             </SettingsProvider>
           </ColorProvider>
         </LangProvider>
