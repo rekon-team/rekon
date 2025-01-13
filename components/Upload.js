@@ -36,7 +36,7 @@ export const UploadProvider = ({ children }) => {
   }));
 
   useEffect(() => {
-    console.log(Object.keys(data).length);
+    console.log(Object.keys(data));
     if (Object.keys(data).length > 0) {
       setIsUploading(true);
     } else {
@@ -75,6 +75,8 @@ export const UploadProvider = ({ children }) => {
     try {
       console.log('fetching upload token');
       console.log('fileName:', fileName);
+      console.log('token:', token);
+
       
       if (!dataRef.current) {
         throw new Error('dataRef.current is undefined');
@@ -99,12 +101,10 @@ export const UploadProvider = ({ children }) => {
           fileType: fileType
         }
       }).json();
+
       return json.token;
     } catch (error) {
-      console.error('Error in fetchUploadToken:', error);
-      // Log the full state of dataRef
-      console.error('Full dataRef state:', JSON.stringify(dataRef.current, null, 2));
-      throw error;
+      throw new Error(`Error in fetchUploadToken: ${error.message}`);
     }
   }
 
@@ -151,6 +151,36 @@ export const UploadProvider = ({ children }) => {
       });
     } catch (error) {
       console.error('Error in prepFileForUpload:', error);
+      console.error('Full error:', error);
+      return null;
+    }
+  }
+
+  async function getUploadedFiles(token) {
+    console.log('getting uploaded files');
+    try {
+      const json = await ky.get(Constants.serverUrl + `/uploads/getUserFiles?userToken=${token}`).json();
+      return json;
+    } catch (error) {
+      console.error('Error in getUploadedFiles:', error);
+      console.error('Full error:', error);
+      return null;
+    }
+  }
+
+  async function deleteFile(token, uploadToken) {
+    console.log('deleting file', uploadToken);
+    try {
+      const json = await ky.post(Constants.serverUrl + '/uploads/deleteFile', {
+        json: {
+          userToken: token,
+          uploadToken: uploadToken
+        }
+      }).json();
+      console.log(json);
+      return json;
+    } catch (error) {
+      console.error('Error in deleteFile:', error);
       console.error('Full error:', error);
       return null;
     }
@@ -204,7 +234,7 @@ export const UploadProvider = ({ children }) => {
     });
 }
   return (
-      <UploadContext.Provider value={{prepFileForUpload, fetchUploadToken, uploadFile}}>
+      <UploadContext.Provider value={{prepFileForUpload, fetchUploadToken, uploadFile, getUploadedFiles, deleteFile}}>
         {children}
         {/* Everything below this point is for the task list dialog
         This dialog is designed to be a simple way to view the progress of the uploads.
@@ -251,9 +281,11 @@ export const UploadProvider = ({ children }) => {
                   {
                     currentTasks.map((task, index) => (
                     <View key={index} style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', width: '100%', padding: 10, gap: 10}}>
-                      <Text style={{color: 'white', fontSize: 20, fontWeight: 'bold'}}>{task.fileName}</Text>
+                      <Text numberOfLines={1} ellipsizeMode="tail" style={{color: 'white', fontSize: 20, fontWeight: 'bold'}}>{task.fileName}</Text>
                       <Pressable hitSlop={20} onPress={() => {
-                        setCurrentTasks(prevTasks => prevTasks.filter(t => t.fileName !== task.fileName));
+                        if (task.progress === 1) {
+                          setCurrentTasks(prevTasks => prevTasks.filter(t => t.fileName !== task.fileName));
+                        }
                       }}>
                         {task.progress === 1 ? <MaterialIcons name="close" size={24} color="white" /> : <Progress.Pie progress={task.progress} size={24} color="white" />}
                       </Pressable>

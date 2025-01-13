@@ -15,7 +15,7 @@ export default function Start({route, navigation}) {
     These support functions and variables are used for the language switcher,
     other pages simply need the Lang variable to access the current language's strings */
     const { Lang, switchLang, langList, langCodes, currentLang } = useLang();
-    const { Settings, resetSettings } = useSettings();
+    const { Settings, updateSetting, resetSettings } = useSettings();
     /* Loads the color handling functions from the ColorProvider (Colors.js) 
     This is currently just for testing purposes, only the Colors variable is needed on this page,
     and most others.*/
@@ -24,6 +24,14 @@ export default function Start({route, navigation}) {
     const [showPopup, setShowPopup] = useState(false);
     const [popupType, setPopupType] = useState('info');
     const [statusText, setStatusText] = useState('');
+    const [debugCounter, setDebugCounter] = useState(0);
+
+    useEffect(() => {
+        if (debugCounter > 10) {
+            updateSetting('stage', 'debug');
+            navigation.navigate('DebugTools');
+        }
+    }, [debugCounter]);
 
     // Color switcher testing
     useEffect(() => {
@@ -48,6 +56,13 @@ export default function Start({route, navigation}) {
             setTimeout(() => {
                 navigation.navigate('Welcome');
             }, 1500);
+        } else if (Settings.stage == 'debug') {
+            setShowPopup(true);
+            setPopupType('info');
+            setStatusText('Entering debug mode');
+            setTimeout(() => {
+                navigation.navigate('DebugTools');
+            }, 1000);
         }
     }, [Settings]);
 
@@ -194,7 +209,9 @@ export default function Start({route, navigation}) {
             <View style={styles.container}>
                 {/*The textContainer is a simple container that holds the title and tagline text.*/}
                 <View style={styles.textContainer}>
-                    <Text style={styles.titleText}>{Lang.start_page.start_title}</Text>
+                    <Pressable onPress={() => {setDebugCounter(debugCounter + 1)}}>
+                        <Text style={styles.titleText}>{Lang.start_page.start_title}</Text>
+                    </Pressable>    
                     <Text style={styles.taglineText}>{Lang.start_page.start_tagline}</Text>
                 </View>
                 {/*The buttonContainer is a simple container that holds the sign up and log in buttons.*/}

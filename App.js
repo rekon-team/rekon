@@ -21,9 +21,18 @@ import Verification from './pages/VerificationCode';
 import Welcome from './pages/Welcome';
 import JoinTeam from './pages/JoinTeam';
 import QRScan from './pages/QRScan';
+
+// Admin pages
 import AdminHomeMatch from './pages/AdminHomeMatch';
 import AdminHomePit from './pages/AdminHomePit';
 import AllMatchAssignments from './pages/AllMatchAssignments';
+
+// Debug pages
+import DebugTools from './pages/DebugTools';
+import ColorTools from './pages/debug_pages/ColorTools';
+import FileTools from './pages/debug_pages/FileTools';
+import FileViewer from './pages/debug_pages/FileViewer';
+
 
 import StyledDrawer from './components/Drawer';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -61,6 +70,10 @@ function PageStack() {
       <Stack.Screen name="QRScan" component={QRScan} options={{ headerShown: false }} />
       <Stack.Screen name="AllMatches" component={AllMatchAssignments} options={{ headerShown: false }} />
       <Stack.Screen name="AdminDrawers" component={AdminDrawers} options={{ headerShown: false }} />
+      <Stack.Screen name="DebugTools" component={DebugTools} options={{ headerShown: false }} />
+      <Stack.Screen name="ColorTools" component={ColorTools} options={{ headerShown: true }} />
+      <Stack.Screen name="FileTools" component={FileTools} options={{ headerShown: true }} />
+      <Stack.Screen name="FileViewer" component={FileViewer} options={{ headerShown: true }} />
     </Stack.Navigator>
   );
 }
