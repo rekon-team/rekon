@@ -47,6 +47,7 @@ export default function AdminHomeMatch({ navigation }) {
             backgroundColor: Colors.primary,
             width: "100%",
             height: "100%",
+            paddingTop: 40/Dimensions.get("window").fontScale,
         },
         text: {
             fontFamily: 'Inter',

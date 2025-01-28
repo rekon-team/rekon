@@ -22,7 +22,8 @@ export default function Teammates({ navigation }) {
             flex: 1,
             backgroundColor: Colors.primary,
             width: '100%',
-            height: '100%'
+            height: '100%',
+            paddingTop: 50/Dimensions.get("window").fontScale,
         },
         text: {
             color: Colors.text,
@@ -74,9 +75,9 @@ export default function Teammates({ navigation }) {
                             </ScrollView>
                         </View>
 
-                        <Text style={[styles.text, {fontSize: indent / 2, top: indent * .75, left: indent}]}>{Lang.teammates.admins}</Text>
+                        <Text style={[styles.text, {fontSize: indent / 2, top: Dimensions.get('window').height * .1, left: indent}]}>{Lang.teammates.admins}</Text>
 
-                        <View style={{height: indent * 5, top: indent * .75}}>
+                        <View style={{height: indent * 5, top: Dimensions.get('window').height * .1}}>
                             <ScrollView>
                                 {admins.map((admin, index) => (
                                     <Pressable style={styles.scoutContainer} key={index} onPress={() => navigation.navigate('AssignTeammates')}>

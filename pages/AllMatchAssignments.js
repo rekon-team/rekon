@@ -87,7 +87,7 @@ export default function AllMatchAssignments({ navigation }) {
                                         <Text style={[styles.text, {fontSize: 20}]}>{match}</Text>
                                     </View>
 
-                                    <View style={{width: '15'}}>
+                                    <View style={{width: '15%'}}>
                                         <MaterialIcons name={openedMatches.indexOf(match) >= 0 ? 'keyboard-arrow-up' : 'keyboard-arrow-down'} size={34} style={{color: Colors.text, }} />
                                     </View>
                                 </Pressable>

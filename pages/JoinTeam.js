@@ -37,7 +37,7 @@ export default function JoinTeam({route, navigation}) {
             height: Dimensions.get('screen').height * 0.8 * 0.1,
             borderRadius: 10,
             padding: 10,
-            margin: 10,
+            margin: 25,
             alignItems: 'center',
             justifyContent: 'center',
         },
@@ -67,6 +67,7 @@ export default function JoinTeam({route, navigation}) {
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
+            paddingTop: 30/Dimensions.get("window").fontScale,
         }
     });
     
@@ -92,7 +93,6 @@ export default function JoinTeam({route, navigation}) {
             <Pressable style={styles.accentButton} onPress={() => navigation.navigate('CreateTeam')}>
                 <Text style={styles.accentText}>{Lang.join_team.create_team}</Text>
             </Pressable>
-            <Text style={styles.errorText}>Error</Text>
         </View>
     )
 }

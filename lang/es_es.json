@@ -3,20 +3,20 @@
         "start_title": "Rēkon",
         "start_tagline": "escultismo \\\\\n redefinido",
         "sign_up_button": "Inscribirse",
-        "sign_in_button": "Iniciar sesión"
+        "sign_in_button": "Iniciar Sesión"
     },
     "sign_up": {
         "title": "Inscribirse",
-        "email": "Correo electrónico",
+        "email": "Correo Electrónico",
         "password": "Contraseña",
-        "confirm_password": "Confirmar contraseña",
+        "confirm_password": "Confirmar Contraseña",
         "already_have_account": "¿Ya tiene una cuenta? ",
         "log_in": "Conectarse",
         "email_taken": "El correo electrónico ya está ocupado"
     },
     "log_in": {
-        "title": "Iniciar sesión",
-        "email": "Correo electrónico",
+        "title": "Iniciar Sesión",
+        "email": "Correo Electrónico",
         "password": "Contraseña",
         "forgot_password": "¿Olvidó su contraseña?",
         "no_account": "¿No tienes una cuenta? ",

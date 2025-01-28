@@ -95,6 +95,7 @@ export default function SignUp({route, navigation}) {
                     <Text style={styles.underlineText}>{Lang.sign_up.log_in}</Text>
                 </Pressable>
                 <Pressable style={styles.accentButton} onPress={async () => {
+                    
                     if (email.includes('@') && email.includes('.')) {
                         setEmailError(false);
                     } else {
@@ -111,8 +112,9 @@ export default function SignUp({route, navigation}) {
                         setPasswordError(true);
                         return;
                     }
-                  
+                    navigation.navigate("Welcome");
                     const json = await ky.post(Constants.serverUrl + '/accounts/registerUserAccount', {json: {email: email, password: password}}).json();
+                    
                     if (json.message.detail != undefined) {
                         setAccountError(json.message.detail);
                         return;
@@ -121,7 +123,7 @@ export default function SignUp({route, navigation}) {
                         setAccountError(json.message);
                         return;
                     }
-                    navigation.navigate("Welcome")
+                    
                     }}>
                     <Text style={styles.accentText}>{Lang.start_page.sign_up_button}</Text>
                 </Pressable>
