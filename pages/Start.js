@@ -130,7 +130,7 @@ export default function Start({route, navigation}) {
                     </MenuTrigger>
                     {/*This dynamically loads the languages in the list based on the unselected languages returned by the LanguageProvider (Lang.js).
                     The Lang.js file handles A LOT of the logic here, all this does is load what it provides.*/}
-                    <MenuOptions customStyles={{optionsContainer: {width: 140, backgroundColor: 'transparent'}}} style={{position: 'absolute', top: 40, left: 20, width: 120}}>
+                    <MenuOptions customStyles={{optionsContainer: {width: 120, backgroundColor: 'transparent'}}} optionsContainerStyle={{marginTop: 40, width: 120}}>
                         {langList.map((lang, index) => {
                             return (
                                 <MenuOption key={index} style={[{backgroundColor: Colors.secondaryBright, flexDirection: 'row', alignItems: 'center', gap: 5, borderWidth: 1, borderColor: Colors.secondaryContainer}, index == langList.length - 1 && {borderBottomLeftRadius: 10, borderBottomRightRadius: 10}]} onSelect={() => {switchLang(langCodes[index])}}>

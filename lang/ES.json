@@ -1,0 +1,102 @@
+{
+    "start_page": {
+        "start_title": "Rekon",
+        "start_tagline": "exploración\n redifender",
+        "sign_up_button": "Inscribirse",
+        "sign_in_button": "Iniciar sesión"
+    },
+    "sign_up": {
+        "title": "Inscribirse",
+        "email": "Correo electrónico",
+        "password": "Contraseña",
+        "confirm_password": "Confirmar contraseña",
+        "already_have_account": "¿Ya tiene una cuenta?",
+        "log_in": "Iniciar sesión",
+        "email_taken": "El correo electrónico ya está ocupado",
+        "password_mismatch": "Las contraseñas no coinciden"
+    },
+    "log_in": {
+        "title": "Iniciar sesión",
+        "email": "Correo electrónico",
+        "password": "Contraseña",
+        "no_account": "¿No tiene cuenta?",
+        "sign_up": "Inscribirse",
+        "incorrect_credentials": "Correo electrónico o contraseña incorrectos",
+        "invalid_email": "Correo electrónico no válido"
+    },
+    "verification": {
+        "title": "Verificación",
+        "resend": "Reenviar correo electrónico",
+        "email_sent": "Correo electrónico enviado:",
+        "enter_code": "Introduzca el código de verificación de 6 dígitos:"
+    },
+    "welcome": {
+        "title": "Bienvenido.",
+        "subtitle": "Vamos a configurar tu perfil.",
+        "profile_picture": "Foto de perfil",
+        "next": "Siguiente",
+        "name": "Nombre",
+        "team": "Equipo",
+        "bio": "Bio"
+    },
+    "join_team": {
+        "title": "Únete a un equipo",
+        "scan_qr": "Escanear QR",
+        "code": "Introduzca el código",
+        "or": "O",
+        "create_team": "Crear equipo"
+    },
+    "admin_home_match": {
+        "title": "Admin",
+        "scouting_overview": "Visión general de la exploración",
+        "match": "Partido",
+        "pit": "Foso",
+        "current_match": "Partido actual:",
+        "scout": "Scout",
+        "team": "Equipo",
+        "subjective": "Subjetivo",
+        "matches": "Partidos:",
+        "show_all": "Mostrar todo"
+    },
+    "admin_home_pit": {
+        "title": "Admin",
+        "scouting_overview": "Visión general de la exploración",
+        "match": "Partido",
+        "pit": "Foso",
+        "teams_scouted": "Equipos explorados",
+        "completed": "Completado",
+        "uncompleted": "Sin terminar",
+        "teammates": "Compañeros de equipo",
+        "teams_left": "Equipos a la izquierda:"
+    },
+    "match_assignments": {
+        "title": "Asignación de partidos"
+    },
+    "hamburger_menu": {
+        "scout_mode": "Modo Explorador",
+        "admin_mode": "Modo Admin",
+        "overview": "Visión general",
+        "team_profile": "Perfil del equipo",
+        "teammates": "Compañeros de equipo",
+        "forms": "Formularios",
+        "events": "Eventos",
+        "sync_data": "Sincronizar datos",
+        "settings": "Ajustes"
+    },
+    "teammates": {
+        "title": "Compañeros de equipo",
+        "scouts": "Scouts",
+        "admins": "Admins"
+    },
+    "assign_teammates": {
+        "title": "Asignar",
+        "form_uploads": "Carga de formularios",
+        "settings": "Ajustes",
+        "subjective_scouts": "Exploradores subjetivos:",
+        "manual_assign": "Asignación manual",
+        "equally_distribute": "Distribuir equitativamente",
+        "match": "Partido",
+        "pit": "Foso",
+        "subjective": "Subjetivo"
+    }
+}
