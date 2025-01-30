@@ -98,11 +98,6 @@ export default function Welcome({route, navigation}) {
             alignItems: 'center',
             justifyContent: 'center',
             flexDirection: 'column'
-        },
-        errorText: {
-            fontFamily: 'Inter',
-            color: Colors.error,
-            fontSize: 20,
         }
     });
 
@@ -133,13 +128,12 @@ export default function Welcome({route, navigation}) {
                     }
                     <Text style={styles.text}>{Lang.welcome.profile_picture}</Text>
                 </Pressable>
-                <TextInput outlineColor={Colors.text} activeOutlineColor={Colors.text} mode="outlined" style={styles.input} outlineStyle={{borderRadius: 10}} theme={{ colors: { onSurfaceVariant: 'white'} }} label={Lang.welcome.name} />
-                <TextInput outlineColor={Colors.text} activeOutlineColor={Colors.text} mode="outlined" style={styles.input} outlineStyle={{borderRadius: 10}} theme={{ colors: { onSurfaceVariant: 'white'} }} label={Lang.welcome.team} />
-                <TextInput multiline={true} outlineColor={Colors.text} activeOutlineColor={Colors.text} mode="outlined" style={styles.inputBio} outlineStyle={{borderRadius: 10}} theme={{ colors: { onSurfaceVariant: 'white'} }} label={Lang.welcome.bio} />
+                <TextInput textColor={Colors.text} outlineColor={Colors.text} activeOutlineColor={Colors.text} mode="outlined" style={styles.input} outlineStyle={{borderRadius: 10}} theme={{ colors: { onSurfaceVariant: 'white'} }} label={Lang.welcome.name} />
+                <TextInput textColor={Colors.text} outlineColor={Colors.text} activeOutlineColor={Colors.text} mode="outlined" style={styles.input} outlineStyle={{borderRadius: 10}} theme={{ colors: { onSurfaceVariant: 'white'} }} label={Lang.welcome.team} />
+                <TextInput textColor={Colors.text} multiline={true} outlineColor={Colors.text} activeOutlineColor={Colors.text} mode="outlined" style={styles.inputBio} outlineStyle={{borderRadius: 10}} theme={{ colors: { onSurfaceVariant: 'white'} }} label={Lang.welcome.bio} />
                 <Pressable style={styles.accentButton} onPress={() => {navigation.navigate('JoinTeam')}}>
                     <Text style={styles.accentText}>{Lang.welcome.next}</Text>
                 </Pressable>
-                <Text style={styles.errorText}>Error</Text>
             </View>
         </View>
     );

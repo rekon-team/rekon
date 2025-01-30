@@ -19,7 +19,7 @@ export default function AssignTeammates() {
     const [forms, setForms] = useState([]);
     const [subjectiveScouts, setSubjectiveScouts] = useState(false);
 
-    let indent = Dimensions.get('window').width * .1;
+    let indent = Dimensions.get('window').width * .1/Dimensions.get("window").fontScale;
 
     const equallyDistribute = () => {
         console.log('Placeholder, please somebody finish later');
@@ -30,7 +30,7 @@ export default function AssignTeammates() {
             flex: 1,
             backgroundColor: Colors.primary,
             width: '100%',
-            height: '100%'
+            height: '100%',
         },
         text: {
             color: Colors.text,
