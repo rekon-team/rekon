@@ -70,6 +70,14 @@ export default function AssignTeammates() {
             backgroundColor: Colors.accent,
             justifyContent: 'center',
             alignItems: 'center'
+        },
+        pitOrMatchContainer: {
+            width: '45%',
+            height: indent * 1.5,
+            borderRadius: 10,
+            backgroundColor: Colors.secondary,
+            alignItems: 'center',
+            justifyContent: 'center'
         }
     }
 
@@ -119,8 +127,16 @@ export default function AssignTeammates() {
 
                         <Text style={[styles.text, {fontSize: indent / 2, top: indent * 2, left: indent}]}>{Lang.assign_teammates.manual_assign}</Text>
 
-                        <View style={{width: '80%', left: indent, flexDirection: 'row'}}>
-                            
+                        <View style={{width: '80%', left: indent, flexDirection: 'row', top: indent * 2, justifyContent: 'space-between'}}>
+                            <Pressable style={styles.pitOrMatchContainer}>
+                                <Text style={[styles.text, {fontSize: indent / 2}]}>{Lang.assign_teammates.pit}</Text>
+                                <MaterialIcons name='open-in-new' style={{position: 'absolute', left: indent * 2.85, bottom: indent * .85}} size={indent / 2} color={Colors.text} />
+                            </Pressable>
+
+                            <Pressable style={styles.pitOrMatchContainer}>
+                                <Text style={[styles.text, {fontSize: indent / 2}]}>{Lang.assign_teammates.match}</Text>
+                                <MaterialIcons name='open-in-new' style={{position: 'absolute', left: indent * 2.85, bottom: indent * .85}} size={indent / 2} color={Colors.text} />
+                            </Pressable>
                         </View>
                     </View>
                 </ScrollView>
