@@ -43,7 +43,8 @@ export default function AssignTeammates() {
             backgroundColor: Colors.accent,
             position: 'absolute',
             left: indent,
-            bottom: indent / 2,
+            bottom: indent,
+            // yet again, check in with actual device to see if this is correct
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'center'
