@@ -45,11 +45,12 @@ export default function Teammates({ navigation }) {
             height: indent * 1.5,
             borderRadius: indent * .75,
             position: 'absolute',
-            bottom: indent,
+            bottom: indent * 3,
+            //changed to indent * 3 from indent bc for some reason it was broken. check in with actual phone, not emulator
             right: indent,
             backgroundColor: Colors.accent,
             justifyContent: 'center',
-            alignItems: 'center'
+            alignItems: 'center',
         }
     }
 
@@ -88,12 +89,12 @@ export default function Teammates({ navigation }) {
                                 ))}
                             </ScrollView>
                         </View>
-
-                        <Pressable style={styles.addButton}>
-                            <MaterialIcons name="add" size={indent * 1.5} color={Colors.text} />
-                        </Pressable>
                     </View>
                 </ScrollView>
+
+                <Pressable style={styles.addButton}>
+                    <MaterialIcons name="add" size={indent * 1.5} color={Colors.text} />
+                </Pressable>
             </View>
         </View>
     );

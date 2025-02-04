@@ -24,6 +24,7 @@ import AdminHomePit from './pages/AdminHomePit';
 import AllMatchAssignments from './pages/AllMatchAssignments';
 import Teammates from './pages/Teammates';
 import AssignTeammates from './pages/AssignTeammates';
+import Events from './pages/Events';
 
 import StyledDrawer from './components/Drawer';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -47,6 +48,7 @@ function AdminDrawers() {
       <Drawer.Screen name="AdminHomePit" component={AdminHomePit} options={{ headerShown: false, drawerItemStyle: { display: 'none' } }} />
       <Drawer.Screen name="Teammates" component={Teammates} options={{ headerShown: false }} />
       <Drawer.Screen name="AssignTeammates" component={AssignTeammates} options={{ headerShown: false, drawerItemStyle: { display: 'none' } }} />
+      <Drawer.Screen name="Events" component={Events} options={{ headerShown: false }} />
     </Drawer.Navigator>
   )
 }

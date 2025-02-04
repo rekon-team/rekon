@@ -98,5 +98,11 @@
         "match": "Match",
         "pit": "Pit",
         "subjective": "Subjective"
+    },
+    "events": {
+        "title": "Events",
+        "current_events": "Current Events: ",
+        "past_events": "Past Events: ",
+        "search_for_events": "Search for Events..."
     }
 }
