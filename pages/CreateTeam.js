@@ -38,55 +38,26 @@ export default function Welcome({route, navigation}) {
         return true;
     }
 
-    async function updateAccount() {
-        console.log('updating account');
+    async function createGroup() {
         try {
-            console.log('username:', name);
-            const username = await ky.post(`${Constants.serverUrl}/accounts/updateUsername`, {
+            const createTeam = await ky.post(`${Constants.serverUrl}/groups/createGroup`, {
                 json: {
-                    userToken: Settings.token,
-                    newUsername: name,
+                    group_name: name,
+                    group_description: bio,
+                    team_number: teamNumber,
+                    user_token: Settings.token
                 }
             }).json();
-            if (username.error) {
-                throw new Error(username.error);
+            console.log(createTeam);
+            if (createTeam.error) {
+                throw new Error(createTeam.error);
             }
+            updateSetting('stage', 'complete');
+            navigation.navigate('AdminDrawers');
         } catch (error) {
-            console.error('Error in updateUsername:', error);
+            console.error("Error in creating team: ", error);
             return;
         }
-        try {
-            console.log('team:', teamNumber);
-            const team = await ky.post(`${Constants.serverUrl}/accounts/updateTeamNumber`, {
-                json: {
-                    userToken: Settings.token,
-                    newTeamNumber: teamNumber,
-                }
-            }).json();
-            if (team.error) {
-                throw new Error(team.error);
-            }
-        } catch (error) {
-            console.error('Error in updateTeam:', error);
-            return;
-        }
-        try {
-            console.log('bio:', bio);
-            const bioResponse = await ky.post(`${Constants.serverUrl}/accounts/updateBio`, {
-                json: {
-                    userToken: Settings.token,
-                    newBio: bio,
-                }
-            }).json();
-            if (bioResponse.error) {
-                throw new Error(bioResponse.error);
-            }
-        } catch (error) {
-            console.error('Error in updateBio:', error);
-            return;
-        }
-        updateSetting('stage', 'joinTeam');
-        navigation.navigate('JoinTeam');
     }
   
     const styles = StyleSheet.create({
@@ -136,6 +107,7 @@ export default function Welcome({route, navigation}) {
             margin: 10,
             alignItems: 'center',
             justifyContent: 'center',
+            marginBottom: 60 / Dimensions.get('window').fontScale
         },
         accentText: {
             fontFamily: 'Inter',
@@ -208,29 +180,26 @@ export default function Welcome({route, navigation}) {
     return (
         <View style={styles.container}>
             <BackgroundGradient />
-            <Header title={Lang.welcome.title} backButton={true} navigation={navigation} overrideFontSize={50}>
-                <Text style={[styles.text, {fontSize: 20}]}>{Lang.welcome.subtitle}</Text>
-            </Header>
+            <Header title={Lang.create_team.title} backButton={true} navigation={navigation}></Header>
             <View style={styles.inputContainer}>
-                <Pressable style={styles.pictureButton} onPress={pickImage}>
+                {/*<Pressable style={styles.pictureButton} onPress={pickImage}>
                     <Image 
                         source={{
-                            uri: `${Constants.serverUrl}/uploads/getProfilePicture?accountID=${Settings.accountID}&t=${profileTimestamp}`
+                            uri: `${Constants.serverUrl}/uploads/getGroupPicture?accountID=${Settings.accountID}&t=${profileTimestamp}`
                         }}
                         placeholder={placeholderImage}
                         recycleKey={profileTimestamp}
                         style={{width: Dimensions.get('window').width * 0.4, height: Dimensions.get('window').width * 0.4, borderRadius: 1000, zIndex: 4, opacity: 1, position: 'absolute', top: 10}} 
                     />
                     <Image source={require('./assets/OIP.jpg')} style={{width: Dimensions.get('window').width * 0.4, height: Dimensions.get('window').width * 0.4, borderRadius: 1000, zIndex: 1, opacity: 1}} />
-                    <Text style={styles.text}>{Lang.welcome.profile_picture}</Text>
-                </Pressable>
-                <TextInput value={name} onChangeText={(text) => {setName(text)}} textColor={Colors.text} outlineColor={Colors.text} activeOutlineColor={Colors.text} mode="outlined" style={styles.input} outlineStyle={{borderRadius: 10}} theme={{ colors: { onSurfaceVariant: 'white'} }} label={Lang.welcome.name} />
+                    <Text style={styles.text}>{Lang.create_team.profile_picture}</Text>
+                </Pressable>*/}
+                <TextInput value={name} onChangeText={(text) => {setName(text)}} textColor={Colors.text} outlineColor={Colors.text} activeOutlineColor={Colors.text} mode="outlined" style={styles.input} outlineStyle={{borderRadius: 10}} theme={{ colors: { onSurfaceVariant: 'white'} }} label={Lang.create_team.name} />
                 <TextInput value={teamNumber} onChangeText={(text) => {setTeamNumber(text)}} textColor={Colors.text} outlineColor={Colors.text} activeOutlineColor={Colors.text} mode="outlined" style={styles.input} outlineStyle={{borderRadius: 10}} theme={{ colors: { onSurfaceVariant: 'white'} }} label={Lang.welcome.team} />
-                <TextInput value={bio} onChangeText={(text) => {setBio(text)}} multiline={true} textColor={Colors.text} outlineColor={Colors.text} activeOutlineColor={Colors.text} mode="outlined" style={styles.inputBio} outlineStyle={{borderRadius: 10}} theme={{ colors: { onSurfaceVariant: 'white'} }} label={Lang.welcome.bio} />
-                <Pressable style={styles.accentButton} onPress={() => {updateAccount()}}>
-                    <Text style={styles.accentText}>{Lang.welcome.next}</Text>
+                <TextInput value={bio} onChangeText={(text) => {setBio(text)}} multiline={true} textColor={Colors.text} outlineColor={Colors.text} activeOutlineColor={Colors.text} mode="outlined" style={styles.inputBio} outlineStyle={{borderRadius: 10}} theme={{ colors: { onSurfaceVariant: 'white'} }} label={Lang.create_team.bio} />
+                <Pressable style={styles.accentButton} onPress={() => {createGroup()}}>
+                    <Text style={styles.accentText}>{Lang.create_team.create}</Text>
                 </Pressable>
-                <Text style={styles.errorText}>Error</Text>
             </View>
         </View>
     );

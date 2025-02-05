@@ -6,7 +6,7 @@ const SettingsContext = createContext();
 export const useSettings = () => useContext(SettingsContext);
 
 export const SettingsProvider = ({ children }) => {
-    const settingsKeys = ['teamNumber', 'accountID', 'email', 'password', 'token', 'stage'];
+    const settingsKeys = ['teamNumber', 'accountID', 'email', 'password', 'token', 'stage', 'currentTeam', 'username', 'debugTokens'];
     const [Settings, setSettings] = useState({});
 
     useEffect(() => {

@@ -82,5 +82,12 @@
         "events": "Events",
         "sync_data": "Sync Data",
         "settings": "Settings"
+    },
+    "create_team": {
+        "title": "Create Team",
+        "name": "Team Name",
+        "profile_picture": "Team Profile Picture",
+        "create": "Create",
+        "bio": "Description"
     }
 }

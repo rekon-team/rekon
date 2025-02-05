@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import AsyncStorage from "@react-native-async-storage/async-storage";
-const en_us = require('../lang/en_us.json');
+const en_us = require('../lang/EN.json');
 const es_es = require('../lang/es_es.json');
 
 const LangContext = createContext();

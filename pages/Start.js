@@ -63,6 +63,20 @@ export default function Start({route, navigation}) {
             setTimeout(() => {
                 navigation.navigate('DebugTools');
             }, 1000);
+        } else if (Settings.stage == 'joinTeam') {
+            setShowPopup(true);
+            setPopupType('info');
+            setStatusText('Resuming account creation');
+            setTimeout(() => {
+                navigation.navigate('JoinTeam');
+            }, 1500);
+        } else if (Settings.stage == 'complete') {
+            setShowPopup(true);
+            setPopupType('info');
+            setStatusText('Logging you in...');
+            setTimeout(() => {
+                navigation.navigate('AdminDrawers');
+            }, 1500);
         }
     }, [Settings]);
 

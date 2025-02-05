@@ -12,7 +12,8 @@ import React, { useCallback, useEffect } from 'react';
 import { Menu, MenuProvider } from 'react-native-popup-menu';
 import { SettingsProvider } from './components/Settings';
 import { UploadProvider } from './components/Upload';
-
+import { DebugProvider } from './components/Debug';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 // Onboarding pages
 import Start from './pages/Start';
 import SignUp from './pages/SignUp';
@@ -20,6 +21,7 @@ import LogIn from './pages/LogIn';
 import Verification from './pages/VerificationCode';
 import Welcome from './pages/Welcome';
 import JoinTeam from './pages/JoinTeam';
+import CreateTeam from './pages/CreateTeam'
 import QRScan from './pages/QRScan';
 
 // Admin pages
@@ -67,6 +69,7 @@ function PageStack() {
       <Stack.Screen name="Verification" component={Verification} options={{ headerShown: false }} />
       <Stack.Screen name="Welcome" component={Welcome} options={{ headerShown: false }} />
       <Stack.Screen name="JoinTeam" component={JoinTeam} options={{ headerShown: false }} />
+      <Stack.Screen name="CreateTeam" component={CreateTeam} options={{ headerShown: false }} />
       <Stack.Screen name="QRScan" component={QRScan} options={{ headerShown: false }} />
       <Stack.Screen name="AllMatches" component={AllMatchAssignments} options={{ headerShown: false }} />
       <Stack.Screen name="AdminDrawers" component={AdminDrawers} options={{ headerShown: false }} />
@@ -101,18 +104,22 @@ export default function App() {
   // Holy providers!
   return (
     <NavigationContainer>
-      <MenuProvider>
-        <LangProvider>
-          <ColorProvider>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <MenuProvider>
+          <LangProvider>
+            <ColorProvider>
             <SettingsProvider>
               <UploadProvider>
-                <PageStack />
-                <StatusBar style="light" translucent={true}/>
+                <DebugProvider>
+                  <PageStack />
+                  <StatusBar style="light" translucent={true}/>
+                </DebugProvider>
               </UploadProvider>
             </SettingsProvider>
           </ColorProvider>
         </LangProvider>
-      </MenuProvider>
+        </MenuProvider>
+      </GestureHandlerRootView>
     </NavigationContainer>
   );
 }
