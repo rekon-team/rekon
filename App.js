@@ -29,6 +29,7 @@ import Forms from './pages/Forms';
 import Preview from './pages/Preview';
 import MatchFormPages from './pages/MatchFormPages';
 import MatchFormBuilder from './pages/MatchFormBuilder';
+import Settings from './pages/Settings';
 
 import StyledDrawer from './components/Drawer';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -54,6 +55,7 @@ function AdminDrawers() {
       <Drawer.Screen name="AssignTeammates" component={AssignTeammates} options={{ headerShown: false, drawerItemStyle: { display: 'none' } }} />
       <Drawer.Screen name="Events" component={Events} options={{ headerShown: false }} />
       <Drawer.Screen name="Forms" component={Forms} options={{ headerShown: false }} />
+      <Drawer.Screen name="Settings" component={Settings} options={{ headerShown: false }} />
     </Drawer.Navigator>
   )
 }

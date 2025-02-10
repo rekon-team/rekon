@@ -98,5 +98,10 @@
         "match": "Partido",
         "pit": "Foso",
         "subjective": "Subjetivo"
+    },
+    "settings": {
+        "title": "Settings",
+        "language": "Language:",
+        "system_color": "System Color:"
     }
 }
