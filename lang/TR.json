@@ -1,0 +1,102 @@
+{
+    "start_page": {
+        "start_title": "Rekon",
+        "start_tagline": "i̇zci̇li̇k \\\\\n redifend",
+        "sign_up_button": "Kaydolun",
+        "sign_in_button": "Giriş Yap"
+    },
+    "sign_up": {
+        "title": "Kaydolun",
+        "email": "E-posta",
+        "password": "Şifre",
+        "confirm_password": "Şifreyi Onayla",
+        "already_have_account": "Zaten bir hesabınız var mı?",
+        "log_in": "Giriş Yap",
+        "email_taken": "E-posta zaten alınmış",
+        "password_mismatch": "Parolalar eşleşmiyor"
+    },
+    "log_in": {
+        "title": "Giriş Yap",
+        "email": "E-posta",
+        "password": "Şifre",
+        "no_account": "Hesabınız yok mu?",
+        "sign_up": "Kaydolun",
+        "incorrect_credentials": "Yanlış e-posta veya şifre",
+        "invalid_email": "Geçersiz e-posta"
+    },
+    "verification": {
+        "title": "Doğrulama",
+        "resend": "E-postayı yeniden gönder",
+        "email_sent": "E-posta gönderildi:",
+        "enter_code": "6 haneli doğrulama kodunu girin:"
+    },
+    "welcome": {
+        "title": "Hoş geldiniz!",
+        "subtitle": "Profilinizi oluşturalım.",
+        "profile_picture": "Profil Resmi",
+        "next": "Sonraki",
+        "name": "İsim",
+        "team": "Takım #",
+        "bio": "Biyo"
+    },
+    "join_team": {
+        "title": "Bir Ekibe Katılın",
+        "scan_qr": "QR'ı tarayın",
+        "code": "Kodu girin",
+        "or": "Ya da",
+        "create_team": "Ekip Oluştur"
+    },
+    "admin_home_match": {
+        "title": "Yönetici",
+        "scouting_overview": "Keşfe Genel Bakış",
+        "match": "Maç",
+        "pit": "Çukur",
+        "current_match": "Şu anki maç:",
+        "scout": "İzci",
+        "team": "Takım",
+        "subjective": "Öznel",
+        "matches": "Maçlar:",
+        "show_all": "Tümünü Göster"
+    },
+    "admin_home_pit": {
+        "title": "Yönetici",
+        "scouting_overview": "Keşfe Genel Bakış",
+        "match": "Maç",
+        "pit": "Çukur",
+        "teams_scouted": "İzlenen Takımlar",
+        "completed": "Tamamlandı",
+        "uncompleted": "Tamamlanmamış",
+        "teammates": "Takım Arkadaşları",
+        "teams_left": "Takımlar ayrıldı:"
+    },
+    "match_assignments": {
+        "title": "Maç Atamaları"
+    },
+    "hamburger_menu": {
+        "scout_mode": "Gözcü Modu",
+        "admin_mode": "Yönetici Modu",
+        "overview": "Genel Bakış",
+        "team_profile": "Ekip Profili",
+        "teammates": "Takım Arkadaşları",
+        "forms": "Formlar",
+        "events": "Etkinlikler",
+        "sync_data": "Veri Senkronizasyonu",
+        "settings": "Ayarlar"
+    },
+    "teammates": {
+        "title": "Takım Arkadaşları",
+        "scouts": "İzciler",
+        "admins": "Yöneticiler"
+    },
+    "assign_teammates": {
+        "title": "Atama",
+        "form_uploads": "Form Yüklemeleri",
+        "settings": "Ayarlar",
+        "subjective_scouts": "Öznel Gözcüler:",
+        "manual_assign": "Manuel Atama",
+        "equally_distribute": "Eşit Dağıtın",
+        "match": "Maç",
+        "pit": "Çukur",
+        "subjective": "Öznel"
+    }
+}

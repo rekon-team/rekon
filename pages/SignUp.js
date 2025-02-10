@@ -101,6 +101,7 @@ export default function SignUp({route, navigation}) {
                     <Text style={styles.underlineText}>{Lang.sign_up.log_in}</Text>
                 </Pressable>
                 <Pressable style={styles.accentButton} onPress={async () => {
+                    
                     if (email.includes('@') && email.includes('.')) {
                         setEmailError(false);
                     } else {

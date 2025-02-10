@@ -67,41 +67,41 @@ export default function AllMatchAssignments({ navigation }) {
         <View style={styles.container}>
             <BackgroundGradient />
             <Header backButton={true} title={Lang.match_assignments.title} navigation={navigation} />
-            <View style={{height: Dimensions.get('window').height * .8, top: Dimensions.get('window').height * .2}}>
+            <View style={{height: Dimensions.get('screen').height * .8, top: Dimensions.get('screen').height * .2}}>
                 <ScrollView>
                     <View style={{gap: 10}}>
-                    {matches.map((match, index) => {
-                        return (
-                            <View key={index}>
-                                <Pressable style={[styles.matchContainer, {borderRadius: openedMatches.indexOf(match) >= 0 ? 0 : 10}]} onPress={() => {
-                                    if (openedMatches.indexOf(match) >= 0) {
-                                        setOpenedMatches(openedMatches.filter((openedMatch) => openedMatch != match));
-                                    } else {
-                                        setOpenedMatches([...openedMatches, match]);
-                                    }
-                                
-                                }}>
-                                    <View style={{width: '15%'}} />
+                        {matches.map((match, index) => {
+                            return (
+                                <View key={index}>
+                                    <Pressable style={[styles.matchContainer, {borderRadius: openedMatches.indexOf(match) >= 0 ? 0 : 10}]} onPress={() => {
+                                        if (openedMatches.indexOf(match) >= 0) {
+                                            setOpenedMatches(openedMatches.filter((openedMatch) => openedMatch != match));
+                                        } else {
+                                            setOpenedMatches([...openedMatches, match]);
+                                        }
                                     
-                                    <View style={{width: '70%'}}>
-                                        <Text style={[styles.text, {fontSize: 20}]}>{match}</Text>
-                                    </View>
-
-                                    <View style={{width: '15'}}>
-                                        <MaterialIcons name={openedMatches.indexOf(match) >= 0 ? 'keyboard-arrow-up' : 'keyboard-arrow-down'} size={34} style={{color: Colors.text, }} />
-                                    </View>
-                                </Pressable>
-
-                                {openedMatches.indexOf(match) >= 0 && 
-                                    <View style={styles.openedMatchViewContainer}>
-                                        <View style={{top: 10}}>
-                                            <MatchScoutView scouts={scouts} current_match={index} />
+                                    }}>
+                                        <View style={{width: '15%'}} />
+                                        
+                                        <View style={{width: '70%'}}>
+                                            <Text style={[styles.text, {fontSize: 20}]}>{match}</Text>
                                         </View>
-                                    </View>
-                                }
-                            </View>
-                        );
-                    })}
+
+                                        <View style={{width: '15%'}}>
+                                            <MaterialIcons name={openedMatches.indexOf(match) >= 0 ? 'keyboard-arrow-up' : 'keyboard-arrow-down'} size={34} style={{color: Colors.text, }} />
+                                        </View>
+                                    </Pressable>
+
+                                    {openedMatches.indexOf(match) >= 0 && 
+                                        <View style={styles.openedMatchViewContainer}>
+                                            <View style={{top: 10}}>
+                                                <MatchScoutView scouts={scouts} current_match={index} />
+                                            </View>
+                                        </View>
+                                    }
+                                </View>
+                            );
+                        })}
                     </View>
                 </ScrollView>
             </View>

@@ -1,22 +1,25 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 const en_us = require('../lang/EN.json');
-const es_es = require('../lang/es_es.json');
-
+const es_es = require('../lang/ES.json');
+const de_de = require('../lang/DE.json');
+const tr_tr = require('../lang/TR.json');
+const nl_nl = require('../lang/NL.json');
+const zh_cn = require('../lang/ZH.json');
 const LangContext = createContext();
 
 export const useLang = () => useContext(LangContext);
 
-const defaultLang = 'en_us';
+const defaultLang = 'EN';
 
 export const LangProvider = ({ children }) => {
-    const allLangs = ['English', 'Español', 'Deutsch', 'Türkçe'];
-    const allLangCodes = ['en_us', 'es_es', 'de_de', 'tr_tr'];
+    const allLangs = ['English', 'Español', 'Deutsch', 'Türkçe', 'Nederlands', '简体中文'];
+    const allLangCodes = ['EN', 'ES', 'DE', 'TR', 'NL', 'ZH'];
     const [Lang, setLang] = useState(en_us);
-    const [langList, setLangList] = useState(['English', 'Español', 'Deutsch', 'Türkçe']);
-    const [langCodes, setLangCodes] = useState(['en_us', 'es_es', 'de_de', 'tr_tr']);
+    const [langList, setLangList] = useState(['English', 'Español', 'Deutsch', 'Türkçe', 'Nederlands', '简体中文']);
+    const [langCodes, setLangCodes] = useState(['EN', 'ES', 'DE', 'TR', 'NL', 'ZH']);
     const [currentLang, setCurrentLang] = useState('English');
-    const [currentLangCode, setCurrentLangCode] = useState('en_us');
+    const [currentLangCode, setCurrentLangCode] = useState('EN');
 
     // loads the preferred language from AsyncStorage to make it persistent across app restarts
     async function loadLang() {
@@ -24,18 +27,34 @@ export const LangProvider = ({ children }) => {
             const userLang = await AsyncStorage.getItem('lang');
             console.log(userLang)
             if (userLang !== null) {
-                if (userLang == "en_us") {
+                if (userLang == "EN") {
                     setLang(en_us);
                     setCurrentLang('English');
-                    setCurrentLangCode('en_us');
-                } else if (userLang == "es_es") {
+                    setCurrentLangCode('EN');
+                } else if (userLang == "ES") {
                     setLang(es_es);
                     setCurrentLang('Español');
-                    setCurrentLangCode('es_es');
+                    setCurrentLangCode('ES');
+                } else if (userLang == "DE") {
+                    setLang(de_de);
+                    setCurrentLang('Deutsch');
+                    setCurrentLangCode('DE');
+                } else if (userLang == "TR") {
+                    setLang(tr_tr);
+                    setCurrentLang('Türkçe');
+                    setCurrentLangCode('TR');
+                } else if (userLang == "NL") {
+                    setLang(nl_nl);
+                    setCurrentLang('Nederlands');
+                    setCurrentLangCode('NL');
+                } else if (userLang == "ZH") {
+                    setLang(zh_cn);
+                    setCurrentLang('简体中文');
+                    setCurrentLangCode('ZH');
                 } else {
                     setLang(en_us);
                     setCurrentLang('English');
-                    setCurrentLangCode('en_us');
+                    setCurrentLangCode('EN');
                 }
             } else {
                 setLang(en_us);
@@ -50,22 +69,42 @@ export const LangProvider = ({ children }) => {
     // switches the language and saves it to AsyncStorage
     function switchLang(lang) {
         console.log(lang)
-        if (lang == "en_us") {
+        if (lang == "EN") {
             setLang(en_us);
             setCurrentLang('English');
-            setCurrentLangCode('en_us');
-            AsyncStorage.setItem('lang', "en_us");
-        } else if (lang == "es_es") {
+            setCurrentLangCode('EN');
+            AsyncStorage.setItem('lang', "EN");
+        } else if (lang == "ES") {
             setLang(es_es);
             setCurrentLang('Español');
-            setCurrentLangCode('es_es');
-            AsyncStorage.setItem('lang', "es_es");
+            setCurrentLangCode('ES');
+            AsyncStorage.setItem('lang', "ES");
+        } else if (lang == "DE") {
+            setLang(de_de);
+            setCurrentLang('Deutsch');
+            setCurrentLangCode('DE');
+            AsyncStorage.setItem('lang', "DE");
+        } else if (lang == "TR") {
+            setLang(tr_tr);
+            setCurrentLang('Türkçe');
+            setCurrentLangCode('TR');
+            AsyncStorage.setItem('lang', "TR");
+        } else if (lang == "NL") {
+            setLang(nl_nl);
+            setCurrentLang('Nederlands');
+            setCurrentLangCode('NL');
+            AsyncStorage.setItem('lang', "NL");
+        } else if (lang == "ZH") {
+            setLang(zh_cn);
+            setCurrentLang('简体中文');
+            setCurrentLangCode('ZH');
+            AsyncStorage.setItem('lang', "ZH");
         } else {
             // Assumes English as the default because it is by far the most spoken language in FIRST
             setLang(en_us);
             setCurrentLang('English');
-            setCurrentLangCode('en_us');
-            AsyncStorage.setItem('lang', "en_us");
+            setCurrentLangCode('EN');
+            AsyncStorage.setItem('lang', "EN");
         }
     }
 

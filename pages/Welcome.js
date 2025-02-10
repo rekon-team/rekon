@@ -161,11 +161,6 @@ export default function Welcome({route, navigation}) {
             alignItems: 'center',
             justifyContent: 'center',
             flexDirection: 'column'
-        },
-        errorText: {
-            fontFamily: 'Inter',
-            color: Colors.error,
-            fontSize: 20,
         }
     });
 
@@ -230,7 +225,6 @@ export default function Welcome({route, navigation}) {
                 <Pressable style={styles.accentButton} onPress={() => {updateAccount()}}>
                     <Text style={styles.accentText}>{Lang.welcome.next}</Text>
                 </Pressable>
-                <Text style={styles.errorText}>Error</Text>
             </View>
         </View>
     );
