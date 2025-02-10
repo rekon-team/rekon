@@ -12,6 +12,8 @@ export default function Header(props) {
     let hamburgerButton = false;
     let fontSize = 40;
     let backgroundShown = false;
+    let previewButton = false;
+    let customZIndex = 0;
     if (props.overrideFontSize != 40 && props.overrideFontSize != undefined) {
         fontSize = props.overrideFontSize;
     }
@@ -20,6 +22,12 @@ export default function Header(props) {
     }
     if (props.hamburgerButton != undefined) {
         hamburgerButton = props.hamburgerButton;
+    }
+    if (props.previewButton != undefined) {
+        previewButton = props.previewButton;
+    }
+    if (props.customZIndex != undefined) {
+        customZIndex = props.customZIndex;
     }
     const { Colors } = useColors();
     const styles = StyleSheet.create({
@@ -31,6 +39,7 @@ export default function Header(props) {
             alignItems: 'center',
             justifyContent: 'center',
             flexDirection: 'row',
+            zIndex: customZIndex,
             //paddingTop: '3%',  I have no idea why this is here but it makes the header look bad
         },
         fakeBackground: {
@@ -69,6 +78,11 @@ export default function Header(props) {
                 {props.children}
             </View>
             <View style={{width: "15%", height: "100%"}}>
+                {previewButton &&
+                    <Pressable onPress={() => navigation.navigate('Preview', {matchFormId: props.matchFormId, pageId: props.pageId})}>
+                        <MaterialIcons name="remove-red-eye" size={40} color={Colors.text} />
+                    </Pressable>
+                }
             </View>
         </View>
     );

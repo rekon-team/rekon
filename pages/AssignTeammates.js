@@ -43,8 +43,7 @@ export default function AssignTeammates() {
             backgroundColor: Colors.accent,
             position: 'absolute',
             left: indent,
-            bottom: indent,
-            // yet again, check in with actual device to see if this is correct
+            bottom: 0,
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'center'
@@ -87,9 +86,9 @@ export default function AssignTeammates() {
             <BackgroundGradient />
             <Header title={Lang.assign_teammates.title} backButton={false} hamburgerButton={true} />
 
-            <View style={{height: Dimensions.get('window').height - 60, top: 60}}>
+            <View style={{height: Dimensions.get('window').height * .9, top: Dimensions.get('window').height * .1}}>
                 <ScrollView>
-                    <View style={{height: Dimensions.get('window').height - 60}}>
+                    <View style={{height: Dimensions.get('window').height * .9}}>
                         <Text style={[styles.text, {fontSize: indent / 2, top: indent, left: indent}]}>{Lang.assign_teammates.form_uploads}</Text>
                         <View style={{height: indent * 2, top: indent}}>
                             <ScrollView horizontal={true}>

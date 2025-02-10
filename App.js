@@ -25,6 +25,10 @@ import AllMatchAssignments from './pages/AllMatchAssignments';
 import Teammates from './pages/Teammates';
 import AssignTeammates from './pages/AssignTeammates';
 import Events from './pages/Events';
+import Forms from './pages/Forms';
+import Preview from './pages/Preview';
+import MatchFormPages from './pages/MatchFormPages';
+import MatchFormBuilder from './pages/MatchFormBuilder';
 
 import StyledDrawer from './components/Drawer';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -43,12 +47,13 @@ function AdminDrawers() {
   const { Colors } = useColors();
   //Yippee!!
   return (
-    <Drawer.Navigator drawerContent={(props) => <StyledDrawer {...props} />}>
+    <Drawer.Navigator initialRouteName='Forms' drawerContent={(props) => <StyledDrawer {...props} />}>
       <Drawer.Screen name="Overview" component={AdminHomeMatch} options={{ headerShown: false }} />
       <Drawer.Screen name="AdminHomePit" component={AdminHomePit} options={{ headerShown: false, drawerItemStyle: { display: 'none' } }} />
       <Drawer.Screen name="Teammates" component={Teammates} options={{ headerShown: false }} />
       <Drawer.Screen name="AssignTeammates" component={AssignTeammates} options={{ headerShown: false, drawerItemStyle: { display: 'none' } }} />
       <Drawer.Screen name="Events" component={Events} options={{ headerShown: false }} />
+      <Drawer.Screen name="Forms" component={Forms} options={{ headerShown: false }} />
     </Drawer.Navigator>
   )
 }
@@ -56,7 +61,7 @@ function AdminDrawers() {
 function PageStack() {
   // This stack navigator is gonna be huge
   return (
-    <Stack.Navigator initialRouteName="Start">
+    <Stack.Navigator initialRouteName="AdminDrawers">
       <Stack.Screen name="Start" component={Start} options={{ headerShown: false }} />
       <Stack.Screen name="SignUp" component={SignUp} options={{ headerShown: false }} />
       <Stack.Screen name="LogIn" component={LogIn} options={{ headerShown: false }} />
@@ -66,6 +71,9 @@ function PageStack() {
       <Stack.Screen name="QRScan" component={QRScan} options={{ headerShown: false }} />
       <Stack.Screen name="AllMatches" component={AllMatchAssignments} options={{ headerShown: false }} />
       <Stack.Screen name="AdminDrawers" component={AdminDrawers} options={{ headerShown: false }} />
+      <Stack.Screen name="Preview" component={Preview} options={{ headerShown: false }} />
+      <Stack.Screen name="MatchFormPages" component={MatchFormPages} options={{ headerShown: false }} />
+      <Stack.Screen name="MatchFormBuilder" component={MatchFormBuilder} options={{ headerShown: false }} />
     </Stack.Navigator>
   );
 }

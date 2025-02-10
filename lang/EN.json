@@ -104,5 +104,20 @@
         "current_events": "Current Events: ",
         "past_events": "Past Events: ",
         "search_for_events": "Search for Events..."
+    },
+    "team_profile": {
+        "title": "Team Profile",
+        "team_profile_picture": "Team Profile Picture",
+        "team_name": "Team Name",
+        "team_number": "Team #",
+        "bio": "Bio",
+        "change_ownership": "Change Ownership",
+        "delete_team": "Delete Team"
+    },
+    "forms": {
+        "title": "Forms"
+    },
+    "preview": {
+        "title": "Preview"
     }
 }

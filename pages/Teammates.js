@@ -16,6 +16,7 @@ export default function Teammates({ navigation }) {
     const [admins, setAdmins] = useState([{name: 'Scout 1', assignedMatch: [], assignedPit: [], assignedObjective: []}, {name: 'Scout 2', assignedMatch: [], assignedPit: [], assignedObjective: []}, {name: 'Scout 3', assignedMatch: [], assignedPit: [], assignedObjective: []}, {name: 'Scout 4', assignedMatch: [], assignedPit: [], assignedObjective: []}, {name: 'Scout 5', assignedMatch: [], assignedPit: [], assignedObjective: []}, {name: 'Scout 6', assignedMatch: [], assignedPit: [], assignedObjective: []}, {name: 'Jonas Grill', assignedMatch: [], assignedPit: [], assignedObjective: []}]);
 
     let indent = Dimensions.get('window').width * .1;
+    let verticalIndent = Dimensions.get('window').height * .1;
 
     const styles = {
         container: {
@@ -23,7 +24,6 @@ export default function Teammates({ navigation }) {
             backgroundColor: Colors.primary,
             width: '100%',
             height: '100%',
-            paddingTop: 50/Dimensions.get("window").fontScale,
         },
         text: {
             color: Colors.text,
@@ -31,7 +31,7 @@ export default function Teammates({ navigation }) {
         },
         scoutContainer: {
             width: '80%',
-            height: indent * 1.5,
+            height: verticalIndent * .75,
             borderRadius: 10,
             backgroundColor: Colors.secondary,
             marginBottom: indent / 2,
@@ -45,8 +45,9 @@ export default function Teammates({ navigation }) {
             height: indent * 1.5,
             borderRadius: indent * .75,
             position: 'absolute',
-            bottom: indent * 3,
+            bottom: indent,
             //changed to indent * 3 from indent bc for some reason it was broken. check in with actual phone, not emulator
+            //nvm just emulator being goofy
             right: indent,
             backgroundColor: Colors.accent,
             justifyContent: 'center',
@@ -59,12 +60,12 @@ export default function Teammates({ navigation }) {
             <BackgroundGradient />
             <Header title={Lang.teammates.title} backButton={false} hamburgerButton={true} />
 
-            <View style={{height: Dimensions.get('window').height - 60, top: 60}}>
+            <View style={{height: Dimensions.get('window').height * .9, top: Dimensions.get('window').height * .1}}>
                 <ScrollView>
-                    <View style={{height: Dimensions.get('window').height - 60}}>
-                        <Text style={[styles.text, {fontSize: indent / 2, top: indent / 2, left: indent}]}>{Lang.teammates.scouts}</Text>
+                    <View style={{height: Dimensions.get('window').height * .9}}>
+                        <Text style={[styles.text, {fontSize: indent / 2, top: indent, left: indent}]}>{Lang.teammates.scouts}</Text>
 
-                        <View style={{height: indent * 5, top: indent / 2}}>
+                        <View style={{height: verticalIndent * 3.1, top: indent}}>
                             <ScrollView>
                                 {scouts.map((scout, index) => (
                                     <Pressable style={styles.scoutContainer} key={index} onPress={() => navigation.navigate('AssignTeammates')}>
@@ -76,9 +77,9 @@ export default function Teammates({ navigation }) {
                             </ScrollView>
                         </View>
 
-                        <Text style={[styles.text, {fontSize: indent / 2, top: Dimensions.get('window').height * .1, left: indent}]}>{Lang.teammates.admins}</Text>
+                        <Text style={[styles.text, {fontSize: indent / 2, top: verticalIndent, left: indent}]}>{Lang.teammates.admins}</Text>
 
-                        <View style={{height: indent * 5, top: Dimensions.get('window').height * .1}}>
+                        <View style={{height: verticalIndent * 3.1, top: Dimensions.get('window').height * .1}}>
                             <ScrollView>
                                 {admins.map((admin, index) => (
                                     <Pressable style={styles.scoutContainer} key={index} onPress={() => navigation.navigate('AssignTeammates')}>
@@ -91,11 +92,10 @@ export default function Teammates({ navigation }) {
                         </View>
                     </View>
                 </ScrollView>
-
-                <Pressable style={styles.addButton}>
+            </View>
+            <Pressable style={styles.addButton}>
                     <MaterialIcons name="add" size={indent * 1.5} color={Colors.text} />
                 </Pressable>
-            </View>
         </View>
     );
 }
