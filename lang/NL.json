@@ -98,5 +98,10 @@
         "match": "Wedstrijd",
         "pit": "Pit",
         "subjective": "Subjectief"
+    },
+    "settings": {
+        "title": "Settings",
+        "language": "Language:",
+        "system_color": "System Color:"
     }
 }

@@ -119,5 +119,10 @@
     },
     "preview": {
         "title": "Preview"
+    },
+    "settings": {
+        "title": "Settings",
+        "language": "Language:",
+        "system_color": "System Color:"
     }
 }

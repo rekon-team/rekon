@@ -50,6 +50,7 @@ export default function StyledDrawer(props) {
     }
 
     //Awful inline styling time!
+    //correct!
     return (
         <View style={{flex: 1}}>
             <DrawerContentScrollView {...props} contentContainerStyle={{backgroundColor: Colors.secondary, height: '100%'}}>
@@ -67,7 +68,7 @@ export default function StyledDrawer(props) {
 
                 <DrawerItem {...props} label={Lang.hamburger_menu.events} focused={props.state.index == props.state.routes.findIndex(i => i.name == "Events")} labelStyle={styles.drawerItemText} style={styles.drawerItem} activeBackgroundColor={Colors.divider} inactiveBackgroundColor={Colors.tabSelected} onPress={() => props.navigation.navigate('Events')} icon={() => (<MaterialIcons name="event" size={Dimensions.get('window').height * 0.03 / Dimensions.get('window').fontScale} color={Colors.text} />)} />
                 <DrawerItem {...props} label={Lang.hamburger_menu.sync_data} focused={props.state.index == props.state.routes.findIndex(i => i.name == "SyncData")} labelStyle={styles.drawerItemText} style={styles.drawerItem} activeBackgroundColor={Colors.divider} inactiveBackgroundColor={Colors.tabSelected} /* PLACEHOLDER onPress={() => props.navigation.navigate('SyncData')} */ icon={() => (<MaterialIcons name="sync" size={Dimensions.get('window').height * 0.03 / Dimensions.get('window').fontScale} color={Colors.text} />)} />
-                <DrawerItem {...props} label={Lang.hamburger_menu.settings} focused={props.state.index == props.state.routes.findIndex(i => i.name == "Settings")} labelStyle={styles.drawerItemText} style={styles.drawerItem} activeBackgroundColor={Colors.divider} inactiveBackgroundColor={Colors.tabSelected} /* PLACEHOLDER onPress={() => props.navigation.navigate('Settings')} */ icon={() => (<MaterialIcons name="settings" size={Dimensions.get('window').height * 0.03 / Dimensions.get('window').fontScale} color={Colors.text} />)} />
+                <DrawerItem {...props} label={Lang.hamburger_menu.settings} focused={props.state.index == props.state.routes.findIndex(i => i.name == "Settings")} labelStyle={styles.drawerItemText} style={styles.drawerItem} activeBackgroundColor={Colors.divider} inactiveBackgroundColor={Colors.tabSelected} onPress={() => props.navigation.navigate('Settings')} icon={() => (<MaterialIcons name="settings" size={Dimensions.get('window').height * 0.03 / Dimensions.get('window').fontScale} color={Colors.text} />)} />
             </DrawerContentScrollView>
         </View>
     )

@@ -29,6 +29,7 @@ import Forms from './pages/Forms';
 import Preview from './pages/Preview';
 import MatchFormPages from './pages/MatchFormPages';
 import MatchFormBuilder from './pages/MatchFormBuilder';
+import Settings from './pages/Settings';
 
 import StyledDrawer from './components/Drawer';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -47,13 +48,14 @@ function AdminDrawers() {
   const { Colors } = useColors();
   //Yippee!!
   return (
-    <Drawer.Navigator initialRouteName='Forms' drawerContent={(props) => <StyledDrawer {...props} />}>
+    <Drawer.Navigator drawerContent={(props) => <StyledDrawer {...props} />}>
       <Drawer.Screen name="Overview" component={AdminHomeMatch} options={{ headerShown: false }} />
       <Drawer.Screen name="AdminHomePit" component={AdminHomePit} options={{ headerShown: false, drawerItemStyle: { display: 'none' } }} />
       <Drawer.Screen name="Teammates" component={Teammates} options={{ headerShown: false }} />
       <Drawer.Screen name="AssignTeammates" component={AssignTeammates} options={{ headerShown: false, drawerItemStyle: { display: 'none' } }} />
       <Drawer.Screen name="Events" component={Events} options={{ headerShown: false }} />
       <Drawer.Screen name="Forms" component={Forms} options={{ headerShown: false }} />
+      <Drawer.Screen name="Settings" component={Settings} options={{ headerShown: false }} />
     </Drawer.Navigator>
   )
 }
@@ -61,7 +63,7 @@ function AdminDrawers() {
 function PageStack() {
   // This stack navigator is gonna be huge
   return (
-    <Stack.Navigator initialRouteName="AdminDrawers">
+    <Stack.Navigator initialRouteName="Start">
       <Stack.Screen name="Start" component={Start} options={{ headerShown: false }} />
       <Stack.Screen name="SignUp" component={SignUp} options={{ headerShown: false }} />
       <Stack.Screen name="LogIn" component={LogIn} options={{ headerShown: false }} />
