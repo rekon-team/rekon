@@ -748,7 +748,7 @@ export default function MatchFormBuilder({ navigation, route }){
     return(
         <View style={{flex: 1, width: '100%', height: '100%', backgroundColor: Colors.primary}}>
             <BackgroundGradient />
-            <Header title={!isLoading ? pages.find(page => page.id === pageId).name : 'Loading...'} navigation={navigation} backButton={true} previewButton={true} matchFormId={matchFormId} pageId={pageId} customZIndex={1000} />
+            <Header title={!isLoading ? pages.find(page => page.id === pageId).name : 'Loading...'} navigation={navigation} backButton={true} previewButton={true} matchFormId={matchFormId} pageId={pageId} matchOrPit='Match' customZIndex={1000} />
 
             {isLoading && boxes.length !== 0 && 
                 <Modal style={{flex: 1}}>

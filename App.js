@@ -27,8 +27,10 @@ import AssignTeammates from './pages/AssignTeammates';
 import Events from './pages/Events';
 import Forms from './pages/Forms';
 import Preview from './pages/Preview';
+import PreviewForm from './pages/PreviewForm';
 import MatchFormPages from './pages/MatchFormPages';
 import MatchFormBuilder from './pages/MatchFormBuilder';
+import PitFormBuilder from './pages/PitFormBuilder';
 import Settings from './pages/Settings';
 
 import StyledDrawer from './components/Drawer';
@@ -74,8 +76,10 @@ function PageStack() {
       <Stack.Screen name="AllMatches" component={AllMatchAssignments} options={{ headerShown: false }} />
       <Stack.Screen name="AdminDrawers" component={AdminDrawers} options={{ headerShown: false }} />
       <Stack.Screen name="Preview" component={Preview} options={{ headerShown: false }} />
+      <Stack.Screen name="PreviewForm" component={PreviewForm} options={{ headerShown: false }} />
       <Stack.Screen name="MatchFormPages" component={MatchFormPages} options={{ headerShown: false }} />
       <Stack.Screen name="MatchFormBuilder" component={MatchFormBuilder} options={{ headerShown: false }} />
+      <Stack.Screen name="PitFormBuilder" component={PitFormBuilder} options={{ headerShown: false }} />
     </Stack.Navigator>
   );
 }

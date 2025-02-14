@@ -156,6 +156,9 @@ export default function Forms({ navigation }) {
   
     const goToPitFormBuilder = (pitFormId) => {
       console.log(`Going to pit form with id of ${pitFormId}`);
+      navigation.navigate('PitFormBuilder', {
+        pitFormId: pitFormId,
+      });
     }
   
     const goToData = (dataId) => {

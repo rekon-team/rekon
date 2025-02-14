@@ -13,6 +13,7 @@ export default function Header(props) {
     let fontSize = 40;
     let backgroundShown = false;
     let previewButton = false;
+    let matchOrPit = '';
     let customZIndex = 0;
     if (props.overrideFontSize != 40 && props.overrideFontSize != undefined) {
         fontSize = props.overrideFontSize;
@@ -79,7 +80,7 @@ export default function Header(props) {
             </View>
             <View style={{width: "15%", height: "100%"}}>
                 {previewButton &&
-                    <Pressable onPress={() => navigation.navigate('Preview', {matchFormId: props.matchFormId, pageId: props.pageId})}>
+                    <Pressable onPress={() => navigation.navigate(matchOrPit == 'Match' ? ('Preview', {matchFormId: props.matchFormId, pageId: props.pageId}) : ('PreviewForm', {sections: props.sections}))}>
                         <MaterialIcons name="remove-red-eye" size={40} color={Colors.text} />
                     </Pressable>
                 }

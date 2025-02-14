@@ -1,0 +1,332 @@
+import React, { useState, useEffect } from 'react';
+import { ScrollView, Pressable, Text, Modal, View, StyleSheet, Dimensions, TextInput } from 'react-native';
+
+import TextSection from '../components/SurveyComponents/TextSection';
+import NumberSection from '../components/SurveyComponents/NumberSection';
+import MultipleChoiceSection from '../components/SurveyComponents/MultipleChoiceSection';
+import CheckboxSection from '../components/SurveyComponents/CheckboxSection';
+import SliderSection from '../components/SurveyComponents/SliderSection';
+import PictureSection from '../components/SurveyComponents/PictureSection';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useColors } from '../components/Colors';
+import { useLang } from '../components/Lang';
+import BackgroundGradient from '../components/BackgroundGradient';
+import Header from '../components/Header';
+
+
+export default function PitFormBuilder({ navigation, route }){
+  const { Colors } = useColors();
+  const { Lang } = useLang();
+
+  const { pitFormId } = route.params;
+
+  const [sections, setSections] = useState([]);
+  const [modalVisible, setModalVisible] = useState(false);
+  
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        const sectionsString = await AsyncStorage.getItem(`sections_${pitFormId}`);
+        const parsedSections = JSON.parse(sectionsString);
+        const sectionsArray = parsedSections ? parsedSections : [];
+        setSections(sectionsArray);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    loadData();
+  }, []);
+
+  useEffect(() => {
+    const saveSections = async () => {
+      try {
+        const sectionsString = JSON.stringify(sections);
+        await AsyncStorage.setItem(`sections_${pitFormId}`, sectionsString);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    saveSections();
+    console.log(sections);
+  }, [sections]);
+
+  const addSection = (sectionType, sectionOptions = []) => {
+    setSections([...sections, { type: sectionType, options: sectionOptions }]);
+    setModalVisible(false);
+  };
+
+  const deleteSection = (index) => {
+    const newSections = [...sections];
+    newSections.splice(index, 1);
+    setSections(newSections);
+  };
+
+  const updateOptions = (index, newOptions) => {
+    const newSections = [...sections];
+    newSections[index].options = newOptions;
+    setSections(newSections);
+  };
+
+  const validateSections = () => {
+    return sections.every(section => {
+      if (!section.question || section.question.trim() === '') {
+        console.log('1')
+        return false;
+      }
+
+      if (section.type === 'slider') {
+        if (section.minimum !== undefined && section.maximum !== undefined) {
+          if (isNaN(section.minimum) || isNaN(section.maximum)) {
+            console.log('2')
+            return false;
+          }
+        } else {
+          console.log('3')
+          return false;
+        }
+      }
+
+      return true;
+    });
+  };
+
+  const navigateToPreview = () => {
+    if (validateSections()) {
+      navigation.navigate('Preview Form', { sections });
+    } else {
+      alert('Please fill all in all questions and required fields before previewing.');
+    }
+  };
+
+  //logs the question types and its properties in the console
+  /*sections.forEach((section, index) => {
+    console.log('   New Update')
+    console.log(`Section ${index + 1}:`);
+    console.log(`Type: ${section.type}`);
+    console.log(`Question: ${section.question}`);
+
+    if (section.minimum) {
+      console.log(`Minimum: ${section.minimum}`)
+    }
+
+    if (section.maximum) {
+      console.log(`Maximum: ${section.maximum}`)
+    }
+
+    if (section.options && section.options.length > 0) {
+      console.log('Options:');
+      section.options.forEach((option, i) => {
+        console.log(`  Option ${i + 1}: ${option}`);
+      });
+    }
+  });*/
+  
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: Colors.primary
+    },
+    sections: {
+      //borderWidth: 1,
+      backgroundColor: '#3E4758CC',
+      margin: 10,
+      borderRadius: 10,
+    },
+    centeredView: {
+      flex: 1,
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    modalView: {
+      margin: 20,
+      backgroundColor: "white",
+      borderRadius: 10,
+      padding: 25,
+      alignItems: "center",
+      shadowColor: "#000",
+      shadowOffset: {
+        width: 0,
+        height: 2,
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 4,
+      elevation: 5
+    },
+    addSectionPressable: {
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+      padding: 5,
+      backgroundColor: 'blue',
+      margin: 10,
+      borderRadius: 10,
+    },
+    modalPressables: {
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'stretch',
+      padding: 5,
+      borderRadius: 10,
+      borderWidth: 1,
+      marginVertical: 5,
+    },
+  });
+  
+  return(
+    <View style={styles.container}>
+      <BackgroundGradient />
+      <Header title="Pit Form Builder" backButton={true} navigation={navigation} previewButton={true} matchOrPit='Pit' sections={sections} />
+
+      <View style={{ flexDirection: 'row', justifyContent: 'flex-end', margin: 10 }}>
+        <MaterialIcons name="visibility" size={30} color="white" backgroundColor="#3E4758CC" style={{ borderRadius: 10, padding: 2, }} onPress={navigateToPreview} /> 
+      </View>
+
+      <View style={{backgroundColor: 'white', height: Dimensions.get('window').height * .9, width: Dimensions.get('window').width, position: 'absolute', top: Dimensions.get('window').height * .1}}>
+        <ScrollView>
+
+          <Modal
+            animationType="none"
+            transparent={true}
+            visible={modalVisible}
+            onRequestClose={() => {
+              setModalVisible(!modalVisible);
+            }}
+          >
+            <View style={styles.centeredView}>
+              <View style={styles.modalView}>
+                <Pressable style={styles.modalPressables} onPress={() => addSection('text')}>
+                  <View style={{ flex: 1, justifyContent: 'center', flexDirection: 'row' }}>
+                    <Text>Add Text Section</Text>
+                  </View>
+                </Pressable>
+                <Pressable style={styles.modalPressables} onPress={() => addSection('number')}>
+                  <View style={{ flex: 1, justifyContent: 'center', flexDirection: 'row' }}>
+                    <Text>Add Number Section</Text>
+                  </View>
+                </Pressable>
+                <Pressable style={styles.modalPressables} onPress={() => addSection('multiple-choice', ['Option 1', 'Option 2'])}>
+                  <View style={{ flex: 1, justifyContent: 'center', flexDirection: 'row' }}>
+                    <Text>Add Multiple Choice Section</Text>
+                  </View>
+                </Pressable>
+                <Pressable style={styles.modalPressables} onPress={() => addSection('checkbox', ['Option 1', 'Option 2'])}>
+                  <View style={{ flex: 1, justifyContent: 'center', flexDirection: 'row' }}>
+                    <Text>Add Checkbox Section</Text>
+                  </View>
+                </Pressable>
+                <Pressable style={styles.modalPressables} onPress={() => addSection('slider')}>
+                  <View style={{ flex: 1, justifyContent: 'center', flexDirection: 'row' }}>
+                    <Text>Add Slider Section</Text>
+                  </View>
+                </Pressable>
+                <Pressable style={styles.modalPressables} onPress={() => addSection('picture')}>
+                  <View style={{ flex: 1, justifyContent: 'center', flexDirection: 'row' }}>
+                    <Text>Add Picture Section</Text>
+                  </View>
+                </Pressable>
+                <Pressable style={[styles.modalPressables, {marginTop: 10}]} onPress={() => setModalVisible(false)}>
+                  <Text>Cancel</Text>
+                </Pressable>
+              </View>
+            </View>
+          </Modal>
+
+          {sections.map((section, index) => (
+            <View key={index} style={styles.sections}>
+              {section.type === 'text' && (
+                <TextSection
+                  question={section.question}
+                  onChangeQuestion={(textQuestion) => {
+                    //console.log('Text Question: ', textQuestion);
+                    const newSections = [...sections];
+                    newSections[index].question = textQuestion;
+                    setSections(newSections);
+                  }}
+                  onDelete={() => deleteSection(index)}
+                  />
+                  )}
+              {section.type === 'number' && (
+                <NumberSection
+                  question={section.question}
+                  onChangeQuestion={(numberQuestion) => {
+                    //console.log('Number Question: ', numberQuestion)
+                    const newSections = [...sections];
+                    newSections[index].question = numberQuestion;
+                    setSections(newSections);
+                  }}
+                  onDelete={() => deleteSection(index)}
+                />
+              )}
+              {section.type === 'multiple-choice' && (
+                <MultipleChoiceSection
+                  question={section.question}
+                  onChangeQuestion={(multipleChoiceQuestion) => {
+                    const newSections = [...sections];
+                    newSections[index].question = multipleChoiceQuestion;
+                    setSections(newSections);
+                  }}
+                  options={section.options}
+                  onUpdateOptions={(newOptions) => updateOptions(index, newOptions)}
+                  onDelete={() => deleteSection(index)}
+                />
+                )}
+              {section.type === 'checkbox' && (
+                <CheckboxSection
+                question={section.question}
+                onChangeQuestion={(checkboxQuestion) => {
+                  const newSections = [...sections];
+                  newSections[index].question = checkboxQuestion;
+                  setSections(newSections);
+                }}
+                  options={section.options}
+                  onUpdateOptions={(newOptions) => updateOptions(index, newOptions)}
+                  onDelete={() => deleteSection(index)}
+                />
+              )}
+              {section.type === 'slider' && (
+                <SliderSection
+                  question={section.question}
+                  minimum={section.minimum}
+                  maximum={section.maximum}
+                  onChangeQuestion={(sliderQuestion) => {
+                    const newSections = [...sections];
+                    newSections[index].question = sliderQuestion;
+                    setSections(newSections);
+                  }}
+                  onChangeMin={(minimum) => {
+                    const newSections = [...sections];
+                    newSections[index].minimum = minimum;
+                    setSections(newSections);
+                  }}
+                  onChangeMax={(maximum) => {
+                    const newSections = [...sections];
+                    newSections[index].maximum = maximum;
+                    setSections(newSections);
+                  }}
+                  onDelete={() => deleteSection(index)}
+                />
+              )}
+              {section.type === 'picture' && (
+                <PictureSection
+                  question={section.question}
+                  onChangeQuestion={(pictureQuestion) => {
+                    const newSections = [...sections];
+                    newSections[index].question = pictureQuestion;
+                    setSections(newSections);
+                  }}
+                  onDelete={() => deleteSection(index)}
+                />
+              )}
+              
+            </View>
+          ))}
+        </ScrollView>
+      </View>
+
+      <Pressable style={styles.addSectionPressable} onPress={() => setModalVisible(true)}>
+        <Text style={{color: 'white', fontSize: 20}}>Add New Section</Text>
+      </Pressable>
+    </View>
+  ); 
+}
