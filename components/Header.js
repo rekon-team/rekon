@@ -13,7 +13,9 @@ export default function Header(props) {
     let fontSize = 40;
     let backgroundShown = false;
     let previewButton = false;
+    let matchOrPit = '';
     let customZIndex = 0;
+    let singleLine = false;
     if (props.overrideFontSize != 40 && props.overrideFontSize != undefined) {
         fontSize = props.overrideFontSize;
     }
@@ -26,9 +28,23 @@ export default function Header(props) {
     if (props.previewButton != undefined) {
         previewButton = props.previewButton;
     }
+    if (props.matchOrPit != undefined) {
+        matchOrPit = props.matchOrPit;
+    }
     if (props.customZIndex != undefined) {
         customZIndex = props.customZIndex;
     }
+    if (props.singleLine != undefined) {
+        singleLine = props.singleLine;
+    }
+
+    let previewString = '';
+    if (matchOrPit == 'Match') {
+        previewString = 'Preview';
+    } else {
+        previewString = 'PreviewForm';
+    }
+
     const { Colors } = useColors();
     const styles = StyleSheet.create({
         header: {
@@ -74,12 +90,12 @@ export default function Header(props) {
                 </Pressable>}
             </View>
             <View style={{width: "70%", height: '100%', alignItems: 'center', justifyContent: 'flex-start'}}>
-                <Text style={styles.headerText}>{props.title}</Text>
+                <Text numberOfLines={singleLine ? 1 : 0} ellipsizeMode='tail' style={styles.headerText}>{props.title}</Text>
                 {props.children}
             </View>
             <View style={{width: "15%", height: "100%"}}>
                 {previewButton &&
-                    <Pressable onPress={() => navigation.navigate('Preview', {matchFormId: props.matchFormId, pageId: props.pageId})}>
+                    <Pressable onPress={() => navigation.navigate(previewString, {sections: props.sections, matchFormId: props.matchFormId, pageId: props.pageId})}>
                         <MaterialIcons name="remove-red-eye" size={40} color={Colors.text} />
                     </Pressable>
                 }
