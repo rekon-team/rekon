@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Pressable, TextInput, StyleSheet, Text, View } from 'react-native';
+import { Pressable, TextInput, StyleSheet, Text, View, Dimensions } from 'react-native';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import { useColors } from '../Colors';
+import { useLang } from '../Lang';
 
 export default function SliderSection(props) {
+    const { Colors } = useColors();
+    const { Lang } = useLang();
+
     const [ valuesCorrect, setValuesCorrect ] = useState(true);
     const [minimumValue, setMinimumValue] = useState(null);
     const [maximumValue, setMaximumValue] = useState(null);
@@ -46,6 +51,59 @@ export default function SliderSection(props) {
         }
     }
 
+    const styles = StyleSheet.create ({
+        text: {
+            color: Colors.text,
+            fontFamily: 'Inter',
+        },
+        sliderSectionContainer: {
+            margin: 10,
+            flexDirection: 'row',
+            alignItems: 'center',
+        },
+        header: {
+            marginBottom: 5,
+            fontSize: 20,
+            color: Colors.text,
+            fontFamily: 'Inter',
+        },
+        sliderQuestion: {
+            backgroundColor: Colors.secondaryBright,
+            padding: 10,
+            fontSize: 20,
+            borderWidth: 2,
+            borderColor: Colors.text,
+            borderRadius: 10,
+            marginRight: 5,   
+            marginBottom: 10,
+            color: Colors.text,
+            fontFamily: 'Inter',
+        },
+        limits: {
+            backgroundColor: Colors.secondaryBright,
+            padding: 10,
+            fontSize: 15,
+            borderWidth: 2,
+            borderColor: Colors.text,
+            borderRadius: 10,
+            flex: 2,
+            marginHorizontal: 5,
+            marginBottom: 10,
+            color: Colors.text,
+            fontFamily: 'Inter',
+        },
+        limitsContainer: {
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+        },
+        warning: {
+            color: Colors.error,
+            marginHorizontal: 5,
+            fontFamily: 'Inter',
+        },
+    });
+
     return(
         <View style={styles.sliderSectionContainer}>
             <View style={{ flexDirection: 'colummn', flex: 1, }}>
@@ -55,11 +113,12 @@ export default function SliderSection(props) {
                     value={props.question}
                     onChangeText={props.onChangeQuestion}
                     style={styles.sliderQuestion}
+                    placeholderTextColor={Colors.text}
                 />
 
-                <Text style={{color: 'white'}}>
-                    <Text>Set min and max values - </Text>
-                    <Text style={{color: 'red', fontWeight: 'bold'}}>Required</Text>
+                <Text>
+                    <Text style={[styles.text, {fontSize: 14}]}>Set min and max values - </Text>
+                    <Text style={[styles.text, {fontSize: 14, color: Colors.error, fontWeight: 'bold'}]}>Required</Text>
                 </Text>
                 <View style={styles.limitsContainer}>
                     <TextInput //set minimum value
@@ -69,6 +128,7 @@ export default function SliderSection(props) {
                         onEndEditing={compareValues}
                         style={styles.limits}
                         inputMode='numeric'
+                        placeholderTextColor={Colors.text}
                     />
                     <TextInput //set maximum value
                         placeholder="max"
@@ -77,49 +137,12 @@ export default function SliderSection(props) {
                         onEndEditing={compareValues}
                         style={styles.limits}
                         inputMode='numeric'
+                        placeholderTextColor={Colors.text}
                     />
                 </View>
                     {!valuesCorrect && <Text style={styles.warning}>Minimum has to be less than Maximum</Text>}
             </View>
-            <MaterialIcons name="delete" size={30} color="red" onPress={props.onDelete} />
+            <MaterialIcons name="delete" size={30} color={Colors.error} onPress={props.onDelete} />
         </View>
     )
 }
-
-const styles = StyleSheet.create ({
-    sliderSectionContainer: {
-        margin: 10,
-        flexDirection: 'row',
-        alignItems: 'center',
-    },
-    header: {
-        marginBottom: 5,
-        fontSize: 20,
-        color: 'white'
-    },
-    sliderQuestion: {
-        backgroundColor: '#E3E2E6',
-        padding: 10,
-        fontSize: 20,
-        borderRadius: 10,
-        marginRight: 5,   
-        marginBottom: 10, 
-    },
-    limits: {
-        backgroundColor: '#E3E2E6',
-        padding: 10,
-        fontSize: 15,
-        borderRadius: 10,
-        width: 50,    
-        marginBottom: 10,
-        marginHorizontal: 50,
-    },
-    limitsContainer: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-    },
-    warning: {
-        color: 'red',
-        marginHorizontal: 5,
-    },
-})

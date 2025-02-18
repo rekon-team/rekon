@@ -2,8 +2,13 @@ import React, { useState } from 'react';
 import { View, TextInput, Text, Pressable, StyleSheet, Image } from 'react-native';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import * as ImagePicker from 'expo-image-picker';
+import { useColors } from '../Colors';
+import { useLang } from '../Lang';
 
 export default function PicturePreview(props) {
+    const { Colors } = useColors();
+    const { Lang } = useLang();
+
     const [selectedImage, setSelectedImage] = useState(null);
     const [imageDimensions, setImageDimensions] = useState({width: 1, height: 1});
 
@@ -17,7 +22,7 @@ export default function PicturePreview(props) {
         }
 
         let result = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            mediaTypes: ['images'],
             allowsEditing: true,
             quality: 1,
         });
@@ -29,6 +34,7 @@ export default function PicturePreview(props) {
 
             setSelectedImage(asset.uri);
             setImageDimensions({ width, height });
+            console.log('test');
         }
     };
 
@@ -38,6 +44,59 @@ export default function PicturePreview(props) {
         console.log(`Image dimensions: ${width}x${height}`);
         setImageDimensions({ width, height });
     }
+
+    const styles = StyleSheet.create({
+        pictureSectionContainer: {
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'center',
+            margin: 10,
+        },
+        header: {
+            fontSize: 20,
+            marginBottom: 10,
+            color: Colors.text,
+            fontFamily: 'Inter',
+        },
+        pictureQuestion: {
+            backgroundColor: Colors.text,
+            padding: 10,
+            fontSize: 20,
+            borderRadius: 10,
+            marginRight: 5,    
+        },
+        uploadBox: {
+            backgroundColor: Colors.text,
+            borderWidth: 1,
+            height: 100,
+            marginTop: 10,
+            borderRadius: 10,
+            marginRight: 5,
+            justifyContent: 'center',
+        },
+        cameraIcon: {
+            flexDirection: 'row',
+            backgroundColor: 'gray',
+            alignSelf: 'center',
+            padding: 5,
+            borderRadius: 10,
+        },
+        image: {
+            flex: 1,
+            width: '100%',
+            height: undefined,
+            resizeMode: 'contain',
+            borderRadius: 10,
+        },
+        imagePressable: {
+            width: '100%',
+            maxHeight: '100%',
+            alignContent: 'center',
+            alignItems: 'center',
+            overflow: 'hidden',
+            alignSelf: 'center',
+        }
+    });
 
     return (
         <View style={styles.pictureSectionContainer}>
@@ -55,7 +114,7 @@ export default function PicturePreview(props) {
                     <View style={styles.uploadBox}>
                         <Pressable style={styles.cameraIcon} onPress={handleImageSelection}>
                             <MaterialIcons name="file-upload" size={30}/>
-                            <View style={{justifyContent: 'center'}}><Text style={{fontSize: 20}}>Upload Image</Text></View>
+                            <View style={{justifyContent: 'center'}}><Text style={{fontSize: 20, fontFamily: 'Inter'}}>Upload Image</Text></View>
                         </Pressable>
                     </View>
                 )}
@@ -63,56 +122,3 @@ export default function PicturePreview(props) {
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    pictureSectionContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-        margin: 10,
-    },
-    header: {
-        fontSize: 20,
-        marginBottom: 10,
-        color: 'white',
-    },
-    pictureQuestion: {
-        backgroundColor: '#E3E2E6',
-        padding: 10,
-        fontSize: 20,
-        borderRadius: 10,
-        marginRight: 5,    
-    },
-    uploadBox: {
-        backgroundColor: '#E3E2E6',
-        borderWidth: 1,
-        height: 100,
-        marginTop: 10,
-        borderRadius: 10,
-        marginRight: 5,
-        justifyContent: 'center',
-    },
-    cameraIcon: {
-        flexDirection: 'row',
-        backgroundColor: 'gray',
-        alignSelf: 'center',
-        padding: 5,
-        borderRadius: 10,
-    },
-    image: {
-        flex: 1,
-        width: '100%',
-        height: undefined,
-        resizeMode: 'contain',
-        borderRadius: 10,
-    },
-    imagePressable: {
-        width: '100%',
-        maxHeight: '100%',
-        alignContent: 'center',
-        alignItems: 'center',
-        overflow: 'hidden',
-        alignSelf: 'center',
-    }
-
-});

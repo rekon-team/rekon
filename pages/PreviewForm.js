@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { View, Text, Pressable, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, Pressable, StyleSheet, ScrollView, Dimensions } from 'react-native';
 
 import TextPreview from '../components/PreviewComponents/TextPreview';
 import NumberPreview from '../components/PreviewComponents/NumberPreview';
@@ -8,139 +8,112 @@ import MultipleChoicePreview from '../components/PreviewComponents/MultipleChoic
 import CheckboxPreview from '../components/PreviewComponents/CheckboxPreview';
 import SliderPreview from '../components/PreviewComponents/SliderPreview';
 import PicturePreview from '../components/PreviewComponents/PicturePreview';
+import { useColors } from '../components/Colors';
+import { useLang } from '../components/Lang';
+import BackgroundGradient from '../components/BackgroundGradient';
+import Header from '../components/Header';
+import { getStatusBarHeight } from 'react-native-status-bar-height';
 
-export default function PreviewForm({ route }) {
-    const sections = route.params?.sections;
+export default function PreviewForm({ route, navigation }) {
+  const { Colors } = useColors();
+  const { Lang } = useLang();
 
-    return(
-        <View style={styles.container}>
-            <View style={{ backgroundColor: 'white', height: 'auto', height: 'auto', }}></View>
-            <ScrollView>
-            {sections.map((section, index) => (
-          <View key={index} style={styles.sections}>
-            {section.type === 'text' && (
-              <TextPreview
-                question={section.question}
-                onChangeQuestion={(textQuestion) => {
-                  //console.log('Text Question: ', textQuestion);
-                  const newSections = [...sections];
-                  newSections[index].question = textQuestion;
-                }}
-                onDelete={() => deleteSection(index)}
-              />
-                )}
-            {section.type === 'number' && (
-              <NumberPreview
-                question={section.question}
-                onChangeQuestion={(numberQuestion) => {
-                  //console.log('Number Question: ', numberQuestion)
-                  const newSections = [...sections];
-                  newSections[index].question = numberQuestion;
-                  setSections(newSections);
-                }}
-                onDelete={() => deleteSection(index)}
-              />
-            )}
-            {section.type === 'multiple-choice' && (
-              <MultipleChoicePreview
-                question={section.question}
-                onChangeQuestion={(multipleChoiceQuestion) => {
-                  const newSections = [...sections];
-                  newSections[index].question = multipleChoiceQuestion;
-                  setSections(newSections);
-                }}
-                options={section.options}
-                onUpdateOptions={(newOptions) => updateOptions(index, newOptions)}
-                onDelete={() => deleteSection(index)}
-              />
-              )}
-            {section.type === 'checkbox' && (
-              <CheckboxPreview
-              question={section.question}
-              onChangeQuestion={(checkboxQuestion) => {
-                const newSections = [...sections];
-                newSections[index].question = checkboxQuestion;
-                setSections(newSections);
-              }}
-                options={section.options}
-                onUpdateOptions={(newOptions) => updateOptions(index, newOptions)}
-                onDelete={() => deleteSection(index)}
-              />
-            )}
-            {section.type === 'slider' && (
-              <SliderPreview
-                question={section.question}
-                minimum={section.minimum}
-                maximum={section.maximum}
-              />
-            )}
-            {section.type === 'picture' && (
-              <PicturePreview
-                question={section.question}
-                onChangeQuestion={(pictureQuestion) => {
-                  const newSections = [...sections];
-                  newSections[index].question = pictureQuestion;
-                  setSections(newSections);
-                }}
-                onDelete={() => deleteSection(index)}
-              />
-            )}
-            
-          </View>
-        ))}
-        </ScrollView>
-        </View>
+  const sections = route.params?.sections;
 
-    );
-}
-
-const styles = StyleSheet.create({
+  const styles = StyleSheet.create({
     container: {
       flex: 1,
+      backgroundColor: Colors.primary
     },
     sections: {
       //borderWidth: 1,
-      backgroundColor: '#3E4758CC',
+      backgroundColor: Colors.secondaryBright,
       margin: 10,
       borderRadius: 10,
-    },
-    centeredView: {
-      flex: 1,
-      justifyContent: "center",
-      alignItems: "center",
-      marginTop: 22
-    },
-    modalView: {
-      margin: 20,
-      backgroundColor: "white",
-      borderRadius: 10,
-      padding: 25,
-      alignItems: "center",
-      shadowColor: "#000",
-      shadowOffset: {
-        width: 0,
-        height: 2,
-      },
-      shadowOpacity: 0.25,
-      shadowRadius: 4,
-      elevation: 5
-    },
-    addSectionPressable: {
-      flexDirection: 'row',
-      justifyContent: 'center',
-      alignItems: 'center',
-      padding: 5,
-      backgroundColor: 'blue',
-      margin: 10,
-      borderRadius: 10,
-    },
-    modalPressables: {
-      flexDirection: 'row',
-      justifyContent: 'center',
-      alignItems: 'stretch',
-      padding: 5,
-      borderRadius: 10,
-      borderWidth: 1,
-      marginVertical: 5,
     },
   });
+
+  return(
+      <View style={styles.container}>
+        <BackgroundGradient />
+        <Header title={Lang.preview.title} backButton={true} navigation={navigation} />
+        <View style={{ width: '100%', height: Dimensions.get('window').height - getStatusBarHeight() - 60, top: getStatusBarHeight() + 60 }}>
+          <ScrollView>
+            {sections.map((section, index) => (
+              <View key={index} style={styles.sections}>
+                {section.type === 'text' && (
+                  <TextPreview
+                    question={section.question}
+                    onChangeQuestion={(textQuestion) => {
+                      //console.log('Text Question: ', textQuestion);
+                      const newSections = [...sections];
+                      newSections[index].question = textQuestion;
+                    }}
+                    onDelete={() => deleteSection(index)}
+                  />
+                    )}
+                {section.type === 'number' && (
+                  <NumberPreview
+                    question={section.question}
+                    onChangeQuestion={(numberQuestion) => {
+                      //console.log('Number Question: ', numberQuestion)
+                      const newSections = [...sections];
+                      newSections[index].question = numberQuestion;
+                      setSections(newSections);
+                    }}
+                    onDelete={() => deleteSection(index)}
+                  />
+                )}
+                {section.type === 'multiple-choice' && (
+                  <MultipleChoicePreview
+                    question={section.question}
+                    onChangeQuestion={(multipleChoiceQuestion) => {
+                      const newSections = [...sections];
+                      newSections[index].question = multipleChoiceQuestion;
+                      setSections(newSections);
+                    }}
+                    options={section.options}
+                    onUpdateOptions={(newOptions) => updateOptions(index, newOptions)}
+                    onDelete={() => deleteSection(index)}
+                  />
+                  )}
+                {section.type === 'checkbox' && (
+                  <CheckboxPreview
+                  question={section.question}
+                  onChangeQuestion={(checkboxQuestion) => {
+                    const newSections = [...sections];
+                    newSections[index].question = checkboxQuestion;
+                    setSections(newSections);
+                  }}
+                    options={section.options}
+                    onUpdateOptions={(newOptions) => updateOptions(index, newOptions)}
+                    onDelete={() => deleteSection(index)}
+                  />
+                )}
+                {section.type === 'slider' && (
+                  <SliderPreview
+                    question={section.question}
+                    minimum={section.minimum}
+                    maximum={section.maximum}
+                  />
+                )}
+                {section.type === 'picture' && (
+                  <PicturePreview
+                    question={section.question}
+                    onChangeQuestion={(pictureQuestion) => {
+                      const newSections = [...sections];
+                      newSections[index].question = pictureQuestion;
+                      setSections(newSections);
+                    }}
+                    onDelete={() => deleteSection(index)}
+                  />
+                )}
+                
+              </View>
+            ))}
+          </ScrollView>
+        </View>
+      </View>
+
+  );
+}

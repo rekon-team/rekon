@@ -50,7 +50,7 @@ function AdminDrawers() {
   const { Colors } = useColors();
   //Yippee!!
   return (
-    <Drawer.Navigator drawerContent={(props) => <StyledDrawer {...props} />}>
+    <Drawer.Navigator initialRouteName='Forms' drawerContent={(props) => <StyledDrawer {...props} />}>
       <Drawer.Screen name="Overview" component={AdminHomeMatch} options={{ headerShown: false }} />
       <Drawer.Screen name="AdminHomePit" component={AdminHomePit} options={{ headerShown: false, drawerItemStyle: { display: 'none' } }} />
       <Drawer.Screen name="Teammates" component={Teammates} options={{ headerShown: false }} />
@@ -65,7 +65,7 @@ function AdminDrawers() {
 function PageStack() {
   // This stack navigator is gonna be huge
   return (
-    <Stack.Navigator initialRouteName="Start">
+    <Stack.Navigator initialRouteName="AdminDrawers">
       <Stack.Screen name="Start" component={Start} options={{ headerShown: false }} />
       <Stack.Screen name="SignUp" component={SignUp} options={{ headerShown: false }} />
       <Stack.Screen name="LogIn" component={LogIn} options={{ headerShown: false }} />

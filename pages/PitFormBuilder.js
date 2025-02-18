@@ -13,6 +13,7 @@ import { useColors } from '../components/Colors';
 import { useLang } from '../components/Lang';
 import BackgroundGradient from '../components/BackgroundGradient';
 import Header from '../components/Header';
+import { getStatusBarHeight } from 'react-native-status-bar-height';
 
 
 export default function PitFormBuilder({ navigation, route }){
@@ -21,8 +22,12 @@ export default function PitFormBuilder({ navigation, route }){
 
   const { pitFormId } = route.params;
 
+  const [forms, setForms] = useState([]);
   const [sections, setSections] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
+
+  let indent = Dimensions.get('window').width * .1;
+  let verticalIndent = Dimensions.get('window').height * .1;
   
   useEffect(() => {
     const loadData = async () => {
@@ -31,6 +36,11 @@ export default function PitFormBuilder({ navigation, route }){
         const parsedSections = JSON.parse(sectionsString);
         const sectionsArray = parsedSections ? parsedSections : [];
         setSections(sectionsArray);
+
+        const formsString = await AsyncStorage.getItem('pitForms');
+        const parsedForms = JSON.parse(formsString);
+        const formsArray = parsedForms ? parsedForms : [];
+        setForms(formsArray);
       } catch (error) {
         console.error(error);
       }
@@ -51,8 +61,8 @@ export default function PitFormBuilder({ navigation, route }){
     console.log(sections);
   }, [sections]);
 
-  const addSection = (sectionType, sectionOptions = []) => {
-    setSections([...sections, { type: sectionType, options: sectionOptions }]);
+  const addSection = (sectionType, sectionOptions = [], minimum = 0, maximum = 0) => {
+    setSections([...sections, { type: sectionType, options: sectionOptions, question: '', minimum: minimum, maximum: maximum }]);
     setModalVisible(false);
   };
 
@@ -129,7 +139,7 @@ export default function PitFormBuilder({ navigation, route }){
     },
     sections: {
       //borderWidth: 1,
-      backgroundColor: '#3E4758CC',
+      backgroundColor: Colors.secondaryBright,
       margin: 10,
       borderRadius: 10,
     },
@@ -137,52 +147,44 @@ export default function PitFormBuilder({ navigation, route }){
       flex: 1,
       justifyContent: "center",
       alignItems: "center",
+      backgroundColor: 'rgba(0, 0, 0, 0.5)'
     },
     modalView: {
-      margin: 20,
-      backgroundColor: "white",
+      backgroundColor: Colors.secondary,
+      width: indent * 8,
+      height: verticalIndent * 5,
       borderRadius: 10,
-      padding: 25,
       alignItems: "center",
-      shadowColor: "#000",
-      shadowOffset: {
-        width: 0,
-        height: 2,
-      },
-      shadowOpacity: 0.25,
-      shadowRadius: 4,
-      elevation: 5
     },
     addSectionPressable: {
-      flexDirection: 'row',
       justifyContent: 'center',
       alignItems: 'center',
-      padding: 5,
-      backgroundColor: 'blue',
-      margin: 10,
+      backgroundColor: Colors.accent,
+      bottom: verticalIndent / 4,
+      width: indent * 8,
+      height: verticalIndent * .75,
+      left: indent,
       borderRadius: 10,
+      position: 'absolute'
     },
     modalPressables: {
-      flexDirection: 'row',
       justifyContent: 'center',
-      alignItems: 'stretch',
-      padding: 5,
+      alignItems: 'center',
       borderRadius: 10,
-      borderWidth: 1,
-      marginVertical: 5,
+      borderWidth: 2,
+      width: '90%',
+      height: verticalIndent / 2,
+      marginTop: verticalIndent / 7,
+      borderColor: Colors.text
     },
   });
   
   return(
     <View style={styles.container}>
       <BackgroundGradient />
-      <Header title="Pit Form Builder" backButton={true} navigation={navigation} previewButton={true} matchOrPit='Pit' sections={sections} />
+      <Header title={forms.find(form => form.id == pitFormId) ? forms.find(form => form.id == pitFormId).name : 'Loading'} backButton={true} navigation={navigation} previewButton={true} matchOrPit='Pit' sections={sections} singleLine={true} />
 
-      <View style={{ flexDirection: 'row', justifyContent: 'flex-end', margin: 10 }}>
-        <MaterialIcons name="visibility" size={30} color="white" backgroundColor="#3E4758CC" style={{ borderRadius: 10, padding: 2, }} onPress={navigateToPreview} /> 
-      </View>
-
-      <View style={{backgroundColor: 'white', height: Dimensions.get('window').height * .9, width: Dimensions.get('window').width, position: 'absolute', top: Dimensions.get('window').height * .1}}>
+      <View style={{height: Dimensions.get('window').height * .9 - getStatusBarHeight() - 60, width: Dimensions.get('window').width, position: 'absolute', top: getStatusBarHeight() + 60}}>
         <ScrollView>
 
           <Modal
@@ -196,37 +198,37 @@ export default function PitFormBuilder({ navigation, route }){
             <View style={styles.centeredView}>
               <View style={styles.modalView}>
                 <Pressable style={styles.modalPressables} onPress={() => addSection('text')}>
-                  <View style={{ flex: 1, justifyContent: 'center', flexDirection: 'row' }}>
-                    <Text>Add Text Section</Text>
+                  <View style={{ flex: 1, justifyContent: 'center' }}>
+                    <Text style={{color: Colors.text, fontSize: verticalIndent * .3}}>Add Text Section</Text>
                   </View>
                 </Pressable>
                 <Pressable style={styles.modalPressables} onPress={() => addSection('number')}>
-                  <View style={{ flex: 1, justifyContent: 'center', flexDirection: 'row' }}>
-                    <Text>Add Number Section</Text>
+                  <View style={{ flex: 1, justifyContent: 'center' }}>
+                    <Text style={{color: Colors.text, fontSize: verticalIndent * .3}}>Add Number Section</Text>
                   </View>
                 </Pressable>
                 <Pressable style={styles.modalPressables} onPress={() => addSection('multiple-choice', ['Option 1', 'Option 2'])}>
-                  <View style={{ flex: 1, justifyContent: 'center', flexDirection: 'row' }}>
-                    <Text>Add Multiple Choice Section</Text>
+                  <View style={{ flex: 1, justifyContent: 'center' }}>
+                    <Text style={{color: Colors.text, fontSize: verticalIndent * .3}}>Add Multiple Choice Section</Text>
                   </View>
                 </Pressable>
                 <Pressable style={styles.modalPressables} onPress={() => addSection('checkbox', ['Option 1', 'Option 2'])}>
-                  <View style={{ flex: 1, justifyContent: 'center', flexDirection: 'row' }}>
-                    <Text>Add Checkbox Section</Text>
+                  <View style={{ flex: 1, justifyContent: 'center' }}>
+                    <Text style={{color: Colors.text, fontSize: verticalIndent * .3}}>Add Checkbox Section</Text>
                   </View>
                 </Pressable>
                 <Pressable style={styles.modalPressables} onPress={() => addSection('slider')}>
-                  <View style={{ flex: 1, justifyContent: 'center', flexDirection: 'row' }}>
-                    <Text>Add Slider Section</Text>
+                  <View style={{ flex: 1, justifyContent: 'center' }}>
+                    <Text style={{color: Colors.text, fontSize: verticalIndent * .3}}>Add Slider Section</Text>
                   </View>
                 </Pressable>
                 <Pressable style={styles.modalPressables} onPress={() => addSection('picture')}>
-                  <View style={{ flex: 1, justifyContent: 'center', flexDirection: 'row' }}>
-                    <Text>Add Picture Section</Text>
+                  <View style={{ flex: 1, justifyContent: 'center' }}>
+                    <Text style={{color: Colors.text, fontSize: verticalIndent * .3}}>Add Picture Section</Text>
                   </View>
                 </Pressable>
-                <Pressable style={[styles.modalPressables, {marginTop: 10}]} onPress={() => setModalVisible(false)}>
-                  <Text>Cancel</Text>
+                <Pressable style={[styles.modalPressables, {borderColor: Colors.redAlliance}]} onPress={() => setModalVisible(false)}>
+                  <Text style={{color: Colors.redAlliance, fontSize: verticalIndent * .3}}>Cancel</Text>
                 </Pressable>
               </View>
             </View>
@@ -325,7 +327,7 @@ export default function PitFormBuilder({ navigation, route }){
       </View>
 
       <Pressable style={styles.addSectionPressable} onPress={() => setModalVisible(true)}>
-        <Text style={{color: 'white', fontSize: 20}}>Add New Section</Text>
+        <Text style={{color: Colors.onAccent, fontSize: 20}}>Add New Section</Text>
       </Pressable>
     </View>
   ); 

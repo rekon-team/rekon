@@ -465,17 +465,17 @@ export default function Forms({ navigation }) {
                 setOptionsYs(prevOptionsYs => [...prevOptionsYs, {id: pitForm.id, y: y}]);
                 console.log(`y: ${y}`);
               }}>
-                <View style={{flexDirection: 'row', height: 60, marginLeft: 10, marginRight: 10, marginTop: 10, backgroundColor: Colors.secondary, borderRadius: 10, zIndex: 1, alignItems: 'center'}}>
+                <View style={{flexDirection: 'row', height: 50, marginLeft: 10, marginRight: 10, marginTop: 10, backgroundColor: Colors.secondary, borderRadius: 10, zIndex: 1, alignItems: 'center'}}>
                   <Pressable style={{flexGrow: 1}} onPress={() => goToPitFormBuilder(pitForm.id)}>
-                    <View style={{flexGrow: 1, flexShrink: 0, zIndex: 2, justifyContent: 'center'}}>
-                      <Text style={[styles.text, {marginLeft: 10, fontSize: 34, color: Colors.text}]}>{pitForm.name}</Text>
+                    <View style={{width: Dimensions.get('window').width - 60, zIndex: 2, justifyContent: 'center'}}>
+                      <Text numberOfLines={1} ellipsizeMode="tail" style={[styles.text, {marginLeft: 10, fontSize: 34, color: Colors.text}]}>{pitForm.name}</Text>
                     </View>
                   </Pressable>
                   
                   <Menu renderer={renderers.NotAnimatedContextMenu}>
                     <MenuTrigger onPress={() => setSelectedOption(pitForm.id)}>
                       <View style={{flexShrink: 1, height: '100%', marginRight: -0, zIndex: 9, justifyContent: 'center'}}>
-                        <MaterialIcons name='more-vert' size={40} color={Colors.text}/>
+                        <MaterialIcons name='more-vert' size={50} color={Colors.text}/>
                       </View>
                     </MenuTrigger>
   
@@ -514,14 +514,14 @@ export default function Forms({ navigation }) {
               }}>
                 <View style={{flexDirection: 'row', height: 50, marginLeft: 10, marginRight: 10, marginTop: 10, backgroundColor: Colors.secondary, borderRadius: 10, zIndex: 1}}>
                   <Pressable style={{flexGrow: 1}} onPress={() => goToMatchFormPages(matchForm.id)}>
-                    <View style={{flexGrow: 1, flexShrink: 0, zIndex: 2}}>
+                    <View style={{width: Dimensions.get('window').width - 60, zIndex: 2}}>
                       <Text style={[styles.text, {marginLeft: 10, fontSize: 34, color: Colors.text}]}>{matchForm.name}</Text>
                     </View>
                   </Pressable>
                   
                   <Menu renderer={renderers.NotAnimatedContextMenu}>
                     <MenuTrigger onPress={() => setSelectedOption(matchForm.id)}>
-                      <View style={{flexShrink: 1, marginRight: -10, zIndex: 9}}>
+                      <View style={{width: 50, height: 50, marginRight: -10, zIndex: 9, justifyContent: 'center', alignItems: 'center'}}>
                         <MaterialIcons name='more-vert' size={50} color={Colors.text}/>
                       </View>
                     </MenuTrigger>
@@ -561,14 +561,14 @@ export default function Forms({ navigation }) {
               }}>
                 <View style={{flexDirection: 'row', height: 50, marginLeft: 10, marginRight: 10, marginTop: 10, backgroundColor: Colors.secondary, borderRadius: 10, zIndex: 1}}>
                   <Pressable style={{flexGrow: 1}} onPress={() => goToData(datum.id)}>
-                    <View style={{flexGrow: 1, flexShrink: 0, zIndex: 2}}>
-                      <Text style={[styles.text, {marginLeft: 10, fontSize: 34, color: Colors.text}]}>{datum.name}</Text>
+                    <View style={{width: Dimensions.get('window').width - 60, height: 50, zIndex: 2}}>
+                      <Text numberOfLines={1} ellipsizeMode="tail" style={[styles.text, {marginLeft: 10, fontSize: 34, color: Colors.text}]}>{datum.name}</Text>
                     </View>
                   </Pressable>
                   
                   <Menu renderer={renderers.NotAnimatedContextMenu}>
                     <MenuTrigger onPress={() => setSelectedOption(datum.id)}>
-                      <View style={{flexShrink: 1, marginRight: -10, zIndex: 9}}>
+                      <View style={{flexShrink: 1, width: 50, height: 50, justifyContent: 'center', marginRight: -10, zIndex: 9}}>
                         <MaterialIcons name='more-vert' size={50} color={Colors.text}/>
                       </View>
                     </MenuTrigger>
@@ -608,8 +608,8 @@ export default function Forms({ navigation }) {
               }}>
                 <View style={{flexDirection: 'row', height: 50, marginLeft: 10, marginRight: 10, marginTop: 10, backgroundColor: Colors.secondary, borderRadius: 10, zIndex: 1}}>
                   <Pressable style={{flexGrow: 1}} onPress={() => goToCompare(comp.id)}>
-                    <View style={{flexGrow: 1, flexShrink: 0, zIndex: 2}}>
-                      <Text style={[styles.text, {marginLeft: 10, fontSize: 34, color: Colors.text}]}>{comp.name}</Text>
+                    <View style={{width: Dimensions.get('window').width - 60, zIndex: 2}}>
+                      <Text numberOfLines={1} ellipsizeMode="tail" style={[styles.text, {marginLeft: 10, fontSize: 34, color: Colors.text}]}>{comp.name}</Text>
                     </View>
                   </Pressable>
                   
