@@ -28,6 +28,7 @@ import QRScan from './pages/QRScan';
 import AdminHomeMatch from './pages/AdminHomeMatch';
 import AdminHomePit from './pages/AdminHomePit';
 import AllMatchAssignments from './pages/AllMatchAssignments';
+import InviteMember from './pages/InviteMember';
 
 // Debug pages
 import DebugTools from './pages/DebugTools';
@@ -67,6 +68,7 @@ function AdminDrawers() {
       <Drawer.Screen name="AssignTeammates" component={AssignTeammates} options={{ headerShown: false, drawerItemStyle: { display: 'none' } }} />
       <Drawer.Screen name="Events" component={Events} options={{ headerShown: false }} />
       <Drawer.Screen name="Forms" component={Forms} options={{ headerShown: false }} />
+      <Drawer.Screen name="InviteMember" component={InviteMember} options={{ headerShown: false }} />
     </Drawer.Navigator>
   )
 }

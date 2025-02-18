@@ -107,7 +107,7 @@ export default function StyledDrawer(props) {
     return (
         <View style={{flex: 1}}>
             <DrawerContentScrollView {...props} contentContainerStyle={{backgroundColor: Colors.secondary, height: '100%'}}>
-                <DrawerItem {...props} label={Settings.username} focused={false} labelStyle={styles.userProfileText} style={styles.userProfile} inactiveBackgroundColor={Colors.tabSelected} /* PLACEHOLDER   onPress={() => props.navigation.navigate('Profile')}*/ icon={/*PLACEHOLDER*/ () => (<Image source={{
+                <DrawerItem {...props} label={Settings.username || "Unknown User"} focused={false} labelStyle={styles.userProfileText} style={styles.userProfile} inactiveBackgroundColor={Colors.tabSelected} /* PLACEHOLDER   onPress={() => props.navigation.navigate('Profile')}*/ icon={/*PLACEHOLDER*/ () => (<Image source={{
                             uri: `${Constants.serverUrl}/uploads/getProfilePicture?accountID=${Settings.accountID}&t=${profileTimestamp}`
                         }} style={{width: Dimensions.get('window').width * 0.10, height: Dimensions.get('window').width * 0.10, borderRadius: 1000, zIndex: 1, opacity: 1, marginRight: -Dimensions.get('window').width * 0.05}} />)} />
 

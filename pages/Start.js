@@ -9,6 +9,8 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { useState } from "react";
 import { useSettings } from "../components/Settings";
 import Popup from "../components/Popup";
+import Constants from '../components/Constants';
+import ky from 'ky';
 
 export default function Start({route, navigation}) {
     /* Loads the language handling functions from the LanguageProvider (Lang.js)
@@ -42,42 +44,60 @@ export default function Start({route, navigation}) {
     }, []);
 
     useEffect(() => {
-        if (Settings.accountID != undefined && Settings.token == undefined) {
-            setShowPopup(true);
-            setPopupType('info');
-            setStatusText('Resuming account creation');
-            setTimeout(() => {
-                navigation.navigate('Verification', {sign_up: true});
-            }, 1500)
-        } else if (Settings.stage == 'welcome') {
-            setShowPopup(true);
-            setPopupType('info');
-            setStatusText('Resuming account creation');
-            setTimeout(() => {
-                navigation.navigate('Welcome');
-            }, 1500);
-        } else if (Settings.stage == 'debug') {
-            setShowPopup(true);
-            setPopupType('info');
-            setStatusText('Entering debug mode');
-            setTimeout(() => {
-                navigation.navigate('DebugTools');
-            }, 1000);
-        } else if (Settings.stage == 'joinTeam') {
-            setShowPopup(true);
-            setPopupType('info');
-            setStatusText('Resuming account creation');
-            setTimeout(() => {
-                navigation.navigate('JoinTeam');
-            }, 1500);
-        } else if (Settings.stage == 'complete') {
-            setShowPopup(true);
-            setPopupType('info');
-            setStatusText('Logging you in...');
-            setTimeout(() => {
-                navigation.navigate('AdminDrawers');
-            }, 1500);
+        const checkServer = async () => {
+            try {
+                if (Settings.accountID != undefined) {
+                    const json = await ky.get(Constants.serverUrl + '/accounts/checkAccountExists?accountID=' + Settings.accountID).json();
+                    console.log(json);
+                    if (json.error) {
+                        setShowPopup(true);
+                        setStatusText(json.message);
+                        setPopupType('error');
+                        return;
+                    }
+                }
+            } catch (error) {
+                console.log(error);
+            }
+            if (Settings.accountID != undefined && Settings.token == undefined) {
+                setShowPopup(true);
+                setPopupType('info');
+                setStatusText('Resuming account creation');
+                setTimeout(() => {
+                    navigation.navigate('Verification', {sign_up: true});
+                }, 1500)
+            } else if (Settings.stage == 'welcome') {
+                setShowPopup(true);
+                setPopupType('info');
+                setStatusText('Resuming account creation');
+                setTimeout(() => {
+                    navigation.navigate('Welcome');
+                }, 1500);
+            } else if (Settings.stage == 'debug') {
+                setShowPopup(true);
+                setPopupType('info');
+                setStatusText('Entering debug mode');
+                setTimeout(() => {
+                    navigation.navigate('DebugTools');
+                }, 1000);
+            } else if (Settings.stage == 'joinTeam') {
+                setShowPopup(true);
+                setPopupType('info');
+                setStatusText('Resuming account creation');
+                setTimeout(() => {
+                    navigation.navigate('JoinTeam');
+                }, 1500);
+            } else if (Settings.stage == 'complete') {
+                setShowPopup(true);
+                setPopupType('info');
+                setStatusText('Logging you in...');
+                setTimeout(() => {
+                    navigation.navigate('AdminDrawers');
+                }, 1500);
+            }
         }
+
+        checkServer();
     }, [Settings]);
 
     // Defines the more complex styles for the page.

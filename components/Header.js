@@ -14,6 +14,10 @@ export default function Header(props) {
     let backgroundShown = false;
     let previewButton = false;
     let customZIndex = 0;
+    let topOffset = getStatusBarHeight() + fontSize / 2;
+    if (props.overrideTopOffset != undefined) {
+        topOffset = props.overrideTopOffset;
+    }
     if (props.overrideFontSize != 40 && props.overrideFontSize != undefined) {
         // window scaling fix
         // calculates the relative font size based on the window width to prevent the header from being too small or too large
@@ -35,7 +39,7 @@ export default function Header(props) {
     const styles = StyleSheet.create({
         header: {
             position: 'absolute',
-            top: getStatusBarHeight() + fontSize / 2,
+            top: topOffset,
             width: '100%',
             height: '15%',
             alignItems: 'center',
