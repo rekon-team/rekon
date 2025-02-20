@@ -32,6 +32,7 @@ import MatchFormPages from './pages/MatchFormPages';
 import MatchFormBuilder from './pages/MatchFormBuilder';
 import PitFormBuilder from './pages/PitFormBuilder';
 import Settings from './pages/Settings';
+import Scout from './pages/Scout';
 
 import StyledDrawer from './components/Drawer';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -50,7 +51,7 @@ function AdminDrawers() {
   const { Colors } = useColors();
   //Yippee!!
   return (
-    <Drawer.Navigator initialRouteName='Forms' drawerContent={(props) => <StyledDrawer {...props} />}>
+    <Drawer.Navigator drawerContent={(props) => <StyledDrawer {...props} />}>
       <Drawer.Screen name="Overview" component={AdminHomeMatch} options={{ headerShown: false }} />
       <Drawer.Screen name="AdminHomePit" component={AdminHomePit} options={{ headerShown: false, drawerItemStyle: { display: 'none' } }} />
       <Drawer.Screen name="Teammates" component={Teammates} options={{ headerShown: false }} />
@@ -58,6 +59,7 @@ function AdminDrawers() {
       <Drawer.Screen name="Events" component={Events} options={{ headerShown: false }} />
       <Drawer.Screen name="Forms" component={Forms} options={{ headerShown: false }} />
       <Drawer.Screen name="Settings" component={Settings} options={{ headerShown: false }} />
+      <Drawer.Screen name="Scout" component={Scout} options={{ headerShown: false }} />
     </Drawer.Navigator>
   )
 }
@@ -80,6 +82,7 @@ function PageStack() {
       <Stack.Screen name="MatchFormPages" component={MatchFormPages} options={{ headerShown: false }} />
       <Stack.Screen name="MatchFormBuilder" component={MatchFormBuilder} options={{ headerShown: false }} />
       <Stack.Screen name="PitFormBuilder" component={PitFormBuilder} options={{ headerShown: false }} />
+      <Stack.Screen name="Scout" component={Scout} options={{ headerShown: false }} />
     </Stack.Navigator>
   );
 }
