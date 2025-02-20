@@ -124,5 +124,11 @@
         "title": "Settings",
         "language": "Language:",
         "system_color": "System Color:"
+    },
+    "scout": {
+        "title": "Scout",
+        "pit_assignments": "Pit Assignments:",
+        "teams_scouted": "Teams Scouted: ",
+        "match_assignments": "Match Assignments:"  
     }
 }

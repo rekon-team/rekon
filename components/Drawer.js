@@ -55,7 +55,7 @@ export default function StyledDrawer(props) {
         <View style={{flex: 1}}>
             <DrawerContentScrollView {...props} contentContainerStyle={{backgroundColor: Colors.secondary, height: '100%'}}>
                 <DrawerItem {...props} label={userName} focused={false} labelStyle={styles.userProfileText} style={styles.userProfile} inactiveBackgroundColor={Colors.tabSelected} /* PLACEHOLDER   onPress={() => props.navigation.navigate('Profile')}*/ icon={/*PLACEHOLDER*/ () => (<MaterialIcons name="person" size={Dimensions.get('window').height * 0.045 / Dimensions.get('window').fontScale} color={Colors.text} />)} />
-                <DrawerItem {...props} label={currentMode == "Admin" ? Lang.hamburger_menu.scout_mode : Lang.hamburger_menu.admin_mode} focused={false} labelStyle={styles.drawerItemText} style={styles.drawerItem} inactiveBackgroundColor={Colors.tabSelected} /* PLACEHOLDER   onPress={() => props.navigation.navigate('Analyze')}*/ icon={() => (<MaterialIcons name="swap-horiz" size={Dimensions.get('window').height * 0.03 / Dimensions.get('window').fontScale} color={Colors.text} />)} />
+                <DrawerItem {...props} label={currentMode = "Admin" ? Lang.hamburger_menu.scout_mode : Lang.hamburger_menu.admin_mode} focused={false} labelStyle={styles.drawerItemText} style={styles.drawerItem} inactiveBackgroundColor={Colors.tabSelected} onPress={() => props.navigation.navigate('Scout')} icon={() => (<MaterialIcons name="swap-horiz" size={Dimensions.get('window').height * 0.03 / Dimensions.get('window').fontScale} color={Colors.text} />)} />
 
                 <View style={styles.divider} />
 
