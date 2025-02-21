@@ -80,7 +80,7 @@ export default function LogIn({route, navigation}) {
             <BackgroundGradient />
             <Header backButton={true} title={Lang.log_in.title} navigation={navigation}/>
             <View style={styles.inputContainer}>
-                <TextInput textColor={Colors.text} activeOutlineColor={Colors.text} mode="outlined" style={styles.input} outlineStyle={{borderRadius: 10}} theme={{ colors: { onSurfaceVariant: 'white'} }} label={Lang.log_in.email} onChangeText={text => {
+                <TextInput textColor={Colors.text} activeOutlineColor={Colors.text} mode="outlined" style={styles.input} outlineStyle={{borderRadius: 10}} theme={{ colors: { onSurfaceVariant: Colors.text} }} label={Lang.log_in.email} onChangeText={text => {
                     if (text.includes('@') && text.includes('.')) {
                         setShowError(false);
                     } else {
@@ -89,7 +89,7 @@ export default function LogIn({route, navigation}) {
                     }
                     setEmail(text);
                 }} />
-                <TextInput textColor={Colors.text} activeOutlineColor={Colors.text} mode="outlined" style={styles.input} outlineStyle={{borderRadius: 10}} theme={{ colors: { onSurfaceVariant: 'white'} }} label={Lang.log_in.password} secureTextEntry={!showPassword} onChangeText={text => {
+                <TextInput textColor={Colors.text} activeOutlineColor={Colors.text} mode="outlined" style={styles.input} outlineStyle={{borderRadius: 10}} theme={{ colors: { onSurfaceVariant: Colors.text} }} label={Lang.log_in.password} secureTextEntry={!showPassword} onChangeText={text => {
                     setPassword(text);
                 }} />
                 <Pressable style={{left: Dimensions.get('window').width * .4 - 25, bottom: Dimensions.get('window').height * 0.8 * 0.1 - 8}} onPress={() => {setShowPassword(!showPassword)}} >

@@ -30,7 +30,8 @@ let hslDiffTable = {
     secondaryDim: [0.99, 0.45, 0.34, -0.5],
     tabSelected: [1, 0.466, 0.224],
     accent: [1, 1, 1],
-    secondaryBright: [0.99, 0.46, 0.60]
+    secondaryBright: [0.99, 0.46, 0.60],
+    divider: [1, 0.466, 0.51724137931]
 }
 
 const defaultColors = {
@@ -40,8 +41,7 @@ const defaultColors = {
     secondaryDim: '#3125417c',
     secondaryBright: '#574174',
     secondaryConatinerDim: '#aa8dce7c',
-    secondaryContainer: '#AA8DCE',
-    accent: '#3E4758',  
+    secondaryContainer: '#AA8DCE', 
     imageHeader: '#1a1b1ece',
     text: '#e3e2e6',
     secondaryText: '#AA8DCE',
@@ -59,6 +59,7 @@ const defaultColors = {
     uncompletedRed: '#b74040', //STOP WASTING TIME AND JUST FIX THESE!!!
     blueAlliance: '#1768AC', //JONAS!!!! FIX THIS TOO!!!!
     redAlliance: '#A30018', //JONAS!!!!!!!!!!!!!!!!! ALSO FIX THIS!!!!!!!!
+    originalAccent: '#8D53D4'
 }
 
 export const ColorProvider = ({ children }) => {

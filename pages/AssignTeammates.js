@@ -31,6 +31,7 @@ export default function AssignTeammates() {
             backgroundColor: Colors.primary,
             width: '100%',
             height: '100%',
+            alignItems: 'center',
         },
         text: {
             color: Colors.text,
@@ -41,12 +42,11 @@ export default function AssignTeammates() {
             height: indent * 1.5,
             borderRadius: 10,
             backgroundColor: Colors.accent,
-            position: 'absolute',
-            left: indent,
-            bottom: 0,
             flexDirection: 'row',
             alignItems: 'center',
-            justifyContent: 'center'
+            justifyContent: 'center',
+            marginBottom: indent/2,
+            gap: indent/2
         },
         scrollViewContainer: {
             height: indent * 2,
@@ -86,7 +86,7 @@ export default function AssignTeammates() {
             <BackgroundGradient />
             <Header title={Lang.assign_teammates.title} backButton={false} hamburgerButton={true} />
 
-            <View style={{height: Dimensions.get('window').height * .9, top: Dimensions.get('window').height * .1}}>
+            <View style={{flex:1, top: Dimensions.get('window').height * .1}}>
                 <ScrollView>
                     <View style={{height: Dimensions.get('window').height * .9}}>
                         <Text style={[styles.text, {fontSize: indent / 2, top: indent, left: indent}]}>{Lang.assign_teammates.form_uploads}</Text>
@@ -119,12 +119,6 @@ export default function AssignTeammates() {
                             <Switch style={{transform:[{scaleX: 1.2}, {scaleY: 1.2}]}} color={Colors.accent} value={subjectiveScouts} onValueChange={(value) => {setSubjectiveScouts(value)}} />
                         </View>
 
-                        <Pressable onPress={() => equallyDistribute()} style={styles.distributeContainer}>
-                            <Text style={[styles.text, {fontSize: indent / 2}]}>{Lang.assign_teammates.equally_distribute}</Text>
-                        
-                            <MaterialIcons name="send" size={indent * .75} color={Colors.text} style={{left: indent / 2}} />
-                        </Pressable>
-
                         <Text style={[styles.text, {fontSize: indent / 2, top: indent * 2, left: indent}]}>{Lang.assign_teammates.manual_assign}</Text>
 
                         <View style={{width: '80%', left: indent, flexDirection: 'row', top: indent * 2, justifyContent: 'space-between'}}>
@@ -141,6 +135,11 @@ export default function AssignTeammates() {
                     </View>
                 </ScrollView>
             </View>
+            <Pressable onPress={() => equallyDistribute()} style={styles.distributeContainer}>
+                <Text style={[styles.text, {fontSize: indent / 2, color: Colors.onAccent}]}>{Lang.assign_teammates.equally_distribute}</Text>
+            
+                <MaterialIcons name="send" size={indent * .75} color={Colors.onAccent} />
+            </Pressable>
         </View>
     )
 }

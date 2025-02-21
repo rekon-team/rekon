@@ -87,7 +87,7 @@ export default function SignUp({route, navigation}) {
             <BackgroundGradient/>
             <Header backButton={true} title={Lang.sign_up.title} navigation={navigation}/>
             <View style={styles.inputContainer}>
-                <TextInput onChangeText={(text) => {setEmail(text)}} textColor={Colors.text} activeOutlineColor={emailColor} outlineColor={emailColor} mode="outlined" style={styles.input} outlineStyle={{borderRadius: 10}} theme={{ colors: { onSurfaceVariant: 'white'} }} label={Lang.sign_up.email} />
+                <TextInput onChangeText={(text) => {setEmail(text)}} textColor={Colors.text} activeOutlineColor={emailColor} outlineColor={emailColor} mode="outlined" style={styles.input} outlineStyle={{borderRadius: 10}} theme={{ colors: { onSurfaceVariant: Colors.text} }} label={Lang.sign_up.email} />
                 <TextInput onChangeText={(text) => {setPassword(text)}} textColor={Colors.text} activeOutlineColor={passwordColor} outlineColor={passwordColor} mode="outlined" style={styles.input} outlineStyle={{borderRadius: 10}} theme={{ colors: { onSurfaceVariant: passwordColor} }} label={Lang.sign_up.password} />
                 <TextInput onChangeText={(text) => {setConfirmPassword(text)}} textColor={Colors.text} activeOutlineColor={passwordColor} outlineColor={passwordColor} mode="outlined" style={styles.input} outlineStyle={{borderRadius: 10}} theme={{ colors: { onSurfaceVariant: passwordColor} }} label={Lang.sign_up.confirm_password} />
                 <Pressable style={styles.logInContainer} onPress={() => {navigation.navigate('LogIn')}}>
