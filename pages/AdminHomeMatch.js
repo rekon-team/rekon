@@ -93,7 +93,7 @@ export default function AdminHomeMatch({ navigation }) {
 
                     <View style={{ flexDirection: 'row', top: 15, gap: indent / 2 }}>
                         <View style={[styles.switchViewButton, { backgroundColor: Colors.accent }]}>
-                            <Text style={[styles.text, { fontSize: indent / 2 }]}>{Lang.admin_home_match.match}</Text>
+                            <Text style={[styles.text, { fontSize: indent / 2, color: Colors.onAccent }]}>{Lang.admin_home_match.match}</Text>
                         </View>
 
                         <Pressable style={[styles.switchViewButton, { backgroundColor: Colors.secondary }]} onPress={() => navigation.navigate('AdminHomePit')}>
