@@ -8,7 +8,7 @@ import { useLang } from '../components/Lang';
 import { useColors } from '../components/Colors';
 import { MaterialIcons } from '@expo/vector-icons'
 
-export default function Scout({ navigation }) {
+export default function Assignments({ navigation }) {
     const { Lang } = useLang();
     const { Colors } = useColors();
 
@@ -88,11 +88,11 @@ export default function Scout({ navigation }) {
             <View style={{height: Dimensions.get('window').height - 60, top: 60}}>
             <ScrollView>
                 <Text style={[styles.text, {fontSize: indent / 2, top: 15, left: indent}]}>{Lang.scout.pit_assignments}</Text>
-                <Text style={[styles.text, {fontSize: indent / 2.5, top: 15, paddingTop: indent / 2.5, paddingBottom: indent / 2, alignSelf: 'center'}]}>{Lang.scout.teams_scouted}{allTeamsScouted}/{teams.length}</Text>
+                <Text style={[styles.text, {fontSize: indent / 2.5, top: 15, paddingTop: indent / 2.5, paddingBottom: indent / 2, alignSelf: 'center'}]}>{`${Lang.scout.teams_scouted}${allTeamsScouted}/${teams.length}`}</Text>
 
                 {/*changes width based on how many have been done, creates the effect of a progress bar :D */}
                 <View style={{left: indent, height: indent / 2.25, backgroundColor: Colors.uncompletedRed, width: Dimensions.get('window').width - indent * 2, borderRadius: 111111}}>
-                    <View style={{width: (Dimensions.get('window').width - indent * 2) * (allTeamsScouted/teams.length), backgroundColor: Colors.completedGreen, height: '100%', borderRadius: 11111}}></View>
+                    <View style={{width: (Dimensions.get('window').width - indent * 2) * (allTeamsScouted/teams.length), backgroundColor: Colors.completedGreen, height: '100%', borderRadius: 11111}} />
                 </View>
 
                 <View style={{height: indent * 4, paddingTop: indent / 2}}>
@@ -104,13 +104,12 @@ export default function Scout({ navigation }) {
                                     <Text style={[styles.text, {fontSize: indent / 2, color: Colors.text, marginTop: -indent / 5}]}>{team.teamNumber}</Text>
                                 </View>
                             ))}
-
+                            
                             <View />
                         </View>
                     </ScrollView>
                 </View>
 
-                
                 <Text style={[styles.text, {fontSize: indent / 2, left: indent, marginTop: indent}]}>{Lang.scout.match_assignments}</Text>
 
                 <View style={{height: indent * 4, paddingTop: indent / 2}}>
@@ -120,12 +119,12 @@ export default function Scout({ navigation }) {
                                 <View style={styles.teamsLeft} key={index}>
                                     <Text style={[styles.text, {fontSize: indent, color: Colors.text, top: -4}]}>{team.teamName}</Text>
                                     <View style={{flexDirection: 'row', marginRight: indent / 4}}>
-                                        <Text style={[styles.text, {fontSize: indent / 2.5, color: Colors.text, marginTop: -indent / 4, marginRight: indent / 4}]}>Qual #1</Text> {/*Placeholder info. Someone please add the actual functionality later*/}
+                                        <Text style={[styles.text, {fontSize: indent / 2.5, color: Colors.text, marginTop: -indent / 4, marginRight: indent / 4}]}>Qual #1</Text>
                                         <Text style={[styles.text, {fontSize: indent / 2.5, color: Colors.text, marginTop: -indent / 4}]}>R3</Text>
                                     </View>
                                 </View>
                             ))}
-
+                            
                             <View />
                         </View>
                     </ScrollView>

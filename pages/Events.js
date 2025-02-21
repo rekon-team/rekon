@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Dimensions, Text, View } from "react-native";
+import { Dimensions, Modal, Text, View } from "react-native";
 import { useLang } from "../components/Lang";
 import { useColors } from "../components/Colors";
 import BackgroundGradient from "../components/BackgroundGradient";
@@ -16,9 +16,10 @@ export default function Events() {
     const darkness = useSharedValue(0);
     const position = useSharedValue(0);
 
-    const [currentEvents, setCurrentEvents] = useState([{'name': '10K Lakes'}, {'name': 'North Star'}, {'name': 'Lake Superior'}, {'name': 'Northern Lights'}]);
+    const [currentEvent, setCurrentEvent] = useState({'name': '10K Lakes'});
     const [pastEvents, setPastEvents] = useState([{'name': 'Lake Superior'}, {'name': 'Northern Lights'}]);
     const [searchBarEnabled, setSearchBarEnabled] = useState(false);
+    const [addEnabled, setAddEnabled] = useState(false);
     const [searchText, setSearchText] = useState('');
 
     let indent = Dimensions.get('window').width * .1;
@@ -105,6 +106,17 @@ export default function Events() {
             backgroundColor: Colors.accent,
             justifyContent: 'center',
             fontSize: indent * .5
+        },
+        addButton: {
+            width: '80%',
+            height: verticalIndent * .75,
+            borderRadius: 10,
+            backgroundColor: Colors.accent,
+            flexDirection: 'row',
+            position: 'absolute',
+            left: indent,
+            bottom: verticalIndent * 1.25,
+            alignItems: 'center'
         }
     }
 
@@ -123,31 +135,40 @@ export default function Events() {
             
             <View style={{height: Dimensions.get('window').height - 60, top: 60}}>
                 <ScrollView>
-                    <Text style={[styles.text, {fontSize: indent * .75, top: verticalIndent, left: indent}]}>{Lang.events.current_events}</Text>
+                    <Text style={[styles.text, {fontSize: indent * .75, top: verticalIndent, left: indent}]}>{Lang.events.current_event}</Text>
 
                     <View style={{top: verticalIndent, height: verticalIndent * 2.5}}>
-                        <ScrollView>
-                            {currentEvents.map((event, index) => (
-                                <View style={styles.eventsContainer} key={index}>
-                                    <Text style={[styles.text, {fontSize: verticalIndent * .3, left: indent, width: '80%'}]} numberOfLines={1}>{event.name}</Text>
-                                </View>
-                            ))}
-                        </ScrollView>
+                        <View style={styles.eventsContainer}>
+                            <Text style={[styles.text, {fontSize: verticalIndent * .3, left: indent, width: '80%'}]} numberOfLines={1}>{currentEvent.name}</Text>
+                        </View>
                     </View>
 
-                    <Text style={[styles.text, {fontSize: indent * .75, top: verticalIndent * 1.5, left: indent}]}>{Lang.events.past_events}</Text>
+                    <Text style={[styles.text, {fontSize: indent * .75, left: indent}]}>{Lang.events.past_events}</Text>
 
-                    <View style={{top: verticalIndent * 1.5, height: verticalIndent * 2.5}}>
+                    <View style={{height: verticalIndent * 2.5}}>
                         <ScrollView>
                             {pastEvents.map((event, index) => (
-                                <View style={styles.eventsContainer} key={index}>
+                                <Pressable style={styles.eventsContainer} key={index} onPress={() => {
+                                    let events = [...pastEvents];
+                                    events[events.findIndex((search) => search.name == event.name)] = currentEvent;
+                                    setPastEvents(events);
+                                    setCurrentEvent(event)}}
+                                >
                                     <Text style={[styles.text, {fontSize: verticalIndent * .3, left: indent, width: '80%'}]} numberOfLines={1}>{event.name}</Text>
-                                </View>
+                                </Pressable>
                             ))}
                         </ScrollView>
                     </View>
                 </ScrollView>
             </View>
+
+            <Pressable style={styles.addButton} onPress={() => {setAddEnabled(true); console.log('test')}}>
+                <View style={{alignItems: 'center', justifyContent: 'center', width: '20%'}}>
+                    <MaterialIcons name="add" size={verticalIndent * .6} color={Colors.text} />
+                </View>
+
+                <Text style={[styles.text, {fontSize: indent * .5, width: '80%'}]}>{Lang.events.add_event}</Text>
+            </Pressable>
 
             <Pressable style={styles.searchBar} onPress={() => setSearchBarEnabled(true)} >
                 <View style={{alignItems: 'center', justifyContent: 'center', width: '20%'}}>
@@ -172,6 +193,20 @@ export default function Events() {
                     }} />
                 </View>
             </Animated.View>
+
+            {addEnabled && (
+                <Modal
+                    transparent={false}
+                    visible={addEnabled}
+                    onRequestClose={() => {
+                        setAddEnabled(false);
+                    }}// I have no idea what this does but don't get rid of it just in case
+                >
+                    <View>
+                        <Pressable style={{ width: 200, height: 200, backgroundColor: 'white', zIndex: 1000 }} onPress={() => { setAddEnabled(false); console.log('test2') }} />
+                    </View>
+                </Modal>
+            )}
         </View>
     )
 }

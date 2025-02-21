@@ -81,7 +81,10 @@
         "forms": "Forms",
         "events": "Events",
         "sync_data": "Sync Data",
-        "settings": "Settings"
+        "settings": "Settings",
+        "analyze": "Analyze",
+        "pick_list": "Pick List",
+        "assignments": "Assignments"
     },
     "teammates": {
         "title": "Teammates",
@@ -101,9 +104,10 @@
     },
     "events": {
         "title": "Events",
-        "current_events": "Current Events: ",
+        "current_event": "Current Event: ",
         "past_events": "Past Events: ",
-        "search_for_events": "Search for Events..."
+        "search_for_events": "Search for Events...",
+        "add_event": "Add Event"
     },
     "team_profile": {
         "title": "Team Profile",
@@ -129,6 +133,6 @@
         "title": "Scout",
         "pit_assignments": "Pit Assignments:",
         "teams_scouted": "Teams Scouted: ",
-        "match_assignments": "Match Assignments:"  
+        "match_assignments": "Match Assignments:"
     }
 }

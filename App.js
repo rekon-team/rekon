@@ -32,7 +32,7 @@ import MatchFormPages from './pages/MatchFormPages';
 import MatchFormBuilder from './pages/MatchFormBuilder';
 import PitFormBuilder from './pages/PitFormBuilder';
 import Settings from './pages/Settings';
-import Scout from './pages/Scout';
+import Assignments from './pages/Assignments';
 
 import StyledDrawer from './components/Drawer';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -59,7 +59,12 @@ function AdminDrawers() {
       <Drawer.Screen name="Events" component={Events} options={{ headerShown: false }} />
       <Drawer.Screen name="Forms" component={Forms} options={{ headerShown: false }} />
       <Drawer.Screen name="Settings" component={Settings} options={{ headerShown: false }} />
-      <Drawer.Screen name="Scout" component={Scout} options={{ headerShown: false }} />
+      <Stack.Screen name="Preview" component={Preview} options={{ headerShown: false, drawerItemStyle: { display: 'none' } }} />
+      <Stack.Screen name="PreviewForm" component={PreviewForm} options={{ headerShown: false, drawerItemStyle: { display: 'none' } }} />
+      <Stack.Screen name="MatchFormPages" component={MatchFormPages} options={{ headerShown: false, drawerItemStyle: { display: 'none' } }} />
+      <Stack.Screen name="MatchFormBuilder" component={MatchFormBuilder} options={{ headerShown: false, drawerItemStyle: { display: 'none' } }} />
+      <Stack.Screen name="PitFormBuilder" component={PitFormBuilder} options={{ headerShown: false, drawerItemStyle: { display: 'none' } }} />
+      <Drawer.Screen name="Assignments" component={Assignments} options={{ headerShown: false }} />
     </Drawer.Navigator>
   )
 }
@@ -77,12 +82,6 @@ function PageStack() {
       <Stack.Screen name="QRScan" component={QRScan} options={{ headerShown: false }} />
       <Stack.Screen name="AllMatches" component={AllMatchAssignments} options={{ headerShown: false }} />
       <Stack.Screen name="AdminDrawers" component={AdminDrawers} options={{ headerShown: false }} />
-      <Stack.Screen name="Preview" component={Preview} options={{ headerShown: false }} />
-      <Stack.Screen name="PreviewForm" component={PreviewForm} options={{ headerShown: false }} />
-      <Stack.Screen name="MatchFormPages" component={MatchFormPages} options={{ headerShown: false }} />
-      <Stack.Screen name="MatchFormBuilder" component={MatchFormBuilder} options={{ headerShown: false }} />
-      <Stack.Screen name="PitFormBuilder" component={PitFormBuilder} options={{ headerShown: false }} />
-      <Stack.Screen name="Scout" component={Scout} options={{ headerShown: false }} />
     </Stack.Navigator>
   );
 }
