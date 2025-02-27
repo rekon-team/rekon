@@ -138,7 +138,7 @@ export default function AdminHomePit({ navigation }) {
                 <View style={{height: indent * 2}}>
                     <ScrollView horizontal={true} style={{width: indent * 9, left: indent}}>
                         <View style={{gap: indent / 2, flexDirection: 'row'}}>
-                            {matches.map((teammate, index) => (
+                            {teammates.map((teammate, index) => (
                                 <Pressable style={styles.teammates} key={index} onPress={() => setViewTeammate(index)}>
                                     <View style={{flexDirection: 'row', gap: indent / 4}}>
                                         <MaterialIcons name="person" size={indent} color={Colors.text} />

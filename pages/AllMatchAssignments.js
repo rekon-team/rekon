@@ -1,16 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
 import BackgroundGradient from "../components/BackgroundGradient";
 import MatchScoutView from "../components/MatchScoutView";
 import { useLang } from "../components/Lang";
 import { useColors } from "../components/Colors";
-import { Dimensions, View, Text, Pressable } from "react-native";
+import { Dimensions, View, Text, Pressable, Modal } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { MaterialIcons } from "@expo/vector-icons";
+import { Menu, MenuOption, MenuOptions, MenuTrigger, renderers } from "react-native-popup-menu";
+import {Picker} from '@react-native-picker/picker';
+
 
 export default function AllMatchAssignments({ navigation }) {
     const { Lang } = useLang();
     const { Colors } = useColors();
+
+    let verticalIndent = Dimensions.get("window").height * 0.1;
 
     const [matches, setMatches] = useState(['Qual #1', 'Qual #2', 'Qual #3', 'Qual #4', 'Qual #5', 'Qual #6', 'Qual #7', 'Qual #8', 'Qual #9', 'Quals #10', 'Quals #11', 'Quals #12', 'Quals #13', 'Quals #14', 'Quals #15']);
     const [openedMatches, setOpenedMatches] = useState(['Qual #1']);
@@ -29,8 +34,28 @@ export default function AllMatchAssignments({ navigation }) {
     {"blueMatchScouts":[{"team":"4101","name":"Scout 1"},{"team":"725","name":"Scout 2"},{"team":"6660","name":"Scout 3"}],"redMatchScouts":[{"team":"940","name":"Scout 4"},{"team":"4016","name":"Scout 5"},{"team":"8597","name":"Scout 6"}]},
     {"blueMatchScouts":[{"team":"5631","name":"Scout 1"},{"team":"1113","name":"Scout 2"},{"team":"1380","name":"Scout 3"}],"redMatchScouts":[{"team":"2501","name":"Scout 4"},{"team":"3146","name":"Scout 5"},{"team":"6967","name":"Scout 6"}]},
     {"blueMatchScouts":[{"team":"4459","name":"Scout 1"},{"team":"8833","name":"Scout 2"},{"team":"5254","name":"Scout 3"}],"redMatchScouts":[{"team":"2143","name":"Scout 4"},{"team":"816","name":"Scout 5"},{"team":"1953","name":"Scout 6"}]}]);
-
+    
+    const [viewScouts, setViewScouts] = useState(false);
+    const [matchOpen, setMatchOpen] = useState(false);
+    const [match, setMatch] = useState('Qual #1');
+    const [team, setTeam] = useState('6513');
+    const [teamOpen, setTeamOpen] = useState(false);
+    const [scout, setScout] = useState('Scout 1');
+    const [scoutOpen, setScoutOpen] = useState(false);
+    
     let indent = Dimensions.get('window').width * .075;
+    
+    const uniqueScouts = new Set();
+    const uniqueTeams = new Set();
+
+    const [selectedMatch, setSelectedMatch] = useState(scouts[0]);
+    const [selectedTeam, setSelectedTeam] = useState(scouts[0].blueMatchScouts[0].team);
+    const [selectedScout, setSelectedScout] = useState(scouts[0].blueMatchScouts[0].name);
+
+    const updateScoutList = () => {
+        /* This is where the functionality for updating the scouts array should go. Good luck! */
+    };
+
     
     const styles = {
         container: {
@@ -67,7 +92,7 @@ export default function AllMatchAssignments({ navigation }) {
         <View style={styles.container}>
             <BackgroundGradient />
             <Header backButton={true} title={Lang.match_assignments.title} navigation={navigation} />
-            <View style={{height: Dimensions.get('screen').height * .8, top: Dimensions.get('screen').height * .2}}>
+            <View style={{height: Dimensions.get('screen').height * .6, top: Dimensions.get('screen').height * .2}}>
                 <ScrollView>
                     <View style={{gap: 10}}>
                         {matches.map((match, index) => {
@@ -105,6 +130,106 @@ export default function AllMatchAssignments({ navigation }) {
                     </View>
                 </ScrollView>
             </View>
+
+            <Pressable style={{height: indent * 2, width: Dimensions.get('screen').width * 0.85, borderRadius: indent * 1 / 2, backgroundColor: Colors.accent, position: 'absolute', bottom: indent, justifyContent: 'center', alignItems: 'center'}} onPress={() => {
+                setViewScouts(true)
+            }}>
+
+                <Text style={[styles.text, {fontSize: indent / 1.5}]}>{Lang.match_assignments.edit_assignments}</Text>
+            
+            </Pressable>
+
+            {viewScouts && (
+                <Modal
+                    transparent={true}
+                    visible={viewScouts}
+                    onRequestClose={() => setViewScouts(false)}
+                >
+
+                    <View style={{justifyContent: 'center', alignItems: 'center', position: 'absolute', height: Dimensions.get('window').height, width: Dimensions.get('window').width, zIndex: 1, rgba: 'rgba(0, 0, 0, 0.5)', backgroundColor: 'rgba(0, 0, 0, 0.5)'}}>
+                        <View style={{marginTop: indent, height: Dimensions.get('window').height * .8, width: Dimensions.get('window').width * .9, backgroundColor: Colors.secondary, borderRadius: 20, zIndex: 2, elevation: 100}}>
+                            <Pressable style={{position: 'absolute', right: 0, top: 0, padding: 10, elevation: 5, }} onPress={() => setViewScouts(false)}>
+                                <MaterialIcons name='close' size={indent} color={Colors.text} />
+                            </Pressable>
+
+                            <View style={{marginTop: indent * 3 , height: indent * 2, width: Dimensions.get('window').width * .7, backgroundColor: Colors.accent, borderRadius: 7.5, marginLeft: indent*1.3}}>
+                                <Picker
+                                selectedValue={match}
+                                onValueChange={(itemValue, itemIndex) =>
+                                    setMatch(itemValue)
+                                }>
+                                    {matches.map((match, index) => {
+                                        return (
+                                            <Picker.Item label={matches[index]} value={match} key={index}/>
+                                        )
+                                    })}
+                                </Picker>
+
+                                
+                            </View>
+
+                            <View style={{marginTop: indent * 3 , height: indent * 2, width: Dimensions.get('window').width * .7, backgroundColor: Colors.accent, borderRadius: 7.5, marginLeft: indent*1.3}}>
+                                <Picker
+                                selectedValue={team}
+                                onValueChange={(itemValue, itemIndex) =>
+                                    setTeam(itemValue)
+                                }>
+                                    {scouts.flatMap((scout, rowIndex) => 
+                                        scout.blueMatchScouts.concat(scout.redMatchScouts).filter((matchScout) => {
+                                            if (!uniqueTeams.has(matchScout.team)) {
+                                                uniqueTeams.add(matchScout.team);
+                                                return true;
+                                            }
+                                            return false
+                                        }).map((matchScout, colIndex) => (
+                                            <Picker.Item label={matchScout.team} value={matchScout.team} key={`${rowIndex}-${colIndex}`} />
+                                        ))
+                                    )}
+                                </Picker>
+                            </View>
+
+                            <View style={{marginTop: indent * 3 , height: indent * 2, width: Dimensions.get('window').width * .7, backgroundColor: Colors.accent, borderRadius: 7.5, marginLeft: indent*1.3}}>
+                                <Picker
+                                    selectedValue={scout}
+                                    onValueChange={(itemValue, itemIndex) => setScout(itemValue)}
+                                >
+                                    {scouts.flatMap((scout, rowIndex) => 
+                                        scout.blueMatchScouts.filter((blueScout) => {
+                                            if (!uniqueScouts.has(blueScout.name)) {
+                                                uniqueScouts.add(blueScout.name);
+                                                return true;
+                                            }
+                                            return false;
+                                        }).map((blueScout, colIndex) => (
+                                            <Picker.Item label={blueScout.name} value={blueScout.name} key={`${rowIndex}-${colIndex}`} />
+                                        ))
+                                    )}
+                                </Picker>
+                            </View>
+
+                            <View>
+                                <Pressable
+                                    style={{marginTop: indent * 3 , height: indent * 2, width: Dimensions.get('window').width * .7, backgroundColor: Colors.accent, borderRadius: 7.5, marginLeft: indent*1.3, justifyContent: 'center', alignItems: 'center'}}
+                                    onPress={updateScoutList}
+                                >
+                                    <Text style={[styles.text, {fontSize: indent / 1.5}]}>{Lang.match_assignments.confirm_assignment}</Text>
+                                </Pressable>
+                            </View>
+
+
+                        
+                            
+                        </View>
+
+                        
+
+                    </View>
+                    
+                </Modal>
+                
+            )}
+
+            
         </View>
     );
 }

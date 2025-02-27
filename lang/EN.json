@@ -70,7 +70,9 @@
         "teams_left": "Teams Left:"
     },
     "match_assignments": {
-        "title": "Match Assignments"
+        "title": "Match Assignments",
+        "edit_assignments": "Edit Assignments",
+        "confirm_assignment": "Confirm Assignment"
     },
     "hamburger_menu": {
         "scout_mode": "Scout Mode",
