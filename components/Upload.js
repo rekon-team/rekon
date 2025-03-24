@@ -7,6 +7,7 @@ import { useLang } from './Lang';
 import * as Progress from 'react-native-progress';
 import Animated, { useSharedValue, withSpring, withTiming, useAnimatedStyle, withDelay } from 'react-native-reanimated';
 import Constants from '../components/Constants';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const UploadContext = createContext();
 
@@ -34,6 +35,27 @@ export const UploadProvider = ({ children }) => {
     height: dialogHeight.value,
     borderRadius: dialogRadius.value,
   }));
+
+  // Load cached uploads from AsyncStorage on component mount
+  useEffect(() => {
+    const loadCachedUploads = async () => {
+      try {
+        const cachedDataString = await AsyncStorage.getItem('pendingUploads');
+        if (cachedDataString) {
+          const cachedData = JSON.parse(cachedDataString);
+          console.log('Loaded cached uploads:', Object.keys(cachedData));
+          
+          // Update both state and ref with cached data
+          setData(cachedData);
+          dataRef.current = {...cachedData};
+        }
+      } catch (error) {
+        console.error('Error loading cached uploads:', error);
+      }
+    };
+    
+    loadCachedUploads();
+  }, []);
 
   useEffect(() => {
     console.log(Object.keys(data));
@@ -138,8 +160,39 @@ export const UploadProvider = ({ children }) => {
         dataRef.current = {};
       }
       
+      // Store file metadata to help with reconstruction after app restart
+      const fileMetadata = {
+        originalUri: file,
+        timestamp: Date.now(),
+        chunkCount: fileChunks.length
+      };
+      
       // Update ref first
       dataRef.current[fileName] = fileChunks;
+      
+      // Store in AsyncStorage for persistence
+      try {
+        // Get existing pending uploads if any
+        const existingUploadsString = await AsyncStorage.getItem('pendingUploads');
+        const existingUploads = existingUploadsString ? JSON.parse(existingUploadsString) : {};
+        
+        // Add this new upload to the pending uploads
+        existingUploads[fileName] = fileChunks;
+        
+        // Store file metadata separately (chunks are too large to keep detailed metadata with them)
+        const existingMetadataString = await AsyncStorage.getItem('pendingUploadsMetadata');
+        const existingMetadata = existingMetadataString ? JSON.parse(existingMetadataString) : {};
+        existingMetadata[fileName] = fileMetadata;
+        
+        // Save back to AsyncStorage
+        await AsyncStorage.setItem('pendingUploads', JSON.stringify(existingUploads));
+        await AsyncStorage.setItem('pendingUploadsMetadata', JSON.stringify(existingMetadata));
+        
+        console.log('Cached file for upload:', fileName);
+      } catch (error) {
+        console.error('Error caching file for upload:', error);
+        // Continue even if caching fails - we still have the data in memory
+      }
 
       // Then update state
       return new Promise((resolve) => {
@@ -196,42 +249,70 @@ export const UploadProvider = ({ children }) => {
         throw new Error(`No valid chunks found for ${fileName}`);
     }
 
-    for (let i = 0; i < fileChunks.length; i++) {
-        console.log(`uploading chunk ${i} of ${fileChunks.length} using token ${uploadToken}`);
-        const chunk = fileChunks[i];
-        const json = await ky.post(Constants.serverUrl + '/uploads/uploadChunk', {
-            json: {
-                userToken: token, 
-                uploadToken: uploadToken, 
-                chunk: chunk, 
-                index: i
-            }
-        }).json();
-        setCurrentTasks(prevTasks => 
-            prevTasks.map(task => 
-                task.fileName === fileName 
-                    ? {...task, progress: (i + 1) / fileChunks.length} 
-                    : task
-            )
-        );
-        console.log(json);
-    }
+    try {
+      for (let i = 0; i < fileChunks.length; i++) {
+          console.log(`uploading chunk ${i} of ${fileChunks.length} using token ${uploadToken}`);
+          const chunk = fileChunks[i];
+          const json = await ky.post(Constants.serverUrl + '/uploads/uploadChunk', {
+              json: {
+                  userToken: token, 
+                  uploadToken: uploadToken, 
+                  chunk: chunk, 
+                  index: i
+              }
+          }).json();
+          setCurrentTasks(prevTasks => 
+              prevTasks.map(task => 
+                  task.fileName === fileName 
+                      ? {...task, progress: (i + 1) / fileChunks.length} 
+                      : task
+              )
+          );
+          console.log(json);
+      }
 
-    const json = await ky.post(Constants.serverUrl + '/uploads/completeUpload', {
-        json: {
-            userToken: token, 
-            uploadToken: uploadToken
+      const json = await ky.post(Constants.serverUrl + '/uploads/completeUpload', {
+          json: {
+              userToken: token, 
+              uploadToken: uploadToken
+          }
+      }).json();
+      console.log(json);
+
+      // Clean up the data
+      delete dataRef.current[fileName];
+      setData(prevData => {
+          const newData = {...prevData};
+          delete newData[fileName];
+          return newData;
+      });
+      
+      // Remove from AsyncStorage after successful upload
+      try {
+        const existingUploadsString = await AsyncStorage.getItem('pendingUploads');
+        if (existingUploadsString) {
+          const existingUploads = JSON.parse(existingUploadsString);
+          delete existingUploads[fileName];
+          await AsyncStorage.setItem('pendingUploads', JSON.stringify(existingUploads));
         }
-    }).json();
-    console.log(json);
-
-    // Clean up the data
-    delete dataRef.current[fileName];
-    setData(prevData => {
-        const newData = {...prevData};
-        delete newData[fileName];
-        return newData;
-    });
+        
+        const existingMetadataString = await AsyncStorage.getItem('pendingUploadsMetadata');
+        if (existingMetadataString) {
+          const existingMetadata = JSON.parse(existingMetadataString);
+          delete existingMetadata[fileName];
+          await AsyncStorage.setItem('pendingUploadsMetadata', JSON.stringify(existingMetadata));
+        }
+        
+        console.log('Removed completed upload from cache:', fileName);
+      } catch (error) {
+        console.error('Error removing completed upload from cache:', error);
+      }
+      
+      return json;
+    } catch (error) {
+      console.error('Error during upload:', error);
+      throw error;
+    }
 }
   return (
       <UploadContext.Provider value={{prepFileForUpload, fetchUploadToken, uploadFile, getUploadedFiles, deleteFile}}>
