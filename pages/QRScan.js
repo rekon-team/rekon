@@ -45,7 +45,7 @@ export default function QRScan({route, navigation}) {
             } else {
                 updateSetting('currentTeam', response.groupID);
                 updateSetting('stage', 'complete');
-                navigation.navigate('AdminDrawers'); // TODO: CHANGE TO SCOUT HOME WHEN SCOUT IS BUILT
+                navigation.navigate('Scout'); // TODO: CHANGE TO SCOUT HOME WHEN SCOUT IS BUILT
             }
         } catch (error) {
             console.error(error);

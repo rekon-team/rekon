@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, Dimensions, Pressable, ScrollView, Modal } from 'react-native';
 
 import Header from '../components/Header';
@@ -8,10 +8,14 @@ import { useLang } from '../components/Lang';
 import { useColors } from '../components/Colors';
 import { MaterialIcons } from '@expo/vector-icons';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
+import { useSettings } from '../components/Settings';
+import ky from 'ky';
+import Constants from '../components/Constants';
 
 export default function AdminHomeMatch({ navigation }) {
     const { Lang } = useLang();
     const { Colors } = useColors();
+    const { Settings } = useSettings();
 
     //const [scouts, setScouts] = useState([{blueMatchScouts: [{name: 'Scout 1', team: '8234'}, {name: 'Scout 2', team: '2052'}, {name: 'Scout 3', team: '118'}], redMatchScouts: [{name: 'Scout 4', team: '254'}, {name: 'Scout 5', team: '359'}, {name: 'Scout 6', team: '8033'}]}, {blueMatchScouts: [{name: 'Scout 7', team: '254'}, {name: 'Scout 8', team: '359'}, {name: 'Scout 9', team: '8033'}], redMatchScouts: [{name: 'Scout 10', team: '254'}, {name: 'Scout 11', team: '359'}, {name: 'Scout 12', team: '8033'}]}]);
     const [scouts, setScouts] = useState([{ "blueMatchScouts": [{ "team": "6513", "name": "Scout 1" }, { "team": "3802", "name": "Scout 2" }, { "team": "956", "name": "Scout 3" }], "redMatchScouts": [{ "team": "4629", "name": "Scout 4" }, { "team": "2801", "name": "Scout 5" }, { "team": "4303", "name": "Scout 6" }] },
@@ -36,11 +40,29 @@ export default function AdminHomeMatch({ navigation }) {
     const [redSubjectiveScouts, setRedSubjectiveScouts] = useState([{ name: 'Scout 8' }]);
     const [matches, setMatches] = useState(['Qual #1', 'Qual #2', 'Qual #3', 'Qual #4', 'Qual #5']);
     const [viewMatch, setViewMatch] = useState(-1);
+    const [events, setEvents] = useState([]);
 
     let current_match = 0;
     let blueMatchScouts = scouts[current_match].blueMatchScouts;
     let redMatchScouts = scouts[current_match].redMatchScouts;
     let indent = Dimensions.get('window').width * .1;
+
+    useEffect(() => {
+        async function fetchEvents() {
+            console.log("Fetching events");
+            try {
+                const response = await ky.get(`${Constants.serverUrl}/events/getEvents?userToken=${Settings.token}&groupID=${Settings.currentTeam}`).json();
+                if (response.error) {
+                    console.error(response.message);
+                } else {
+                    setEvents(response.events);
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        }
+        fetchEvents();
+    }, []);
 
     const styles = {
         container: {
@@ -84,6 +106,7 @@ export default function AdminHomeMatch({ navigation }) {
     }
 
     return (
+        events.length > 0 ? (
         <View style={styles.container}>
             <BackgroundGradient />
             <Header title={Lang.admin_home_match.title} backButton={false} hamburgerButton={true} />
@@ -232,5 +255,12 @@ export default function AdminHomeMatch({ navigation }) {
                 </Modal>
             )}
         </View>
-    );
+        ) : (
+            <View style={[styles.container, { justifyContent: 'center', alignItems: 'center' }]}>
+                <BackgroundGradient />
+                <Header title={Lang.admin_home_match.title} backButton={false} hamburgerButton={true} />
+                <Text style={[styles.text, { fontSize: indent / 2, textAlign: 'center', margin: indent }]}>{Lang.admin_home_match.no_events}</Text>
+            </View>
+        )
+    )
 }

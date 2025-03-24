@@ -56,7 +56,8 @@
         "team": "Team",
         "subjective": "Subjective",
         "matches": "Matches:",
-        "show_all": "Show All"
+        "show_all": "Show All",
+        "no_events": "No events found. Please create an event to begin scouting."
     },
     "admin_home_pit": {
         "title": "Admin",
