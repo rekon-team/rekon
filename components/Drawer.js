@@ -104,6 +104,7 @@ export default function StyledDrawer(props) {
     }
 
     //Awful inline styling time!
+    //correct!
     return (
         <View style={{flex: 1}}>
             <DrawerContentScrollView {...props} contentContainerStyle={{backgroundColor: Colors.secondary, height: '100%'}}>

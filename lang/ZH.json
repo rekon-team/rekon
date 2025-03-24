@@ -98,5 +98,10 @@
         "match": "比赛",
         "pit": "坑道",
         "subjective": "主观"
+    },
+    "settings": {
+        "title": "Settings",
+        "language": "Language:",
+        "system_color": "System Color:"
     }
 }

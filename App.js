@@ -41,8 +41,12 @@ import AssignTeammates from './pages/AssignTeammates';
 import Events from './pages/Events';
 import Forms from './pages/Forms';
 import Preview from './pages/Preview';
+import PreviewForm from './pages/PreviewForm';
 import MatchFormPages from './pages/MatchFormPages';
 import MatchFormBuilder from './pages/MatchFormBuilder';
+import PitFormBuilder from './pages/PitFormBuilder';
+import Settings from './pages/Settings';
+import Scout from './pages/Scout';
 
 import StyledDrawer from './components/Drawer';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -68,7 +72,8 @@ function AdminDrawers() {
       <Drawer.Screen name="AssignTeammates" component={AssignTeammates} options={{ headerShown: false, drawerItemStyle: { display: 'none' } }} />
       <Drawer.Screen name="Events" component={Events} options={{ headerShown: false }} />
       <Drawer.Screen name="Forms" component={Forms} options={{ headerShown: false }} />
-      <Drawer.Screen name="InviteMember" component={InviteMember} options={{ headerShown: false }} />
+      <Drawer.Screen name="Settings" component={Settings} options={{ headerShown: false }} />
+      <Drawer.Screen name="Scout" component={Scout} options={{ headerShown: false }} />
     </Drawer.Navigator>
   )
 }
@@ -92,8 +97,11 @@ function PageStack() {
       <Stack.Screen name="FileTools" component={FileTools} options={{ headerShown: true }} />
       <Stack.Screen name="FileViewer" component={FileViewer} options={{ headerShown: true }} />
       <Stack.Screen name="Preview" component={Preview} options={{ headerShown: false }} />
+      <Stack.Screen name="PreviewForm" component={PreviewForm} options={{ headerShown: false }} />
       <Stack.Screen name="MatchFormPages" component={MatchFormPages} options={{ headerShown: false }} />
       <Stack.Screen name="MatchFormBuilder" component={MatchFormBuilder} options={{ headerShown: false }} />
+      <Stack.Screen name="PitFormBuilder" component={PitFormBuilder} options={{ headerShown: false }} />
+      <Stack.Screen name="Scout" component={Scout} options={{ headerShown: false }} />
     </Stack.Navigator>
   );
 }

@@ -115,15 +115,17 @@ export const LangProvider = ({ children }) => {
     useEffect(() => {
         // remove the current language from the language list so dropdown doesn't show it
         let newList = allLangs.filter((item) => item !== currentLang);
+        console.log(newList);
         setLangList(newList);
         let newCodes = allLangCodes.filter((item) => item !== currentLangCode);
+        console.log(newCodes);
         setLangCodes(newCodes);
 
     }, [currentLang, currentLangCode]);
 
     // weird provider stuff
     return (
-        <LangContext.Provider value={{ Lang, switchLang, langList, langCodes, currentLang }}>
+        <LangContext.Provider value={{ Lang, switchLang, langList, langCodes, currentLang, allLangs, setLangList }}>
           {children}
         </LangContext.Provider>
     );

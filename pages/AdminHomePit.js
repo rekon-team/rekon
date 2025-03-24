@@ -100,7 +100,7 @@ export default function AdminHomePit({ navigation }) {
                     </Pressable>
 
                     <View style={[styles.switchViewButton, {backgroundColor: Colors.accent}]}>
-                        <Text style={[styles.onAccent, {fontSize: indent / 2}]}>{Lang.admin_home_pit.pit}</Text>
+                        <Text style={[styles.text, {fontSize: indent / 2, color: Colors.onAccent}]}>{Lang.admin_home_pit.pit}</Text>
                     </View>
                 </View>
 

@@ -126,5 +126,17 @@
         "profile_picture": "Team Profile Picture",
         "create": "Create",
         "bio": "Description"
+    },
+    "settings": {
+        "title": "Settings",
+        "language": "Language:",
+        "system_color": "System Color:",
+        "hex_color": "Hex Color"
+    },
+    "scout": {
+        "title": "Scout",
+        "pit_assignments": "Pit Assignments:",
+        "teams_scouted": "Teams Scouted: ",
+        "match_assignments": "Match Assignments:"  
     }
 }

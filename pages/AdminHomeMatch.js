@@ -92,10 +92,10 @@ export default function AdminHomeMatch({ navigation }) {
             <ScrollView>
                 <Text style={[styles.text, {fontSize: indent / 2, top: 15, left: indent}]}>{Lang.admin_home_match.scouting_overview}</Text>
 
-                <View style={{flexDirection: 'row', top: 15, gap: indent / 2}}>
-                    <View style={[styles.switchViewButton, {backgroundColor: Colors.accent}]}>
-                        <Text style={[styles.onAccent, {fontSize: indent / 2}]}>{Lang.admin_home_match.match}</Text>
-                    </View>
+                    <View style={{ flexDirection: 'row', top: 15, gap: indent / 2 }}>
+                        <View style={[styles.switchViewButton, { backgroundColor: Colors.accent }]}>
+                            <Text style={[styles.text, { fontSize: indent / 2, color: Colors.onAccent }]}>{Lang.admin_home_match.match}</Text>
+                        </View>
 
                         <Pressable style={[styles.switchViewButton, { backgroundColor: Colors.secondary }]} onPress={() => navigation.navigate('AdminHomePit')}>
                             <Text style={[styles.text, { fontSize: indent / 2 }]}>{Lang.admin_home_match.pit}</Text>

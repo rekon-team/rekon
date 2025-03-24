@@ -98,5 +98,10 @@
         "match": "Maç",
         "pit": "Çukur",
         "subjective": "Öznel"
+    },
+    "settings": {
+        "title": "Settings",
+        "language": "Language:",
+        "system_color": "System Color:"
     }
 }

@@ -139,7 +139,7 @@ export default function Teammates({ navigation }) {
                 </ScrollView>
             </View>
             <Pressable style={styles.addButton} onPress={() => navigation.navigate('InviteMember')}>
-                <MaterialIcons name="add" size={indent * 1.5} color={Colors.text} />
+                <MaterialIcons name="add" size={indent * 1.5} color={Colors.onAccent} />
             </Pressable>
         </View>
     );

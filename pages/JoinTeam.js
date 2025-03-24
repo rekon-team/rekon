@@ -34,7 +34,7 @@ export default function JoinTeam({route, navigation}) {
         accentButton: {
             backgroundColor: Colors.accent,
             width: '80%',
-            height: Dimensions.get('screen').height * 0.8 * 0.1,
+            height: Dimensions.get('screen').height * 0.8 * 0.15,
             borderRadius: 10,
             padding: 10,
             margin: 25,
