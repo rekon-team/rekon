@@ -103,6 +103,7 @@ function PageStack() {
       <Stack.Screen name="MatchFormBuilder" component={MatchFormBuilder} options={{ headerShown: false }} />
       <Stack.Screen name="PitFormBuilder" component={PitFormBuilder} options={{ headerShown: false }} />
       <Stack.Screen name="Scout" component={Scout} options={{ headerShown: false }} />
+      <Stack.Screen name="InviteMember" component={InviteMember} options={{ headerShown: false }} />
     </Stack.Navigator>
   );
 }
