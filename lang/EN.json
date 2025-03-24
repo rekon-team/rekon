@@ -102,9 +102,10 @@
     },
     "events": {
         "title": "Events",
-        "current_events": "Current Events: ",
-        "past_events": "Past Events: ",
-        "search_for_events": "Search for Events..."
+        "current_events": "Active Event: ",
+        "past_events": "Inactive Events: ",
+        "search_for_events": "Search for Events...",
+        "create_new_event": "Create New Event"
     },
     "team_profile": {
         "title": "Team Profile",
@@ -127,6 +128,11 @@
         "profile_picture": "Team Profile Picture",
         "create": "Create",
         "bio": "Description"
+    },
+    "create_event": {
+        "title": "Create Event",
+        "name": "Event Name",
+        "create": "Create"
     },
     "settings": {
         "title": "Settings",

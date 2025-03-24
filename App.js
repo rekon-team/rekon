@@ -23,7 +23,7 @@ import Welcome from './pages/Welcome';
 import JoinTeam from './pages/JoinTeam';
 import CreateTeam from './pages/CreateTeam'
 import QRScan from './pages/QRScan';
-
+import CreateEvent from './pages/CreateEvent';
 // Admin pages
 import AdminHomeMatch from './pages/AdminHomeMatch';
 import AdminHomePit from './pages/AdminHomePit';
@@ -89,6 +89,7 @@ function PageStack() {
       <Stack.Screen name="Welcome" component={Welcome} options={{ headerShown: false }} />
       <Stack.Screen name="JoinTeam" component={JoinTeam} options={{ headerShown: false }} />
       <Stack.Screen name="CreateTeam" component={CreateTeam} options={{ headerShown: false }} />
+      <Stack.Screen name="CreateEvent" component={CreateEvent} options={{ headerShown: false }} />
       <Stack.Screen name="QRScan" component={QRScan} options={{ headerShown: false }} />
       <Stack.Screen name="AllMatches" component={AllMatchAssignments} options={{ headerShown: false }} />
       <Stack.Screen name="AdminDrawers" component={AdminDrawers} options={{ headerShown: false }} />
