@@ -73,11 +73,17 @@ function AdminDrawers() {
       <Drawer.Screen name="Events" component={Events} options={{ headerShown: false }} />
       <Drawer.Screen name="Forms" component={Forms} options={{ headerShown: false }} />
       <Drawer.Screen name="Settings" component={Settings} options={{ headerShown: false }} />
-      <Drawer.Screen name="Scout" component={Scout} options={{ headerShown: false }} />
     </Drawer.Navigator>
   )
 }
 
+function ScoutDrawers() {
+  return (
+    <Drawer.Navigator drawerContent={(props) => <StyledDrawer {...props} />}>
+      <Drawer.Screen name="ScoutHome" component={Scout} options={{ headerShown: false }} />
+    </Drawer.Navigator>
+  )
+}
 function PageStack() {
   // This stack navigator is gonna be huge
   return (
@@ -92,7 +98,18 @@ function PageStack() {
       <Stack.Screen name="CreateEvent" component={CreateEvent} options={{ headerShown: false }} />
       <Stack.Screen name="QRScan" component={QRScan} options={{ headerShown: false }} />
       <Stack.Screen name="AllMatches" component={AllMatchAssignments} options={{ headerShown: false }} />
-      <Stack.Screen name="AdminDrawers" component={AdminDrawers} options={{ headerShown: false }} />
+      <Stack.Screen 
+        name="AdminDrawers" 
+        component={AdminDrawers} 
+        initialParams={{ stackMode: "AdminDrawers" }} 
+        options={{ headerShown: false }} 
+      />
+      <Stack.Screen 
+        name="ScoutDrawers" 
+        component={ScoutDrawers} 
+        initialParams={{ stackMode: "ScoutDrawers" }} 
+        options={{ headerShown: false }} 
+      />
       <Stack.Screen name="DebugTools" component={DebugTools} options={{ headerShown: false }} />
       <Stack.Screen name="ColorTools" component={ColorTools} options={{ headerShown: true }} />
       <Stack.Screen name="FileTools" component={FileTools} options={{ headerShown: true }} />
@@ -102,7 +119,6 @@ function PageStack() {
       <Stack.Screen name="MatchFormPages" component={MatchFormPages} options={{ headerShown: false }} />
       <Stack.Screen name="MatchFormBuilder" component={MatchFormBuilder} options={{ headerShown: false }} />
       <Stack.Screen name="PitFormBuilder" component={PitFormBuilder} options={{ headerShown: false }} />
-      <Stack.Screen name="Scout" component={Scout} options={{ headerShown: false }} />
       <Stack.Screen name="InviteMember" component={InviteMember} options={{ headerShown: false }} />
     </Stack.Navigator>
   );
@@ -137,10 +153,8 @@ export default function App() {
             <ColorProvider>
             <SettingsProvider>
               <UploadProvider>
-                <DebugProvider>
-                  <PageStack />
-                  <StatusBar style="light" translucent={true}/>
-                </DebugProvider>
+                <PageStack />
+                <StatusBar style="light" translucent={true}/>
               </UploadProvider>
             </SettingsProvider>
           </ColorProvider>

@@ -1,7 +1,7 @@
 {
     "start_page": {
         "start_title": "Rekon",
-        "start_tagline": "Scouting \\\\\n redifend",
+        "start_tagline": "scouting \\\\\n neu definiert",
         "sign_up_button": "Anmeldung",
         "sign_in_button": "Einloggen"
     },
@@ -56,7 +56,8 @@
         "team": "Team",
         "subjective": "Subjektiv",
         "matches": "Spielt:",
-        "show_all": "Alle anzeigen"
+        "show_all": "Alle anzeigen",
+        "no_events": "Keine Ereignisse gefunden. Bitte erstellen Sie ein Ereignis, um mit dem Scouting zu beginnen."
     },
     "admin_home_pit": {
         "title": "Verwaltung",
@@ -99,9 +100,50 @@
         "pit": "Grube",
         "subjective": "Subjektiv"
     },
+    "events": {
+        "title": "Veranstaltungen",
+        "current_events": "Aktives Ereignis:",
+        "past_events": "Inaktive Ereignisse:",
+        "search_for_events": "Suche nach Veranstaltungen...",
+        "create_new_event": "Neues Ereignis erstellen"
+    },
+    "team_profile": {
+        "title": "Team-Profil",
+        "team_profile_picture": "Profilbild der Mannschaft",
+        "team_name": "Team Name",
+        "team_number": "Team #",
+        "bio": "Bio",
+        "change_ownership": "Eigentümerschaft ändern",
+        "delete_team": "Team löschen"
+    },
+    "forms": {
+        "title": "Formulare"
+    },
+    "preview": {
+        "title": "Vorschau"
+    },
+    "create_team": {
+        "title": "Team erstellen",
+        "name": "Team Name",
+        "profile_picture": "Profilbild der Mannschaft",
+        "create": "erstellen.",
+        "bio": "Beschreibung"
+    },
+    "create_event": {
+        "title": "Ereignis erstellen",
+        "name": "Name der Veranstaltung",
+        "create": "erstellen."
+    },
     "settings": {
-        "title": "Settings",
-        "language": "Language:",
-        "system_color": "System Color:"
+        "title": "Einstellungen",
+        "language": "Sprache:",
+        "system_color": "System Farbe:",
+        "hex_color": "Hex-Farbe"
+    },
+    "scout": {
+        "title": "Pfadfinder",
+        "pit_assignments": "Boxenzuweisungen:",
+        "teams_scouted": "Ausgekundschaftete Teams:",
+        "match_assignments": "Match-Zuweisungen:"
     }
 }

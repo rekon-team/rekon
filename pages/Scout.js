@@ -11,9 +11,7 @@ import { MaterialIcons } from '@expo/vector-icons'
 export default function Scout({ navigation }) {
     const { Lang } = useLang();
     const { Colors } = useColors();
-
     
-
     let indent = Dimensions.get('window').width * .1;
 
     const [viewTeammate, setViewTeammate] = useState(-1);
@@ -130,15 +128,8 @@ export default function Scout({ navigation }) {
                         </View>
                     </ScrollView>
                 </View>
-                
-
-                
-
-                
             </ScrollView>
             </View>
-
-            
         </View>
     );
 }

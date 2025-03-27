@@ -5,6 +5,7 @@ require('dotenv').config();
 
 const DEEPL_API_KEY = process.env.DEEPL_API_KEY;
 const DEEPL_API_URL = 'https://api-free.deepl.com/v2/translate';
+const RATE_LIMIT_DELAY = 1000; // 1 second delay between API calls
 
 let totalStrings = 0;
 let translatedCount = 0;
@@ -32,6 +33,8 @@ async function translateText(text, targetLang, currentPath) {
                 ? '...' + currentPath.slice(-30) 
                 : currentPath
         });
+        
+        await new Promise(resolve => setTimeout(resolve, RATE_LIMIT_DELAY));
         
         const response = await axios.post(DEEPL_API_URL, 
             {

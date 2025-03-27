@@ -92,7 +92,13 @@ export default function Start({route, navigation}) {
                 setPopupType('info');
                 setStatusText('Logging you in...');
                 setTimeout(() => {
-                    navigation.navigate('AdminDrawers');
+                    if (Settings.home == 'admin') {
+                        navigation.navigate('AdminDrawers');
+                    } else if (Settings.home == 'scout') {
+                        navigation.replace('ScoutDrawers');
+                    } else {
+                        navigation.replace('AdminDrawers');
+                    }
                 }, 1500);
             }
         }

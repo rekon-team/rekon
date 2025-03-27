@@ -53,6 +53,7 @@ export default function Welcome({route, navigation}) {
                 throw new Error(createTeam.error);
             }
             updateSetting('stage', 'complete');
+            updateSetting('home', 'admin');
             navigation.navigate('AdminDrawers');
         } catch (error) {
             console.error("Error in creating team: ", error);

@@ -1,5 +1,5 @@
 import { CameraView, useCameraPermissions } from 'expo-camera';
-import { useState } from 'react';
+import { useState, useEffect, use } from 'react';
 import { StyleSheet, Text, View, Pressable, Dimensions, ActivityIndicator, Alert } from 'react-native';
 import { useLang } from '../components/Lang';
 import { useColors } from '../components/Colors';
@@ -45,7 +45,8 @@ export default function QRScan({route, navigation}) {
             } else {
                 updateSetting('currentTeam', response.groupID);
                 updateSetting('stage', 'complete');
-                navigation.navigate('Scout'); // TODO: CHANGE TO SCOUT HOME WHEN SCOUT IS BUILT
+                updateSetting('home', 'scout');
+                navigation.replace('ScoutDrawers');
             }
         } catch (error) {
             console.error(error);

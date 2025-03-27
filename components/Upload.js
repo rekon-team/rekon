@@ -31,8 +31,10 @@ export const UploadProvider = ({ children }) => {
   }));
 
   const dialogStyle = useAnimatedStyle(() => ({
-    width: dialogWidth.value,
-    height: dialogHeight.value,
+    minWidth: dialogWidth.value,
+    minHeight: dialogHeight.value,
+    maxWidth: dialogWidth.value,
+    maxHeight: dialogHeight.value,
     borderRadius: dialogRadius.value,
   }));
 

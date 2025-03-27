@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import { StyleSheet, Text, View, Pressable, Dimensions, Image, BackHandler } from "react-native";
+import { StyleSheet, Text, View, Pressable, Dimensions, Image, BackHandler, Platform } from "react-native";
 import { useLang } from "../components/Lang";
 import { useColors } from "../components/Colors";
 import Header from "../components/Header";
@@ -175,7 +175,24 @@ export default function Welcome({route, navigation}) {
 
             if (!result.canceled) {
                 setImage(result.assets[0].uri);
-                const fileExtension = result.assets[0].uri.split('.').pop();
+                
+                // Get file extension properly for both native and web platforms
+                let fileExtension;
+                if (Platform.OS === 'web') {
+                    // For web, extract mime type from data URI or use a fallback
+                    const uri = result.assets[0].uri;
+                    if (uri.startsWith('data:image/')) {
+                        // Extract from data URI format: data:image/jpeg;base64,...
+                        const mimeType = uri.split(';')[0].split('/')[1];
+                        fileExtension = mimeType;
+                    } else {
+                        // Use asset type if available or default to jpg
+                        fileExtension = result.assets[0].type?.split('/')[1] || 'jpg';
+                    }
+                } else {
+                    // Original method for native platforms
+                    fileExtension = result.assets[0].uri.split('.').pop();
+                }
                 
                 console.log('prepping file for upload');
                 const fileName = await Upload.prepFileForUpload(result.assets[0].uri, 'profile_picture');

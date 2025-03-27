@@ -20,6 +20,13 @@ export default function StyledDrawer(props) {
     const [currentTeam, setCurrentTeam] = useState(null);
     const [teamList, setTeamList] = useState([]);
     const [profileTimestamp, setProfileTimestamp] = useState(Date.now());
+    // Get the current drawer screen name
+    const drawerMode = props.state.routes[props.state.index].name;
+    
+    // Get the name of the parent navigator using navigation state
+    const stackMode = props.navigation.getParent()?.getState()?.routes?.find(
+        route => route.state && route.state.routes.some(r => r.key === props.state.routes[props.state.index].key)
+    )?.name || 'Unknown';
 
     useEffect(() => {
         const runner = async () => {
@@ -65,7 +72,6 @@ export default function StyledDrawer(props) {
         runner();
     }, [currentTeam]);
 
-    let currentMode = "Admin"; //Placeholder
 
     const styles = {
         drawerItem: {
@@ -112,7 +118,10 @@ export default function StyledDrawer(props) {
                             uri: `${Constants.serverUrl}/uploads/getProfilePicture?accountID=${Settings.accountID}&t=${profileTimestamp}`
                         }} style={{width: Dimensions.get('window').width * 0.10, height: Dimensions.get('window').width * 0.10, borderRadius: 1000, zIndex: 1, opacity: 1, marginRight: -Dimensions.get('window').width * 0.05}} />)} />
 
-                <DrawerItem {...props} label={currentMode == "Admin" ? Lang.hamburger_menu.scout_mode : Lang.hamburger_menu.admin_mode} focused={false} labelStyle={styles.drawerItemText} style={styles.drawerItem} inactiveBackgroundColor={Colors.tabSelected} /* PLACEHOLDER   onPress={() => props.navigation.navigate('Analyze')}*/ icon={() => (<MaterialIcons name="swap-horiz" size={Dimensions.get('window').height * 0.03} color={Colors.text} />)} />
+                <DrawerItem {...props} label={stackMode == "AdminDrawers" ? Lang.hamburger_menu.scout_mode : Lang.hamburger_menu.admin_mode} focused={false} labelStyle={styles.drawerItemText} style={styles.drawerItem} inactiveBackgroundColor={Colors.tabSelected} onPress={() => {
+                    console.log(stackMode);
+                    props.navigation.navigate(stackMode == "AdminDrawers" ? "ScoutDrawers" : "AdminDrawers");
+                }} icon={() => (<MaterialIcons name="swap-horiz" size={Dimensions.get('window').height * 0.03} color={Colors.text} />)} />
 
                 <View style={styles.divider} />
 
@@ -125,7 +134,7 @@ export default function StyledDrawer(props) {
 
                 <DrawerItem {...props} label={Lang.hamburger_menu.events} focused={props.state.index == props.state.routes.findIndex(i => i.name == "Events")} labelStyle={styles.drawerItemText} style={styles.drawerItem} activeBackgroundColor={Colors.divider} inactiveBackgroundColor={Colors.tabSelected} onPress={() => props.navigation.navigate('Events')} icon={() => (<MaterialIcons name="event" size={Dimensions.get('window').height * 0.03 / Dimensions.get('window').fontScale} color={Colors.text} />)} />
                 <DrawerItem {...props} label={Lang.hamburger_menu.sync_data} focused={props.state.index == props.state.routes.findIndex(i => i.name == "SyncData")} labelStyle={styles.drawerItemText} style={styles.drawerItem} activeBackgroundColor={Colors.divider} inactiveBackgroundColor={Colors.tabSelected} /* PLACEHOLDER onPress={() => props.navigation.navigate('SyncData')} */ icon={() => (<MaterialIcons name="sync" size={Dimensions.get('window').height * 0.03 / Dimensions.get('window').fontScale} color={Colors.text} />)} />
-                <DrawerItem {...props} label={Lang.hamburger_menu.settings} focused={props.state.index == props.state.routes.findIndex(i => i.name == "Settings")} labelStyle={styles.drawerItemText} style={styles.drawerItem} activeBackgroundColor={Colors.divider} inactiveBackgroundColor={Colors.tabSelected} /* PLACEHOLDER onPress={() => props.navigation.navigate('Settings')} */ icon={() => (<MaterialIcons name="settings" size={Dimensions.get('window').height * 0.03 / Dimensions.get('window').fontScale} color={Colors.text} />)} />
+                <DrawerItem {...props} label={Lang.hamburger_menu.settings} focused={props.state.index == props.state.routes.findIndex(i => i.name == "Settings")} labelStyle={styles.drawerItemText} style={styles.drawerItem} activeBackgroundColor={Colors.divider} inactiveBackgroundColor={Colors.tabSelected} onPress={() => props.navigation.navigate('Settings')} icon={() => (<MaterialIcons name="settings" size={Dimensions.get('window').height * 0.03 / Dimensions.get('window').fontScale} color={Colors.text} />)} />
 
                 <View style={styles.divider} />
 
