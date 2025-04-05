@@ -138,7 +138,8 @@
         "title": "Settings",
         "language": "Language:",
         "system_color": "System Color:",
-        "hex_color": "Hex Color"
+        "hex_color": "Hex Color",
+        "reset_settings": "Log Out"
     },
     "scout": {
         "title": "Scout",

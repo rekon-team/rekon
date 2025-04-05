@@ -36,6 +36,7 @@ export default function PitFormBuilder({ navigation, route }){
         const parsedSections = JSON.parse(sectionsString);
         const sectionsArray = parsedSections ? parsedSections : [];
         setSections(sectionsArray);
+        console.log("Sections: ", sectionsArray);
 
         const formsString = await AsyncStorage.getItem('pitForms');
         const parsedForms = JSON.parse(formsString);

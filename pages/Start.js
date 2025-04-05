@@ -27,6 +27,8 @@ export default function Start({route, navigation}) {
     const [popupType, setPopupType] = useState('info');
     const [statusText, setStatusText] = useState('');
     const [debugCounter, setDebugCounter] = useState(0);
+    const [refreshCounter, setRefreshCounter] = useState(0);
+    const [loaded, setLoaded] = useState(false);
 
     useEffect(() => {
         if (debugCounter > 10) {
@@ -44,6 +46,14 @@ export default function Start({route, navigation}) {
     }, []);
 
     useEffect(() => {
+        setInterval(() => {
+            if (!loaded) {
+                setRefreshCounter(refreshCounter + 1);
+            }
+        }, 1000);
+    }, []);
+
+    useEffect(() => {
         const checkServer = async () => {
             try {
                 if (Settings.accountID != undefined) {
@@ -54,9 +64,40 @@ export default function Start({route, navigation}) {
                         setStatusText(json.message);
                         setPopupType('error');
                         return;
+                    } else {
+                        try {
+                            const userInfo = await ky.get(Constants.serverUrl + '/accounts/getAccountData?account_id=' + Settings.accountID).json();
+                            updateSetting('username', userInfo.accountData.username);
+                            updateSetting('bio', userInfo.accountData.bio);
+                            updateSetting('teamNumber', userInfo.accountData.team_number);
+                            updateSetting('currentEvent', userInfo.accountData.current_event);
+                            updateSetting('currentTeam', userInfo.accountData.groups[0]);
+                        } catch (error) {
+                            console.error(error);
+                        }
                     }
                 }
+                const json = await ky.get(Constants.serverUrl + '/accounts/status').json();
+                if (json.status == 'offline') {
+                    setShowPopup(true);
+                    setStatusText(json.message);
+                    setPopupType('error');
+                    updateSetting('offlineMode', 'true');
+                    return;
+                } else {
+                    updateSetting('offlineMode', 'false');
+                }
             } catch (error) {
+                // Handle server connection error
+                setShowPopup(true);
+                setStatusText('No internet connection. Loading offline mode.');
+                setPopupType('info');
+                updateSetting('offlineMode', 'true');
+                if (Settings.accountID == undefined) {
+                    setPopupType('error');
+                    setStatusText('No account saved. Please log in when you have internet.');
+                    return;
+                }
                 console.log(error);
             }
             if (Settings.accountID != undefined && Settings.token == undefined) {
@@ -66,6 +107,7 @@ export default function Start({route, navigation}) {
                 setTimeout(() => {
                     navigation.navigate('Verification', {sign_up: true});
                 }, 1500)
+                setLoaded(true);
             } else if (Settings.stage == 'welcome') {
                 setShowPopup(true);
                 setPopupType('info');
@@ -73,6 +115,7 @@ export default function Start({route, navigation}) {
                 setTimeout(() => {
                     navigation.navigate('Welcome');
                 }, 1500);
+                setLoaded(true);
             } else if (Settings.stage == 'debug') {
                 setShowPopup(true);
                 setPopupType('info');
@@ -80,6 +123,7 @@ export default function Start({route, navigation}) {
                 setTimeout(() => {
                     navigation.navigate('DebugTools');
                 }, 1000);
+                setLoaded(true);
             } else if (Settings.stage == 'joinTeam') {
                 setShowPopup(true);
                 setPopupType('info');
@@ -87,6 +131,7 @@ export default function Start({route, navigation}) {
                 setTimeout(() => {
                     navigation.navigate('JoinTeam');
                 }, 1500);
+                setLoaded(true);
             } else if (Settings.stage == 'complete') {
                 setShowPopup(true);
                 setPopupType('info');
@@ -100,11 +145,12 @@ export default function Start({route, navigation}) {
                         navigation.replace('AdminDrawers');
                     }
                 }, 1500);
+                setLoaded(true);
             }
         }
 
         checkServer();
-    }, [Settings]);
+    }, [refreshCounter]);
 
     // Defines the more complex styles for the page.
     // MAKE SURE TO USE Colors.onAccent FOR TEXT ON AN ACCENT BUTTON

@@ -3,6 +3,7 @@ import Header from "../components/Header";
 import BackgroundGradient from "../components/BackgroundGradient";
 import { useLang } from "../components/Lang";
 import { useColors } from "../components/Colors";
+import { useSettings } from "../components/Settings";
 import { Dimensions, View, Text, Pressable } from "react-native";
 import { TextInput } from "react-native-paper";
 
@@ -12,7 +13,7 @@ import { Menu, MenuOption, MenuOptions, MenuTrigger, renderers } from "react-nat
 export default function Settings({ navigation }) {
     const { Lang, switchLang, langList, langCodes, currentLang, allLangs } = useLang();
     const { Colors, calcDiffFromTable, updateColorsFromCalc, resetColorsToDefault } = useColors();
-
+    const { Settings, updateSetting, resetSettings } = useSettings();
 
     const [colors, setColors] = useState("");
     const [langOpen, setLangOpen] = useState(false);
@@ -114,7 +115,11 @@ export default function Settings({ navigation }) {
                 }} />
             </View>
 
-           
+           <Pressable style={{height: verticalIndent * .5, width: Dimensions.get('window').width * .5, backgroundColor: Colors.error, borderRadius: 2000, alignItems: 'center', justifyContent: 'center'}} onPress={() => {
+            resetSettings();
+           }}>
+                <Text style={styles.text}>{Lang.settings.reset_settings}</Text>
+           </Pressable>
 
         </View>
     );
